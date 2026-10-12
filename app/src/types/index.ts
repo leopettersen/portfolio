@@ -29,6 +29,7 @@ export interface Education {
 }
 
 export interface About {
+    profilePicture: string;
     overviewTitle: string;
     overviewParagraph: string;
     education: Education;

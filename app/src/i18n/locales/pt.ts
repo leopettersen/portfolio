@@ -1,3 +1,4 @@
+import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.jpeg';
 import imgPortfolio from '../../assets/Boot.jpeg';
 import imgOpm from '../../assets/OPM.png';
@@ -30,6 +31,7 @@ export const pt = {
       interests: 'Interesses',
       goals: 'Metas'
     },
+    profilePicture: imgProfile,
     overviewTitle: 'Leonardo Federici Pettersen',
     overviewParagraph: 'Estudante de Engenharia de Software na PUC Minas, começando na jornada da tecnologia e desenvolvimento de software. Apaixonado por tecnologia, programação e inovação.',
     education: {

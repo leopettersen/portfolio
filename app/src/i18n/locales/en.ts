@@ -1,4 +1,5 @@
 import { pt } from './pt';
+import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.jpeg';
 import imgPortfolio from '../../assets/Boot.jpeg';
 import imgOpm from '../../assets/OPM.png';
@@ -31,6 +32,7 @@ export const en: typeof pt = {
       interests: 'Interests',
       goals: 'Goals'
     },
+    profilePicture: imgProfile,
     overviewTitle: 'Leonardo Federici Pettersen',
     overviewParagraph: 'Software Engineering student at PUC Minas, starting my journey in technology and software development. Passionate about tech, programming, and innovation.',
     education: {

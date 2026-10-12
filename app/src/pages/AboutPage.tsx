@@ -4,16 +4,19 @@ import { Tag } from '../components/ui/Tag';
 
 export function AboutPage() {
     const { t } = useTranslation();
-    
+
     const about = t('about', { returnObjects: true }) as About;
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
-                <h1 className="text-2xl font-bold">{about.overviewTitle}</h1>
-                <p className="text-slate-400">{about.overviewParagraph}</p>
+            <div className="flex justify-between items-center gap-2 bg-slate-800/60 p-4 rounded-lg">
+                    <img src={about.profilePicture} alt={about.profilePicture} className="object-cover rounded-full w-[calc(100dvw-100rem)] border border-slate-800/60 shadow-black/50"/>
+                <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
+                    <h1 className="text-2xl font-bold">{about.overviewTitle}</h1>
+                    <p className="text-slate-400">{about.overviewParagraph}</p>
+                </div>
             </div>
-            
+
             <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 md:gap-4">
                     <h1 className="text-xl font-bold">{t('about.sections.education', 'Educação')}</h1>
