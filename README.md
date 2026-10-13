@@ -14,7 +14,7 @@
 ![Docker](https://img.shields.io/badge/Docker-007ec6?style=for-the-badge&logo=docker&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-007ec6?style=for-the-badge&logo=vercel&logoColor=white)
 
-🚀 **Status:** funcionalidades principais concluídas (Sprint 02) e site publicado na Vercel. Ajustes finais da Sprint 03 em andamento.
+🚀 **Status:** Site publicado na Vercel. Sofrendo ajustes e adicionando novas funções continuamente.
 
 ---
 
@@ -191,7 +191,7 @@ O `react-i18next` guarda o idioma atual e a escolha do visitante no navegador. E
 - Atualizar um projeto ou experiência exige um novo deploy.
 - A moderação do guestbook é manual (apagar linhas no painel do Supabase). O intervalo entre envios e o campo-isca desanimam o abuso casual, mas quem chamar a API diretamente os contorna.
 - Só uma janela fica aberta por vez, e as posições de janelas e ícones não são salvas entre visitas.
-- Os conteúdos traduzidos ficam duplicados nos dados (um campo por idioma).
+- Os conteúdos extensos (sobre, projetos e experiências) ficam centralizados diretamente nos arquivos de idioma (`pt.ts` e `en.ts`). A tipagem rigorosa do TypeScript vincula o arquivo em inglês ao português, impossibilitando que o deploy seja feito se faltar a tradução de algum campo.
 
 ### Diagrama
 
@@ -369,9 +369,9 @@ portfolio/
 │   │   │   ├── terminal/            # Terminal e linha de comando (CommandPrompt)
 │   │   │   ├── ui/                  # Peças reutilizáveis (Tag)
 │   │   │   └── window/              # Janela padrão (arrastar, minimizar, maximizar, fechar)
-│   │   ├── data/                    # Conteúdos fixos: sobre, projetos, experiências, contatos, seções e apps
+│   │   ├── data/                    # Conteúdos fixos:  contatos, seções e apps
 │   │   ├── hooks/                   # Hooks personalizados (useDraggable)
-│   │   ├── i18n/                    # Configuração do i18next e traduções (pt e en)
+│   │   ├── i18n/                    # Configuração do i18next e textos (aqui vivem os dados de sobre, projetos e experiências)
 │   │   ├── pages/                   # Conteúdo de cada janela (About, Projects, Experience, Contact, Guestbook)
 │   │   ├── services/                # Cliente do Supabase e funções do guestbook
 │   │   ├── types/                   # Tipos TypeScript
