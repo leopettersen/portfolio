@@ -359,6 +359,7 @@ portfolio/
 │       ├── wireframes/              # Protótipos das telas (Figma)
 │       └── prints/                  # Capturas do site em funcionamento
 ├── app/                             # Aplicação (projeto Vite)
+│   ├── api/                         # Arquivos de configuração e informações para a api do gemini
 │   ├── public/                      # Arquivos estáticos servidos como estão
 │   ├── src/
 │   │   ├── assets/                  # Imagens usadas no site
