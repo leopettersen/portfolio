@@ -2,7 +2,7 @@
 
 > Portfólio profissional em formato de **sistema operacional no navegador**: o visitante "liga" o computador, abre o terminal e explora as seções digitando comandos ou clicando nos ícones da área de trabalho.
 
-🌐 **Acesse o site: [leonardo-pettersen-portfolio.vercel.app](https://leonardo-pettersen-portfolio.vercel.app/)**
+🌐 **Acesse o site: [leopettersen.dev](https://www.leopettersen.dev/)**
 
 ![React](https://img.shields.io/badge/React-007ec6?style=for-the-badge&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ec6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -41,7 +41,7 @@
 
 ## 🔗 Links Úteis
 
-* 🌐 **Site publicado:** [leonardo-pettersen-portfolio.vercel.app](https://leonardo-pettersen-portfolio.vercel.app/)
+* 🌐 **Site publicado:** [leopettersen.dev](https://www.leopettersen.dev/)
 * 🎨 **Protótipos no Figma:** [Wireframe Portfólio](https://www.figma.com/design/RagNM3PaJglaInWaZBa3Uk/Wireframe-Portif%C3%B3lio?node-id=0-1&t=LONNOAM8aQx4MY8Z-1)
 * 📦 **Repositório:** [leopettersen/portfolio](https://github.com/leopettersen/portfolio)
 
@@ -54,14 +54,13 @@ Este projeto é o meu portfólio profissional: um site onde reúno minha trajet�
 Em vez de um site tradicional com menu e rolagem, a interface imita um **sistema operacional**. O site abre com uma tela de inicialização (boot) e chega a uma área de trabalho com um único atalho: o terminal. Ao abrir o terminal, os demais ícones aparecem. A partir daí, o visitante explora o conteúdo de dois jeitos: digitando comandos (`about`, `projects`, `experience`, `contact`) ou clicando nos ícones. Cada seção abre em uma janela que pode ser arrastada, maximizada e fechada.
 
 A ideia é que quem chega entenda em poucos segundos quem eu sou, veja meus projetos e experiências e consiga entrar em contato. O site é bilíngue (português e inglês), responsivo (celular, tablet e computador) e tem um **guestbook**, onde qualquer pessoa pode deixar uma mensagem pública.
-
 O site é aberto a qualquer pessoa, sem cadastro nem login. Por isso o foco está em ser claro, rápido de navegar e fácil de contatar.
 
 ---
 
 ## 🕹️ Como usar o site
 
-1. **Ligue o sistema:** acesse [leonardo-pettersen-portfolio.vercel.app](https://leonardo-pettersen-portfolio.vercel.app/). A tela de inicialização aparece sozinha. Para pular, aperte qualquer tecla ou toque na tela.
+1. **Ligue o sistema:** acesse [leopettersen.dev](https://www.leopettersen.dev/). A tela de inicialização aparece sozinha. Para pular, aperte qualquer tecla ou toque na tela.
 2. **Abra o terminal:** clique no ícone `terminal` da área de trabalho. Os demais ícones aparecem.
 3. **Navegue:** clique nos ícones, nos atalhos do terminal ou digite um comando e aperte Enter.
 4. **Troque o idioma** (PT/EN) na barra superior. A escolha fica salva no navegador.
@@ -215,7 +214,7 @@ flowchart LR
 
 ## 🔧 Instalação e Execução
 
-Para só conhecer o projeto, basta acessar o [site publicado](https://leonardo-pettersen-portfolio.vercel.app/). Para rodá-lo na sua máquina:
+Para só conhecer o projeto, basta acessar o [site publicado](https://www.leopettersen.dev/). Para rodá-lo na sua máquina:
 
 ### Pré-requisitos
 
@@ -336,7 +335,7 @@ Depois, copie a **URL do projeto** e a **chave pública** em *Project Settings* 
 
 ## 🚀 Deploy
 
-O site está publicado na **Vercel** em **[leonardo-pettersen-portfolio.vercel.app](https://leonardo-pettersen-portfolio.vercel.app/)**, conectada ao repositório do GitHub. Cada atualização na branch principal gera um novo deploy automaticamente.
+O site está publicado na **Vercel** em **[leopettersen.dev](https://www.leopettersen.dev/)**, conectada ao repositório do GitHub. Cada atualização na branch principal gera um novo deploy automaticamente.
 
 Configuração do projeto na Vercel:
 
