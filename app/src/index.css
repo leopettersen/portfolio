@@ -5,3 +5,11 @@
     scrollbar-width: thin;
     scrollbar-color: blue transparent;
 }
+
+html, body, *, *::before, *::after {
+  cursor: url("/cursor.svg") 2 2, auto !important;
+}
+
+a, button, [role="button"], .cursor-pointer, label, summary {
+  cursor: url("/cursor-pointer.svg") 2 2, pointer !important;
+}
