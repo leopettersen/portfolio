@@ -1,5 +1,5 @@
 import type { Section } from '../types';
-import { User, Mail, BriefcaseBusiness, Folder, BookBookmark } from 'lucide-react';
+import { User, Mail, BriefcaseBusiness, Folder, BookBookmark, Sparkles } from 'lucide-react';
 
 export const sections: Section[] = [
     {
@@ -41,5 +41,13 @@ export const sections: Section[] = [
         icon: BookBookmark,
         showShortcut: false,
         showChip: false
+    },
+    {
+        id: 'agent',
+        command: 'agent',
+        windowTitle: 'agent.md',
+        icon: Sparkles,
+        showShortcut: true,
+        showChip: true
     }
 ]

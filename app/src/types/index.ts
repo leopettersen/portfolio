@@ -2,7 +2,7 @@ import type {LucideIcon} from 'lucide-react';
 
 export type Language = 'pt' | 'en';
 
-export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook';
+export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent';
 
 export type WindowId = 'terminal' | SectionId;
 
@@ -78,3 +78,18 @@ export interface GuestbookMessage {
 }
 
 export type SendStatus = 'idle' | 'sending' | 'success' | 'error';
+
+export type AgentRole = 'user' | 'model';
+
+export interface AgentHistoryEntry {
+    role: AgentRole;
+    text: string;
+}
+
+export interface AgentMessage extends AgentHistoryEntry {
+    id: number;
+    streaming?: boolean;
+    stopped?: boolean;
+    errorCode?: string;
+    retryAfter?: number | null;
+}

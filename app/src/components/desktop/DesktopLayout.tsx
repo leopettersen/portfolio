@@ -12,13 +12,15 @@ import { ExperiencePage } from '../../pages/ExperiencePage';
 import { ProjectsPage } from '../../pages/ProjectsPage';
 import { ContactPage } from '../../pages/ContactPage';
 import { GuestbookPage } from '../../pages/GuestbookPage';
+import { AgentPage } from '../../pages/AgentPage';
 
 const sectionComponents: Record<SectionId, ComponentType> = {
     about: AboutPage,
     experience: ExperiencePage,
     projects: ProjectsPage,
     contact: ContactPage,
-    guestbook: GuestbookPage
+    guestbook: GuestbookPage,
+    agent: AgentPage
 }
 
 export function DesktopLayout() {
