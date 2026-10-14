@@ -2,41 +2,34 @@ import { useState } from 'react';
 import { BootScreen } from './components/boot/BootScreen';
 import { DesktopLayout } from './components/desktop/DesktopLayout';
 import { LandingInfoPage } from './components/desktop/LandingInfoPage';
+import { LoginScreen } from './components/login/LoginScreen';
+
+type Stage = 'boot' | 'login' | 'desktop';
 
 export default function App() {
-  const [booted, setBooted] = useState(() => {
-    try {
-      return sessionStorage.getItem('boot-done') === 'true';
-    } catch {
-      return false;
+    const [stage, setStage] = useState<Stage>('boot');
+    const [showLanding, setShowLanding] = useState(false);
+
+    function closeLanding() {
+        try {
+            sessionStorage.setItem('landing-popup-seen', 'true');
+        } catch {
+        }
+        setShowLanding(false);
     }
-  });
 
-  const [showLanding, setShowLanding] = useState(false);
-
-  function handleFinish() {
-    try {
-      sessionStorage.setItem('boot-done', 'true');
-    } catch {
-    }
-    setBooted(true);
-    setShowLanding(true);
-  }
-
-  function closeLanding() {
-    try {
-      sessionStorage.setItem('landing-popup-seen', 'true');
-    } catch {
-    }
-    setShowLanding(false);
-  }
-
-  return booted
-    ? (
+    return (
         <>
-          <DesktopLayout />
-          {showLanding && <LandingInfoPage onClose={closeLanding} />}
+            {stage === 'boot' && (
+                <BootScreen onFinish={() => setStage('login')} />
+            )}
+            {stage === 'login' && (
+                <LoginScreen onEnter={() => { setStage('desktop'); setShowLanding(true); }} />
+            )}
+            {stage === 'desktop' && <DesktopLayout />}
+            {stage === 'desktop' && showLanding && (
+                <LandingInfoPage onClose={closeLanding} />
+            )}
         </>
-      )
-    : <BootScreen onFinish={handleFinish} />;
+    );
 }
