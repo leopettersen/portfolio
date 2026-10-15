@@ -19,10 +19,10 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
     const historyElement = historyRef.current;
     if (!historyElement) return;
 
-    historyElement.scrollTo({
-      top: historyElement.scrollHeight,
-      behavior: 'smooth',
-    });
+    const lastEntry = historyElement.querySelector('[data-history-entry]:last-child');
+    if (lastEntry) {
+      lastEntry.scrollIntoView({ block: 'end', behavior: 'smooth'})
+    }
   }, [history]);
 
   const chipSections = sections.filter(section => section.showChip);

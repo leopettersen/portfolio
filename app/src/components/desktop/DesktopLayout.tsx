@@ -38,7 +38,11 @@ export function DesktopLayout() {
     }
 
     function addToHistory(command: string, output: string) {
-        setHistory(prev => [...prev, { command, output }]);
+        setHistory(prev => {
+            const next = [...prev, { command, output}];
+            const maxEntries = 4;
+            return next.slice(-maxEntries);
+        });
     }
 
     function runCommand(rawCommand: string) {
