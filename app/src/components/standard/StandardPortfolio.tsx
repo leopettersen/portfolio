@@ -1,8 +1,7 @@
 import '@fontsource-variable/geist';
 import 'devicon/devicon.min.css';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import SplashCursor from './SplashCursor';
 import { SafeBoundary } from './SafeBoundary';
 import { Header } from './Header';
 import { Footer } from './Footer';
@@ -25,7 +24,6 @@ export interface StandardPortfolioProps {
 export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioProps) {
     const { t } = useTranslation();
     const theme = useTheme();
-    const [canHover] = useState(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
     useEffect(() => {
         const root = document.documentElement;
@@ -38,23 +36,6 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
 
     return (
         <div className="relative isolate min-h-screen overflow-x-clip bg-page font-geist text-body">
-            {canHover && (
-                <SafeBoundary>
-                    <SplashCursor
-                        DENSITY_DISSIPATION={3}
-                        VELOCITY_DISSIPATION={2.5}
-                        PRESSURE={0.15}
-                        CURL={0}
-                        SPLAT_RADIUS={0.15}
-                        SPLAT_FORCE={5000}
-                        COLOR_UPDATE_SPEED={5}
-                        SHADING
-                        RAINBOW_MODE={false}
-                        COLOR="#2563eb"
-                    />
-                </SafeBoundary>
-            )}
-
             <ScrollProgress />
             <Header onSwitchMode={onSwitchMode} />
 
