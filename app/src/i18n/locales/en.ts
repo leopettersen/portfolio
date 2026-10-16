@@ -200,5 +200,23 @@ export const en: typeof pt = {
   landingInfo: {
     title: 'Hello, welcome to my portfolio!',
     info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the header, it is also possible to translate from English to Portuguese.'
+  },
+  standard: {
+    menu: {
+      about: 'About',
+      experience: 'Experience',
+      projects: 'Projects',
+      stack: 'Stack',
+      contact: 'Contact',
+    },
+    systemMode: 'System mode',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    lightTheme: 'Switch to light theme',
+    darkTheme: 'Switch to dark theme',
+    footer: {
+      text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
+      copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',
+    },
   }
 };

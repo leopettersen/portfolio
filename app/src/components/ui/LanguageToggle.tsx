@@ -7,6 +7,12 @@ const tones = {
         muted: 'text-zinc-500',
         divider: 'text-zinc-700',
     },
+    standard: {
+        pill: 'border-line hover:border-brand',
+        active: 'text-brand font-bold',
+        muted: 'text-body',
+        divider: 'text-line',
+    },
 };
 
 export interface LanguageToggleProps {

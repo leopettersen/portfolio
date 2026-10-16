@@ -199,5 +199,23 @@ export const pt = {
   landingInfo: {
     title: 'Olá, seja bem vindo ao meu portifólio!',
     info: 'O meu portifólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português pro inglês.'
+  },
+  standard: {
+    menu: {
+      about: 'Sobre',
+      experience: 'Experiência',
+      projects: 'Projetos',
+      stack: 'Stack',
+      contact: 'Contato',
+    },
+    systemMode: 'Modo sistema',
+    openMenu: 'Abrir menu',
+    closeMenu: 'Fechar menu',
+    lightTheme: 'Ativar tema claro',
+    darkTheme: 'Ativar tema escuro',
+    footer: {
+      text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
+      copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',
+    },
   }
 };
