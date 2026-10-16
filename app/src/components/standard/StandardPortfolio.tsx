@@ -1,6 +1,7 @@
 import '@fontsource-variable/geist';
 import 'devicon/devicon.min.css';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import SplashCursor from './SplashCursor';
 import { SafeBoundary } from './SafeBoundary';
 import { Header } from './Header';
@@ -14,11 +15,14 @@ import { ProjectsSection } from './sections/ProjectsSection';
 import { SkillsSection } from './sections/SkillsSection';
 import { ContactSection } from './sections/ContactSection';
 
+const ResumeSection = lazy(() => import('./sections/ResumeSection'));
+
 export interface StandardPortfolioProps {
     onSwitchMode: () => void;
 }
 
 export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioProps) {
+    const { t } = useTranslation();
     const theme = useTheme();
     const [canHover] = useState(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
@@ -72,6 +76,14 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
 
                 <section id="skills" className="scroll-mt-32">
                     <SkillsSection />
+                </section>
+
+                <section id="resume" className="scroll-mt-32">
+                    <SafeBoundary fallback={<p className="text-center">{t('standard.resume.error')}</p>}>
+                        <Suspense fallback={null}>
+                            <ResumeSection />
+                        </Suspense>
+                    </SafeBoundary>
                 </section>
 
                 <section id="contact" className="scroll-mt-32">

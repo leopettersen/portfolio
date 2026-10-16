@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { contacts } from '../../data/contacts';
 import { navLinks } from './links';
+import { RESUME_FILE_NAME, RESUME_URL } from './resume';
 
 export function Footer() {
     const { t } = useTranslation();
@@ -34,20 +35,30 @@ export function Footer() {
                     {t('standard.footer.text')}
                 </p>
 
-                <div className="flex items-center gap-2">
-                    {contacts.map((contact) => (
-                        <a
-                            key={contact.name}
-                            href={contact.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={contact.name}
-                            title={contact.name}
-                            className="rounded-full border border-line p-2 hover:border-brand hover:bg-brand/5 hover:text-brand transition-colors"
-                        >
-                            <contact.icon size={18} />
-                        </a>
-                    ))}
+                <div className="flex flex-col items-center gap-4">
+                    <a
+                        href={RESUME_URL}
+                        download={RESUME_FILE_NAME}
+                        className="rounded-2xl border border-brand/30 bg-brand/10 px-3 py-2 text-xs font-bold text-brand hover:bg-brand/30 transition-colors"
+                    >
+                        {t('standard.resume.downloadResume')}
+                    </a>
+
+                    <div className="flex items-center gap-2">
+                        {contacts.map((contact) => (
+                            <a
+                                key={contact.name}
+                                href={contact.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label={contact.name}
+                                title={contact.name}
+                                className="rounded-full border border-line p-2 hover:border-brand hover:bg-brand/5 hover:text-brand transition-colors"
+                            >
+                                <contact.icon size={18} />
+                            </a>
+                        ))}
+                    </div>
                 </div>
             </div>
 

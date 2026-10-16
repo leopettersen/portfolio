@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
-import { ArrowUpRight, Send } from 'lucide-react';
+import { ArrowUpRight, Download, Send } from 'lucide-react';
+import { RESUME_FILE_NAME, RESUME_URL } from '../resume';
 import type { SendStatus } from '../../../types';
 import { contacts } from '../../../data/contacts';
 import { FormField } from '../FormField';
@@ -122,6 +123,15 @@ export function ContactSection() {
                         </a>
                     ))}
                 </div>
+
+                <a
+                    href={RESUME_URL}
+                    download={RESUME_FILE_NAME}
+                    className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-3 py-3 text-sm font-bold text-on-brand hover:opacity-90 transition-opacity"
+                >
+                    <Download size={16} />
+                    {t('standard.resume.downloadResume')}
+                </a>
 
                 <div className="mt-auto pt-8">
                     <div className="mb-3 border-t border-line" />

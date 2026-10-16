@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { GraduationCap, Mail } from 'lucide-react';
+import { FileUser, GraduationCap } from 'lucide-react';
 import { SectionCard } from '../SectionCard';
 import { usePortfolioData } from '../usePortfolioData';
 
@@ -45,11 +45,11 @@ export function About() {
                     </p>
 
                     <a
-                        href="#contact"
+                        href="#resume"
                         className="flex items-center gap-2 rounded-2xl bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand hover:bg-brand hover:text-on-brand transition-colors"
                     >
-                        <Mail size={15} />
-                        {t('standard.menu.contact')}
+                        <FileUser size={15} />
+                        {t('standard.menu.resume')}
                     </a>
                 </div>
             </SectionCard>

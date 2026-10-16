@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe, Menu, Monitor, X } from 'lucide-react';
+import { FileUser, Globe, Menu, Monitor, X } from 'lucide-react';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
 import { navLinks } from './links';
@@ -46,11 +46,20 @@ export function Header({ onSwitchMode }: HeaderProps) {
                         <button
                             type="button"
                             onClick={onSwitchMode}
-                            className="flex items-center gap-2 rounded-2xl bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand hover:bg-brand hover:text-on-brand transition-colors cursor-pointer"
+                            aria-label={t('standard.systemMode')}
+                            title={t('standard.systemMode')}
+                            className="text-body hover:text-brand transition-colors cursor-pointer"
                         >
-                            <Monitor size={15} />
-                            {t('standard.systemMode')}
+                            <Monitor size={20} />
                         </button>
+
+                        <a
+                            href="#resume"
+                            className="flex items-center gap-2 rounded-2xl bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand hover:bg-brand hover:text-on-brand transition-colors"
+                        >
+                            <FileUser size={15} />
+                            {t('standard.menu.resume')}
+                        </a>
                     </div>
                 </div>
 
@@ -92,15 +101,24 @@ export function Header({ onSwitchMode }: HeaderProps) {
                         <ThemeToggle />
                     </div>
 
-                    <button
-                        type="button"
-                        onClick={onSwitchMode}
-                        className="flex items-center gap-2 rounded-xl bg-brand px-4 py-2 font-semibold text-on-brand hover:opacity-90 transition-opacity cursor-pointer"
+                    <a
+                        href="#resume"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-2 rounded-xl bg-brand px-4 py-2 font-semibold text-on-brand hover:opacity-90 transition-opacity"
                     >
-                        <Monitor size={15} />
-                        {t('standard.systemMode')}
-                    </button>
+                        <FileUser size={15} />
+                        {t('standard.menu.resume')}
+                    </a>
                 </div>
+
+                <button
+                    type="button"
+                    onClick={onSwitchMode}
+                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-line px-4 py-2 text-sm font-semibold hover:border-brand hover:text-brand transition-colors cursor-pointer"
+                >
+                    <Monitor size={15} />
+                    {t('standard.systemMode')}
+                </button>
             </div>
         </header>
     );
