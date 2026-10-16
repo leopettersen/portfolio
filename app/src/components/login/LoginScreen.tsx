@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LayoutTemplate, Monitor, User, type LucideIcon } from 'lucide-react';
 import type { PortfolioMode } from '../../types';
@@ -14,6 +15,12 @@ const modes: { mode: PortfolioMode; icon: LucideIcon }[] = [
 
 export function LoginScreen({ onEnter }: LoginScreenProps) {
     const { t } = useTranslation();
+    const firstOptionRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        const frame = requestAnimationFrame(() => firstOptionRef.current?.focus());
+        return () => cancelAnimationFrame(frame);
+    }, []);
 
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950 font-mono">
@@ -40,7 +47,7 @@ export function LoginScreen({ onEnter }: LoginScreenProps) {
                             key={mode}
                             type="button"
                             onClick={() => onEnter(mode)}
-                            autoFocus={index === 0}
+                            ref={index === 0 ? firstOptionRef : undefined}
                             className="flex flex-1 flex-col items-start gap-2 rounded-md border border-slate-700/60 p-4 text-left hover:border-slate-500 hover:bg-slate-800/60 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
                         >
                             <span className="flex items-center gap-2 text-zinc-100">
