@@ -1,8 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { Clock } from './Clock';
-import { SquareTerminal } from 'lucide-react';
+import { LogOut, SquareTerminal } from 'lucide-react';
 import { LanguageToggle } from '../ui/LanguageToggle';
 
-export function TopBar() {
+export interface TopBarProps {
+    onLogout: () => void;
+}
+
+export function TopBar({ onLogout }: TopBarProps) {
+    const { t } = useTranslation();
+
     return (
         <div className="w-full h-12 bg-slate-950 border-b border-slate-800/60 flex items-center justify-between gap-3 px-3 sm:px-4 text-base sm:text-lg text-zinc-400 font-mono">
 
@@ -28,6 +35,17 @@ export function TopBar() {
                 <LanguageToggle />
 
                 <Clock />
+
+                <button
+                    type="button"
+                    onClick={onLogout}
+                    aria-label={t('topBar.switchMode')}
+                    title={t('topBar.switchMode')}
+                    className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                >
+                    <LogOut size={18} />
+                    <span className="hidden lg:inline">{t('topBar.switchMode')}</span>
+                </button>
 
             </div>
 

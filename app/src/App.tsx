@@ -38,7 +38,9 @@ export default function App() {
             {stage === 'login' && (
                 <LoginScreen onEnter={enter} />
             )}
-            {stage === 'desktop' && <DesktopLayout />}
+            {stage === 'desktop' && (
+                <DesktopLayout onLogout={() => { setStage('login'); setShowLanding(false); }} />
+            )}
             {stage === 'desktop' && showLanding && (
                 <LandingInfoPage onClose={closeLanding} />
             )}
