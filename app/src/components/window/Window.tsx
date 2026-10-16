@@ -22,16 +22,16 @@ export function Window({ title, children, onClose, onCommand, showFooter = true 
   return (
     <div
       ref={rootRef}
-      className={`pointer-events-auto shadow-2xl shadow-black/50 bg-slate-900 border border-slate-800/60 flex flex-col text-zinc-100 text-lg font-mono overflow-hidden ${
+      className={`pointer-events-auto shadow-2xl shadow-black/50 bg-slate-900 md:border border-slate-800/60 flex flex-col text-zinc-100 text-base md:text-lg font-mono overflow-hidden ${
         isMaximized
           ? 'absolute inset-0 w-full h-full max-h-none rounded-none'
-          : 'w-full md:w-5/6 lg:w-[60%] h-full md:h-auto md:max-h-[calc(100dvh-6rem)] rounded-lg'
+          : 'w-full md:w-5/6 lg:w-[60%] h-full md:h-auto md:max-h-[calc(100dvh-6rem)] md:rounded-lg'
       }`}
       style={isMaximized ? undefined : { transform: `translate(${position.x}px, ${position.y}px)` }}
     >
       
       <div
-        className={`relative flex items-center px-4 py-3 bg-slate-950 border-b border-slate-800/60 rounded-t-lg select-none${dragEnabled ? ' cursor-move' : ''}`}
+        className={`relative flex items-center px-4 py-3 bg-slate-950 border-b border-slate-800/60 md:rounded-t-lg select-none${dragEnabled ? ' cursor-move' : ''}`}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

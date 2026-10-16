@@ -94,7 +94,7 @@ export function DesktopLayout() {
                         ))}
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-3 md:p-0">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     {openWindow === 'terminal' && (
                         <Terminal
                             history={history}

@@ -9,9 +9,13 @@ export function AboutPage() {
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex justify-between items-center gap-2 bg-slate-800/60 p-4 rounded-lg">
-                    <img src={about.profilePicture} alt={about.profilePicture} className="object-cover rounded-full w-[calc(100dvw-100rem)] border border-slate-800/60 shadow-black/50"/>
-                <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
+            <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-800/60 p-4 rounded-lg">
+                <img
+                    src={about.profilePicture}
+                    alt={about.overviewTitle}
+                    className="w-32 md:w-36 lg:w-40 aspect-square shrink-0 object-cover rounded-full border border-slate-800/60 shadow-lg shadow-black/50"
+                />
+                <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg w-full min-w-0">
                     <h1 className="text-2xl font-bold">{about.overviewTitle}</h1>
                     <p className="text-slate-400">{about.overviewParagraph}</p>
                 </div>

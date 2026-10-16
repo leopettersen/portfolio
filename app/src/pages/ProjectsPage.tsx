@@ -11,12 +11,12 @@ export function ProjectsPage() {
     return (
         <div className="flex flex-col gap-6">
 
-            <div className="flex flex-col gap-6 border-l border-slate-700/60 pl-8">
+            <div className="flex flex-col gap-6 border-l border-slate-700/60 pl-5 md:pl-8">
 
                 {projects.map((project, index) => (
                     <div key={project.name} className="relative flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
 
-                        <div className="absolute -left-[2.35rem] top-6 w-3 h-3 rounded-full bg-slate-500 border-2 border-slate-900"></div>
+                        <div className="absolute -left-[1.6rem] md:-left-[2.35rem] top-6 w-3 h-3 rounded-full bg-slate-500 border-2 border-slate-900"></div>
 
                         <div className="flex flex-wrap items-baseline justify-between gap-2 md:gap-4">
 
