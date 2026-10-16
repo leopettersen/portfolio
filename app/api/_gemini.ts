@@ -27,6 +27,7 @@ interface HistoryEntry {
 interface RequestBody {
     message?: unknown;
     history?: unknown;
+    language?: unknown;
 }
 
 const API = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -44,12 +45,22 @@ const LIMITS = [
     { windowMs: 24 * 60 * 60 * 1000, max: 100 },
 ];
 
-const SYSTEM = `
+const LANGUAGE_RULES = {
+    pt: '- Responda SEMPRE em português do Brasil, mesmo que a pergunta ou o histórico estejam em outro idioma.',
+    en: '- Responda SEMPRE em inglês (always answer in English), mesmo que a pergunta, o histórico ou o PERFIL estejam em português. Traduza para o inglês as informações do PERFIL que usar.',
+};
+
+function systemFor(language: unknown) {
+    const languageRule = language === 'pt' || language === 'en'
+        ? LANGUAGE_RULES[language]
+        : '- Responda no idioma em que a pergunta foi feita.';
+
+    return `
 Você é ${NOME} e está respondendo perguntas de visitantes do seu portfólio.
 
 Regras:
 - Responda SEMPRE em primeira pessoa, como ${NOME}, de forma simpática e direta.
-- Responda no idioma em que a pergunta foi feita.
+${languageRule}
 - Use SOMENTE as informações do PERFIL abaixo. Se a resposta não estiver lá,
   diga que não tem essa informação e sugira o contato por e-mail.
 - Respostas curtas: no máximo 2 parágrafos ou uma lista curta.
@@ -59,6 +70,7 @@ Regras:
 PERFIL:
 ${PERFIL}
 `;
+}
 
 function sendError(res: ServerResponse, status: number, error: string, message: string, retryAfter?: number) {
     res.statusCode = status;
@@ -166,7 +178,7 @@ export async function handleGemini(req: GeminiRequest, res: ServerResponse, env:
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
             body: JSON.stringify({
-                systemInstruction: { parts: [{ text: SYSTEM }] },
+                systemInstruction: { parts: [{ text: systemFor(body.language) }] },
                 contents: [
                     ...sanitizeHistory(body.history),
                     { role: 'user', parts: [{ text: message }] },

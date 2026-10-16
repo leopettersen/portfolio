@@ -23,7 +23,11 @@ const sectionComponents: Record<SectionId, ComponentType> = {
     agent: AgentPage
 }
 
-export function DesktopLayout() {
+export interface DesktopLayoutProps {
+    onLogout: () => void;
+}
+
+export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
     const { t } = useTranslation();
     const [openWindow, setOpenWindow] = useState<WindowId | null>(null);
     const [unlocked, setUnlocked] = useState(false);
@@ -59,9 +63,11 @@ export function DesktopLayout() {
             setOpenWindow(null);
         } else if (command === 'clear') {
             setHistory([]);
+        } else if (command === 'logout' || command === 'exit') {
+            onLogout();
         } else if (command === 'help') {
             addToHistory(rawCommand, t('terminal.availableCommands', {
-                commands: sections.map((s) => s.command).join(', ') + ', clear, close'
+                commands: sections.map((s) => s.command).join(', ') + ', clear, close, logout'
             }));
             openApp('terminal');
         } else {
@@ -72,7 +78,7 @@ export function DesktopLayout() {
 
     return (
         <div className="h-[100dvh] w-full overflow-hidden bg-slate-900 flex flex-col">
-            <TopBar />
+            <TopBar onLogout={onLogout} />
 
             <main className="relative flex-1 overflow-hidden">
                 <div className="absolute top-0 left-0 grid grid-cols-4 gap-4 p-4 md:flex md:flex-col">
@@ -94,7 +100,7 @@ export function DesktopLayout() {
                         ))}
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-3 md:p-0">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     {openWindow === 'terminal' && (
                         <Terminal
                             history={history}

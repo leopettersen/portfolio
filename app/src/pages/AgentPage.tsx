@@ -1,22 +1,17 @@
-import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { useEffect, useRef, type FormEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RotateCcw, Send, Sparkles, Square } from 'lucide-react';
 
-import type { AgentMessage } from '../types';
-import { askGemini, GeminiError, MAX_MESSAGE } from '../services/gemini';
+import { MAX_MESSAGE } from '../services/gemini';
 import { MarkdownText } from '../components/ui/MarkdownText';
+import { useAgentChat } from '../hooks/useAgentChat';
 
 export function AgentPage() {
     const { t } = useTranslation();
-
-    const [messages, setMessages] = useState<AgentMessage[]>([]);
-    const [input, setInput] = useState('');
-    const [loading, setLoading] = useState(false);
+    const { messages, input, setInput, loading, send, stop, reset, errorText } = useAgentChat();
 
     const listRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
-    const abortRef = useRef<AbortController | null>(null);
-    const nextId = useRef(1);
 
     const suggestions = t('agent.suggestions', { returnObjects: true }) as string[];
 
@@ -30,86 +25,21 @@ export function AgentPage() {
         });
     }, [messages]);
 
-    useEffect(() => {
-        return () => abortRef.current?.abort();
-    }, []);
-
-    function errorText(message: AgentMessage) {
-        return t(`agent.errors.${message.errorCode}`, {
-            defaultValue: t('agent.errors.generic'),
-            seconds: message.retryAfter ?? 60,
-        });
-    }
-
-    async function send(text: string) {
-        const question = text.trim();
-        if (!question || loading) return;
-
-        const history = messages
-            .filter((message) => !message.errorCode && !message.streaming && message.text)
-            .map(({ role, text }) => ({ role, text }));
-
-        const answerId = nextId.current + 1;
-        nextId.current += 2;
-
-        setMessages((prev) => [
-            ...prev,
-            { id: answerId - 1, role: 'user', text: question },
-            { id: answerId, role: 'model', text: '', streaming: true },
-        ]);
-        setInput('');
-        setLoading(true);
-
-        const controller = new AbortController();
-        abortRef.current = controller;
-
-        function update(patch: Partial<AgentMessage>) {
-            setMessages((prev) => prev.map((message) => (message.id === answerId ? { ...message, ...patch } : message)));
-        }
-
-        try {
-            await askGemini(question, {
-                history,
-                signal: controller.signal,
-                onChunk: (partial) => update({ text: partial }),
-            });
-
-            update({ streaming: false });
-        } catch (error) {
-            if (error instanceof Error && error.name === 'AbortError') {
-                update({ streaming: false, stopped: true });
-            } else {
-                console.error(error);
-
-                update({
-                    streaming: false,
-                    errorCode: error instanceof GeminiError ? error.code : 'generic',
-                    retryAfter: error instanceof GeminiError ? error.retryAfter : null,
-                });
-            }
-        } finally {
-            setLoading(false);
-            abortRef.current = null;
-            inputRef.current?.focus();
-        }
+    async function ask(text: string) {
+        await send(text);
+        inputRef.current?.focus();
     }
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        send(input);
+        ask(input);
     }
 
     function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            send(input);
+            ask(input);
         }
-    }
-
-    function handleReset() {
-        abortRef.current?.abort();
-        setMessages([]);
-        setInput('');
     }
 
     return (
@@ -134,7 +64,7 @@ export function AgentPage() {
 
                 <button
                     type="button"
-                    onClick={handleReset}
+                    onClick={reset}
                     disabled={messages.length === 0}
                     aria-label={t('agent.reset')}
                     className="shrink-0 flex items-center gap-2 border border-slate-700/60 px-3 py-2 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -194,7 +124,7 @@ export function AgentPage() {
                                 <button
                                     key={suggestion}
                                     type="button"
-                                    onClick={() => send(suggestion)}
+                                    onClick={() => ask(suggestion)}
                                     className="border border-slate-700/50 px-3 py-2 md:py-1 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors cursor-pointer"
                                 >
                                     [ {suggestion} ]
@@ -223,7 +153,7 @@ export function AgentPage() {
                     {loading ? (
                         <button
                             type="button"
-                            onClick={() => abortRef.current?.abort()}
+                            onClick={stop}
                             aria-label={t('agent.stop')}
                             className="shrink-0 h-11 w-11 flex items-center justify-center border border-slate-700/60 rounded-md text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors"
                         >

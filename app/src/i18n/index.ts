@@ -3,6 +3,11 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { pt } from './locales/pt';
 import { en } from './locales/en';
+import { localeMap } from './localeMap';
+
+i18n.on('languageChanged', () => {
+  document.documentElement.lang = localeMap[i18n.resolvedLanguage === 'en' ? 'en' : 'pt'];
+});
 
 i18n
   .use(LanguageDetector)

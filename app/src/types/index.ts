@@ -2,6 +2,8 @@ import type {LucideIcon} from 'lucide-react';
 
 export type Language = 'pt' | 'en';
 
+export type PortfolioMode = 'system' | 'standard';
+
 export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent';
 
 export type WindowId = 'terminal' | SectionId;

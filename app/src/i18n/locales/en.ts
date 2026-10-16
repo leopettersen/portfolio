@@ -200,5 +200,99 @@ export const en: typeof pt = {
   landingInfo: {
     title: 'Hello, welcome to my portfolio!',
     info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the header, it is also possible to translate from English to Portuguese.'
+  },
+  topBar: {
+    switchMode: 'Switch mode',
+  },
+  login: {
+    question: 'How would you like to see the portfolio?',
+    system: {
+      title: 'System',
+      description: 'Explore it like an operating system, with a terminal, windows and icons.',
+    },
+    standard: {
+      title: 'Standard',
+      description: 'Browse a traditional page, scrolling through the sections.',
+    },
+  },
+  standard: {
+    menu: {
+      about: 'About',
+      experience: 'Experience',
+      projects: 'Projects',
+      agent: 'AI agent',
+      contact: 'Contact',
+      guestbook: 'Guestbook',
+      resume: 'Resume',
+    },
+    resume: {
+      title: 'Resume',
+      pages_one: '{{count}} page',
+      pages_other: '{{count}} pages',
+      zoomOut: 'Zoom out',
+      zoomIn: 'Zoom in',
+      zoomFit: 'Fit to width',
+      download: 'Download PDF (in Portuguese)',
+      downloadResume: 'Download resume (in Portuguese)',
+      open: 'Open in new tab',
+      loading: 'Loading the PDF...',
+      error: 'Could not display the PDF here. Download it or open it in a new tab using the buttons above.',
+    },
+    systemMode: 'System mode',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    lightTheme: 'Switch to light theme',
+    darkTheme: 'Switch to dark theme',
+    home: {
+      stats: {
+        projects: 'Academic and personal projects',
+        experiences: 'Professional and academic experiences',
+        technologies: 'Technologies used in projects and experiences',
+        graduation: 'Expected graduation in Software Engineering',
+      },
+    },
+    about: {
+      tag: 'Profile',
+      title: 'About',
+      role: 'ROLE',
+      education: 'EDUCATION',
+      educationTag: 'ACADEMIC BACKGROUND',
+      goals: 'GOALS',
+      reachOut: "Let's talk?",
+    },
+    experience: {
+      tag: 'Journey',
+      title1: 'Professional',
+      title2: 'Experience',
+      text: 'My journey so far, from a software development internship to being a teaching assistant for Introduction to Algorithms at PUC Minas.',
+    },
+    projects: {
+      title1: 'Featured',
+      title2: 'Projects',
+    },
+    agent: {
+      tag: 'Artificial intelligence',
+      title1: 'Ask',
+      title2: 'Leonardo',
+      text: 'An AI agent that answers, in first person, questions about my education, experience and projects, using only the information in this portfolio.',
+      you: 'You',
+    },
+    guestbook: {
+      tag: 'Guestbook',
+      title1: 'Leave a',
+      title2: 'message',
+      text: 'Stopped by? Leave a public note for me and the next visitors.',
+    },
+    contact: {
+      title: "Let's Build Something",
+      text: "If you're interested in software development, web applications or technology projects, I'd be happy to talk about ideas, opportunities and collaborations.",
+      formText: "Tell me about the role, the project or the idea, and I'll reply as soon as possible.",
+      available: 'Open to talking about technology, projects and opportunities',
+      privacy: 'Your message will be sent to my email, and your address will only be used to reply.',
+    },
+    footer: {
+      text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
+      copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',
+    },
   }
 };

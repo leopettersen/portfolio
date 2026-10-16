@@ -1,15 +1,19 @@
 import { useTranslation } from 'react-i18next';
-
 import { Clock } from './Clock';
-import { SquareTerminal } from 'lucide-react';
+import { LogOut, SquareTerminal } from 'lucide-react';
+import { LanguageToggle } from '../ui/LanguageToggle';
 
-export function TopBar() {
-    const { i18n } = useTranslation();
+export interface TopBarProps {
+    onLogout: () => void;
+}
+
+export function TopBar({ onLogout }: TopBarProps) {
+    const { t } = useTranslation();
 
     return (
-        <div className="w-full h-12 bg-slate-950 border-b border-slate-800/60 flex items-center justify-between px-4 text-lg text-zinc-400 font-mono">
+        <div className="w-full h-12 bg-slate-950 border-b border-slate-800/60 flex items-center justify-between gap-3 px-3 sm:px-4 text-base sm:text-lg text-zinc-400 font-mono">
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 min-w-0 whitespace-nowrap">
                 <i className="text-blue-600">
                     <SquareTerminal size={20} />
                 </i>
@@ -18,39 +22,30 @@ export function TopBar() {
                     LP
                 </span>
 
-                <span className="mx-2">
+                <span className="mx-1 sm:mx-2">
                     /
                 </span>
 
-                <span className="sm:hidden">L. Pettersen</span>
+                <span className="sm:hidden truncate">L. Pettersen</span>
                 <span className="hidden sm:inline">Leonardo Pettersen</span>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
 
-                <div className="flex gap-2">
-
-                    <button
-                        onClick={() => i18n.changeLanguage('pt')}
-                        className={i18n.resolvedLanguage === 'pt' ? 'text-zinc-100 cursor-pointer' : 'text-zinc-500 cursor-pointer'}
-                    >
-                        PT
-                    </button>
-
-                    <span className="text-zinc-700">
-                        |
-                    </span>
-
-                    <button
-                        onClick={() => i18n.changeLanguage('en')}
-                        className={i18n.resolvedLanguage === 'en' ? 'text-zinc-100 cursor-pointer' : 'text-zinc-500 cursor-pointer'}
-                    >
-                        EN
-                    </button>
-
-                </div>
+                <LanguageToggle />
 
                 <Clock />
+
+                <button
+                    type="button"
+                    onClick={onLogout}
+                    aria-label={t('topBar.switchMode')}
+                    title={t('topBar.switchMode')}
+                    className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                >
+                    <LogOut size={18} />
+                    <span className="hidden lg:inline">{t('topBar.switchMode')}</span>
+                </button>
 
             </div>
 

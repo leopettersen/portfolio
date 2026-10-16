@@ -16,20 +16,23 @@ export class GeminiError extends Error {
     }
 }
 
+export type AgentLanguage = 'pt' | 'en';
+
 interface AskOptions {
     history?: AgentHistoryEntry[];
+    language?: AgentLanguage;
     signal?: AbortSignal;
     onChunk?: (text: string) => void;
 }
 
-export async function askGemini(message: string, { history = [], signal, onChunk }: AskOptions = {}): Promise<string> {
+export async function askGemini(message: string, { history = [], language, signal, onChunk }: AskOptions = {}): Promise<string> {
     let response: Response;
 
     try {
         response = await fetch(GEMINI_PATH, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message, history: history.slice(-MAX_HISTORY) }),
+            body: JSON.stringify({ message, history: history.slice(-MAX_HISTORY), language }),
             signal,
         });
     } catch (error) {

@@ -199,5 +199,99 @@ export const pt = {
   landingInfo: {
     title: 'Olá, seja bem vindo ao meu portifólio!',
     info: 'O meu portifólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português pro inglês.'
+  },
+  topBar: {
+    switchMode: 'Trocar de modo',
+  },
+  login: {
+    question: 'Como você prefere ver o portfólio?',
+    system: {
+      title: 'Sistema',
+      description: 'Explore como um sistema operacional, com terminal, janelas e ícones.',
+    },
+    standard: {
+      title: 'Normal',
+      description: 'Navegue por uma página tradicional, rolando entre as seções.',
+    },
+  },
+  standard: {
+    menu: {
+      about: 'Sobre',
+      experience: 'Experiência',
+      projects: 'Projetos',
+      agent: 'Agente IA',
+      contact: 'Contato',
+      guestbook: 'Guestbook',
+      resume: 'Currículo',
+    },
+    resume: {
+      title: 'Currículo',
+      pages_one: '{{count}} página',
+      pages_other: '{{count}} páginas',
+      zoomOut: 'Diminuir o zoom',
+      zoomIn: 'Aumentar o zoom',
+      zoomFit: 'Ajustar à largura',
+      download: 'Baixar PDF',
+      downloadResume: 'Baixar currículo',
+      open: 'Abrir em nova aba',
+      loading: 'Carregando o PDF...',
+      error: 'Não foi possível mostrar o PDF aqui. Baixe ou abra em uma nova aba pelos botões acima.',
+    },
+    systemMode: 'Modo sistema',
+    openMenu: 'Abrir menu',
+    closeMenu: 'Fechar menu',
+    lightTheme: 'Ativar tema claro',
+    darkTheme: 'Ativar tema escuro',
+    home: {
+      stats: {
+        projects: 'Projetos acadêmicos e pessoais',
+        experiences: 'Experiências profissionais e acadêmicas',
+        technologies: 'Tecnologias usadas em projetos e experiências',
+        graduation: 'Previsão de formatura em Engenharia de Software',
+      },
+    },
+    about: {
+      tag: 'Perfil',
+      title: 'Sobre',
+      role: 'CARGO',
+      education: 'FORMAÇÃO',
+      educationTag: 'FORMAÇÃO ACADÊMICA',
+      goals: 'METAS',
+      reachOut: 'Vamos conversar?',
+    },
+    experience: {
+      tag: 'Jornada',
+      title1: 'Experiência',
+      title2: 'Profissional',
+      text: 'Minha trajetória até aqui, do estágio em desenvolvimento de software à monitoria de Introdução a Algoritmos na PUC Minas.',
+    },
+    projects: {
+      title1: 'Projetos',
+      title2: 'em destaque',
+    },
+    agent: {
+      tag: 'Inteligência artificial',
+      title1: 'Pergunte ao',
+      title2: 'Leonardo',
+      text: 'Um agente de IA que responde, em primeira pessoa, perguntas sobre minha formação, experiências e projetos, usando só as informações deste portfólio.',
+      you: 'Você',
+    },
+    guestbook: {
+      tag: 'Guestbook',
+      title1: 'Deixe sua',
+      title2: 'mensagem',
+      text: 'Passou por aqui? Deixe um recado público para mim e para os próximos visitantes.',
+    },
+    contact: {
+      title: 'Vamos construir algo',
+      text: 'Se você se interessa por desenvolvimento de software, aplicações web ou projetos de tecnologia, ficarei feliz em conversar sobre ideias, oportunidades e colaborações.',
+      formText: 'Conte sobre a vaga, o projeto ou a ideia, e eu respondo assim que possível.',
+      available: 'Aberto a conversar sobre tecnologia, projetos e oportunidades',
+      privacy: 'Sua mensagem será enviada para o meu e-mail, e seu endereço será usado apenas para a resposta.',
+    },
+    footer: {
+      text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
+      copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',
+    },
   }
 };

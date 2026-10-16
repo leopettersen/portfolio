@@ -1,15 +1,59 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-title: var(--title);
+  --color-body: var(--body);
+  --color-brand: var(--brand);
+  --color-line: var(--line);
+  --color-on-brand: var(--on-brand);
+  --shadow-brand: var(--brand-shadow);
+  --font-geist: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --page: #0f172a;
+  --surface: #020617;
+  --title: #f4f4f5;
+  --body: #94a3b8;
+  --brand: #3b82f6;
+  --line: #1e293b;
+  --on-brand: #ffffff;
+  --brand-shadow: 0 15px 40px -5px rgba(30, 64, 175, 0.35), 0 8px 10px -6px rgba(30, 64, 175, 0.1);
+}
+
+:root[data-theme="light"] {
+  --page: #f1f5f9;
+  --surface: #ffffff;
+  --title: #0f172a;
+  --body: #475569;
+  --brand: #2563eb;
+  --line: #e2e8f0;
+  --on-brand: #ffffff;
+  --brand-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.15), 0 8px 15px -6px rgba(15, 23, 42, 0.12);
+}
+
+html[data-theme] {
+  scroll-behavior: smooth;
+  background-color: var(--page);
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand) var(--page);
+}
+
 /* Scrollbar personalizada para o textarea */
 .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: blue transparent;
 }
 
-html, body, *, *::before, *::after {
+html:not([data-theme]),
+html:not([data-theme]) *,
+html:not([data-theme]) *::before,
+html:not([data-theme]) *::after {
   cursor: url("/cursor.svg") 2 2, auto !important;
 }
 
-a, button, [role="button"], .cursor-pointer, label, summary {
+html:not([data-theme]) :is(a, button, [role="button"], .cursor-pointer, label, summary) {
   cursor: url("/cursor-pointer.svg") 2 2, pointer !important;
 }
