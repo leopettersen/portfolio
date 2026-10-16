@@ -219,6 +219,7 @@ export const en: typeof pt = {
       projects: 'Projects',
       agent: 'AI agent',
       contact: 'Contact',
+      guestbook: 'Guestbook',
       resume: 'Resume',
     },
     resume: {
@@ -272,6 +273,12 @@ export const en: typeof pt = {
       title2: 'Leonardo',
       text: 'An AI agent that answers, in first person, questions about my education, experience and projects, using only the information in this portfolio.',
       you: 'You',
+    },
+    guestbook: {
+      tag: 'Guestbook',
+      title1: 'Leave a',
+      title2: 'message',
+      text: 'Stopped by? Leave a public note for me and the next visitors.',
     },
     contact: {
       title: "Let's Build Something",

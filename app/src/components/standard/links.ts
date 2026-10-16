@@ -4,4 +4,5 @@ export const navLinks = [
     { key: 'projects', href: '#projects' },
     { key: 'agent', href: '#agent' },
     { key: 'contact', href: '#contact' },
+    { key: 'guestbook', href: '#guestbook' },
 ] as const;

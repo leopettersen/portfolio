@@ -10,9 +10,10 @@ export interface FormFieldProps {
     multiline?: boolean;
     error?: string;
     disabled?: boolean;
+    maxLength?: number;
 }
 
-export function FormField({ label, name, value, onChange, placeholder, type = 'text', multiline = false, error, disabled }: FormFieldProps) {
+export function FormField({ label, name, value, onChange, placeholder, type = 'text', multiline = false, error, disabled, maxLength }: FormFieldProps) {
     const id = useId();
     const errorId = `${id}-error`;
     const fieldClass = 'w-full bg-transparent text-sm text-title placeholder:text-body/70 focus:outline-none';
@@ -30,6 +31,7 @@ export function FormField({ label, name, value, onChange, placeholder, type = 't
                         placeholder={placeholder}
                         disabled={disabled}
                         rows={5}
+                        maxLength={maxLength}
                         aria-invalid={!!error}
                         aria-describedby={error ? errorId : undefined}
                         onChange={(event) => onChange(event.target.value)}
@@ -44,6 +46,7 @@ export function FormField({ label, name, value, onChange, placeholder, type = 't
                         placeholder={placeholder}
                         disabled={disabled}
                         autoComplete={type === 'email' ? 'email' : 'name'}
+                        maxLength={maxLength}
                         aria-invalid={!!error}
                         aria-describedby={error ? errorId : undefined}
                         onChange={(event) => onChange(event.target.value)}
@@ -52,7 +55,10 @@ export function FormField({ label, name, value, onChange, placeholder, type = 't
                 )}
             </div>
 
-            <p id={errorId} className="mt-1 mb-3 min-h-4 text-[11px] text-red-500">{error}</p>
+            <div className="mt-1 mb-3 flex min-h-4 justify-between gap-4 text-[11px]">
+                <p id={errorId} className="text-red-500">{error}</p>
+                {multiline && maxLength && <span className="shrink-0">{value.length}/{maxLength}</span>}
+            </div>
         </div>
     );
 }

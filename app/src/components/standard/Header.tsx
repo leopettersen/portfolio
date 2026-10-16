@@ -14,17 +14,17 @@ export function Header({ onSwitchMode }: HeaderProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] lg:max-w-max">
+        <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] xl:max-w-max">
 
             <nav className="relative mt-5 flex items-center justify-between gap-3 rounded-3xl border border-line bg-surface/70 px-5 py-3 text-body shadow-brand backdrop-blur-md">
                 <a href="#home" className="flex items-center gap-3">
                     <img src="/images/logo.png" alt="Logo" className="h-7 w-7 shrink-0 rounded-md object-cover" />
-                    <span className="whitespace-nowrap text-sm font-semibold text-title lg:me-16 xl:me-40">
+                    <span className="whitespace-nowrap text-sm font-semibold text-title xl:me-8 2xl:me-32">
                         Leonardo Pettersen
                     </span>
                 </a>
 
-                <div className="hidden items-center gap-6 lg:flex">
+                <div className="hidden items-center gap-6 xl:flex">
                     <ul className="flex items-center gap-5 text-sm">
                         {navLinks.map((link) => (
                             <li key={link.href}>
@@ -66,7 +66,7 @@ export function Header({ onSwitchMode }: HeaderProps) {
                 <button
                     type="button"
                     onClick={() => setIsOpen((prev) => !prev)}
-                    className="rounded-lg p-1 text-title hover:bg-brand/10 transition-colors lg:hidden"
+                    className="rounded-lg p-1 text-title hover:bg-brand/10 transition-colors xl:hidden"
                     aria-label={isOpen ? t('standard.closeMenu') : t('standard.openMenu')}
                     aria-expanded={isOpen}
                 >
@@ -75,7 +75,7 @@ export function Header({ onSwitchMode }: HeaderProps) {
             </nav>
 
             <div
-                className={`absolute right-0 top-full mt-3 w-full overflow-hidden rounded-2xl border border-line bg-surface/95 p-4 text-body shadow-brand backdrop-blur-xl transition-all duration-300 lg:hidden ${
+                className={`absolute right-0 top-full mt-3 w-full overflow-hidden rounded-2xl border border-line bg-surface/95 p-4 text-body shadow-brand backdrop-blur-xl transition-all duration-300 xl:hidden ${
                     isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0 pointer-events-none'
                 }`}
             >

@@ -218,6 +218,7 @@ export const pt = {
       projects: 'Projetos',
       agent: 'Agente IA',
       contact: 'Contato',
+      guestbook: 'Guestbook',
       resume: 'Currículo',
     },
     resume: {
@@ -271,6 +272,12 @@ export const pt = {
       title2: 'Leonardo',
       text: 'Um agente de IA que responde, em primeira pessoa, perguntas sobre minha formação, experiências e projetos, usando só as informações deste portfólio.',
       you: 'Você',
+    },
+    guestbook: {
+      tag: 'Guestbook',
+      title1: 'Deixe sua',
+      title2: 'mensagem',
+      text: 'Passou por aqui? Deixe um recado público para mim e para os próximos visitantes.',
     },
     contact: {
       title: 'Vamos construir algo',
