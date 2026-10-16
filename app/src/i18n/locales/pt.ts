@@ -230,6 +230,12 @@ export const pt = {
       goals: 'METAS',
       reachOut: 'Vamos conversar?',
     },
+    experience: {
+      tag: 'Jornada',
+      title1: 'Experiência',
+      title2: 'Profissional',
+      text: 'Minha trajetória até aqui, do estágio em desenvolvimento de software à monitoria de Introdução a Algoritmos na PUC Minas.',
+    },
     footer: {
       text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
       copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',

@@ -7,6 +7,7 @@ import { ScrollProgress } from './ScrollProgress';
 import { useTheme } from './theme';
 import { Home } from './sections/Home';
 import { About } from './sections/About';
+import { ExperienceSection } from './sections/ExperienceSection';
 
 export interface StandardPortfolioProps {
     onSwitchMode: () => void;
@@ -36,6 +37,10 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
 
                 <section id="about" className="scroll-mt-32">
                     <About />
+                </section>
+
+                <section id="experience" className="scroll-mt-32">
+                    <ExperienceSection />
                 </section>
             </main>
 
