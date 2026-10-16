@@ -5,6 +5,7 @@ import { SquareTerminal } from 'lucide-react';
 
 export function TopBar() {
     const { i18n } = useTranslation();
+    const isEnglish = i18n.resolvedLanguage === 'en';
 
     return (
         <div className="w-full h-12 bg-slate-950 border-b border-slate-800/60 flex items-center justify-between gap-3 px-3 sm:px-4 text-base sm:text-lg text-zinc-400 font-mono">
@@ -28,27 +29,25 @@ export function TopBar() {
 
             <div className="flex items-center gap-2 sm:gap-4 shrink-0">
 
-                <div className="flex gap-2">
-
-                    <button
-                        onClick={() => i18n.changeLanguage('pt')}
-                        className={i18n.resolvedLanguage === 'pt' ? 'text-zinc-100 cursor-pointer' : 'text-zinc-500 cursor-pointer'}
-                    >
+                <button
+                    type="button"
+                    onClick={() => i18n.changeLanguage(isEnglish ? 'pt' : 'en')}
+                    aria-label={isEnglish ? 'Mudar para português' : 'Switch to English'}
+                    title={isEnglish ? 'Mudar para português' : 'Switch to English'}
+                    className="flex items-center gap-2 rounded-full border border-slate-700/60 px-3 py-0.5 hover:border-slate-500 transition-colors cursor-pointer"
+                >
+                    <span className={isEnglish ? 'text-zinc-500' : 'text-blue-500 font-bold'}>
                         PT
-                    </button>
+                    </span>
 
-                    <span className="text-zinc-700">
+                    <span className="text-zinc-700" aria-hidden="true">
                         |
                     </span>
 
-                    <button
-                        onClick={() => i18n.changeLanguage('en')}
-                        className={i18n.resolvedLanguage === 'en' ? 'text-zinc-100 cursor-pointer' : 'text-zinc-500 cursor-pointer'}
-                    >
+                    <span className={isEnglish ? 'text-blue-500 font-bold' : 'text-zinc-500'}>
                         EN
-                    </button>
-
-                </div>
+                    </span>
+                </button>
 
                 <Clock />
 
