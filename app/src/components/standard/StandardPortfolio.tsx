@@ -12,7 +12,6 @@ import { Home } from './sections/Home';
 import { About } from './sections/About';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ProjectsSection } from './sections/ProjectsSection';
-import { SkillsSection } from './sections/SkillsSection';
 import { ContactSection } from './sections/ContactSection';
 
 const ResumeSection = lazy(() => import('./sections/ResumeSection'));
@@ -72,10 +71,6 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
 
                 <section id="projects" className="scroll-mt-32 xl:scroll-mt-0">
                     <ProjectsSection />
-                </section>
-
-                <section id="skills" className="scroll-mt-32">
-                    <SkillsSection />
                 </section>
 
                 <section id="resume" className="scroll-mt-32">

@@ -217,7 +217,6 @@ export const en: typeof pt = {
       about: 'About',
       experience: 'Experience',
       projects: 'Projects',
-      stack: 'Stack',
       contact: 'Contact',
       resume: 'Resume',
     },
@@ -265,12 +264,6 @@ export const en: typeof pt = {
     projects: {
       title1: 'Featured',
       title2: 'Projects',
-    },
-    stack: {
-      tag: 'Expertise',
-      title1: 'Technical',
-      title2: 'Stack',
-      text: 'The technologies I use in my projects and day-to-day work, from front-end to back-end. Drag the globe to spin it.',
     },
     contact: {
       title: "Let's Build Something",

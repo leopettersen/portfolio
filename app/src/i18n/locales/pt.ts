@@ -216,7 +216,6 @@ export const pt = {
       about: 'Sobre',
       experience: 'Experiência',
       projects: 'Projetos',
-      stack: 'Stack',
       contact: 'Contato',
       resume: 'Currículo',
     },
@@ -264,12 +263,6 @@ export const pt = {
     projects: {
       title1: 'Projetos',
       title2: 'em destaque',
-    },
-    stack: {
-      tag: 'Habilidades',
-      title1: 'Stack',
-      title2: 'Tecnológica',
-      text: 'As tecnologias que uso nos meus projetos e no dia a dia de trabalho, do front-end ao back-end. Arraste o globo para girá-lo.',
     },
     contact: {
       title: 'Vamos construir algo',
