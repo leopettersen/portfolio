@@ -9,17 +9,17 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
     return (
         <div className="flex flex-col gap-2 rounded-2xl border border-line bg-surface/95 p-5 shadow-brand backdrop-blur-xl">
             <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                <div>
+                <div className="min-w-0">
                     <h3 className="text-xl font-bold text-title">{experience.experiencePosition}</h3>
                     <p className="font-bold text-brand">{experience.organization}</p>
                 </div>
 
-                <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
-                    <span className="flex items-center gap-1 rounded-xl border border-body/40 px-2 py-1 text-[10px] uppercase">
+                <div className="flex flex-wrap gap-2 md:shrink-0 md:flex-col md:items-end">
+                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-[10px] uppercase">
                         <Briefcase size={12} />
                         {t(`workModels.${experience.workModel}`)}
                     </span>
-                    <span className="flex items-center gap-1 rounded-xl border border-body/40 px-2 py-1 text-[10px]">
+                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-[10px]">
                         <CalendarDays size={12} />
                         {experience.period}
                     </span>
