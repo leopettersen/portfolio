@@ -213,6 +213,23 @@ export const pt = {
     closeMenu: 'Fechar menu',
     lightTheme: 'Ativar tema claro',
     darkTheme: 'Ativar tema escuro',
+    home: {
+      stats: {
+        projects: 'Projetos acadêmicos e pessoais',
+        experiences: 'Experiências profissionais e acadêmicas',
+        technologies: 'Tecnologias usadas em projetos e experiências',
+        graduation: 'Previsão de formatura em Engenharia de Software',
+      },
+    },
+    about: {
+      tag: 'Perfil',
+      title: 'Sobre',
+      role: 'CARGO',
+      education: 'FORMAÇÃO',
+      educationTag: 'FORMAÇÃO ACADÊMICA',
+      goals: 'METAS',
+      reachOut: 'Vamos conversar?',
+    },
     footer: {
       text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
       copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',

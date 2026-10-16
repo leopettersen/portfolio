@@ -1,0 +1,16 @@
+export const techIcons = new Map<string, string>([
+    ['Java', 'devicon-java-plain'],
+    ['SpringBoot', 'devicon-spring-original'],
+    ['Thymeleaf', 'devicon-thymeleaf-plain'],
+    ['MySQL', 'devicon-mysql-original'],
+    ['TypeScript', 'devicon-typescript-plain'],
+    ['React', 'devicon-react-original'],
+    ['Supabase', 'devicon-supabase-plain'],
+    ['Docker', 'devicon-docker-plain'],
+    ['HTML5', 'devicon-html5-plain'],
+    ['CSS3', 'devicon-css3-plain'],
+    ['JavaScript', 'devicon-javascript-plain'],
+    ['C#', 'devicon-csharp-plain'],
+    ['.NET', 'devicon-dot-net-plain'],
+    ['Python', 'devicon-python-plain'],
+]);

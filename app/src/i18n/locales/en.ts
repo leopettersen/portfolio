@@ -214,6 +214,23 @@ export const en: typeof pt = {
     closeMenu: 'Close menu',
     lightTheme: 'Switch to light theme',
     darkTheme: 'Switch to dark theme',
+    home: {
+      stats: {
+        projects: 'Academic and personal projects',
+        experiences: 'Professional and academic experiences',
+        technologies: 'Technologies used in projects and experiences',
+        graduation: 'Expected graduation in Software Engineering',
+      },
+    },
+    about: {
+      tag: 'Profile',
+      title: 'About',
+      role: 'ROLE',
+      education: 'EDUCATION',
+      educationTag: 'ACADEMIC BACKGROUND',
+      goals: 'GOALS',
+      reachOut: "Let's talk?",
+    },
     footer: {
       text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
       copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',

@@ -5,6 +5,8 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { ScrollProgress } from './ScrollProgress';
 import { useTheme } from './theme';
+import { Home } from './sections/Home';
+import { About } from './sections/About';
 
 export interface StandardPortfolioProps {
     onSwitchMode: () => void;
@@ -28,6 +30,13 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
             <Header onSwitchMode={onSwitchMode} />
 
             <main className="flex flex-col gap-24 pt-28 pb-16 lg:gap-40 lg:pt-36">
+                <section id="home" className="scroll-mt-32">
+                    <Home />
+                </section>
+
+                <section id="about" className="scroll-mt-32">
+                    <About />
+                </section>
             </main>
 
             <Footer />
