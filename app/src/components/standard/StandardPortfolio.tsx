@@ -10,6 +10,7 @@ import { About } from './sections/About';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { SkillsSection } from './sections/SkillsSection';
+import { ContactSection } from './sections/ContactSection';
 
 export interface StandardPortfolioProps {
     onSwitchMode: () => void;
@@ -51,6 +52,10 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
 
                 <section id="skills" className="scroll-mt-32">
                     <SkillsSection />
+                </section>
+
+                <section id="contact" className="scroll-mt-32">
+                    <ContactSection />
                 </section>
             </main>
 

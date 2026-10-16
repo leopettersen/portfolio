@@ -246,6 +246,19 @@ export const pt = {
       title2: 'Tecnológica',
       text: 'As tecnologias que uso nos meus projetos e no dia a dia de trabalho, do front-end ao back-end. Arraste o globo para girá-lo.',
     },
+    contact: {
+      title: 'Vamos construir algo',
+      text: 'Se você se interessa por desenvolvimento de software, aplicações web ou projetos de tecnologia, ficarei feliz em conversar sobre ideias, oportunidades e colaborações.',
+      formText: 'Conte sobre a vaga, o projeto ou a ideia, e eu respondo assim que possível.',
+      reason: 'Motivo',
+      reasons: {
+        hiring: 'Contratação',
+        collaboration: 'Colaboração',
+        other: 'Outro',
+      },
+      available: 'Aberto a conversar sobre tecnologia, projetos e oportunidades',
+      privacy: 'Sua mensagem será enviada para o meu e-mail, e seu endereço será usado apenas para a resposta.',
+    },
     footer: {
       text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
       copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',

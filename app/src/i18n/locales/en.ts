@@ -247,6 +247,19 @@ export const en: typeof pt = {
       title2: 'Stack',
       text: 'The technologies I use in my projects and day-to-day work, from front-end to back-end. Drag the globe to spin it.',
     },
+    contact: {
+      title: "Let's Build Something",
+      text: "If you're interested in software development, web applications or technology projects, I'd be happy to talk about ideas, opportunities and collaborations.",
+      formText: "Tell me about the role, the project or the idea, and I'll reply as soon as possible.",
+      reason: 'Reason',
+      reasons: {
+        hiring: 'Hiring',
+        collaboration: 'Collaboration',
+        other: 'Other',
+      },
+      available: 'Open to talking about technology, projects and opportunities',
+      privacy: 'Your message will be sent to my email, and your address will only be used to reply.',
+    },
     footer: {
       text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
       copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',
