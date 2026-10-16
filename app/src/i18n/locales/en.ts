@@ -237,6 +237,10 @@ export const en: typeof pt = {
       title2: 'Experience',
       text: 'My journey so far, from a software development internship to being a teaching assistant for Introduction to Algorithms at PUC Minas.',
     },
+    projects: {
+      title1: 'Featured',
+      title2: 'Projects',
+    },
     footer: {
       text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
       copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',

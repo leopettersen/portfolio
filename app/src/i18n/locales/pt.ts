@@ -236,6 +236,10 @@ export const pt = {
       title2: 'Profissional',
       text: 'Minha trajetória até aqui, do estágio em desenvolvimento de software à monitoria de Introdução a Algoritmos na PUC Minas.',
     },
+    projects: {
+      title1: 'Projetos',
+      title2: 'em destaque',
+    },
     footer: {
       text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
       copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',
