@@ -241,6 +241,12 @@ export const en: typeof pt = {
       title1: 'Featured',
       title2: 'Projects',
     },
+    stack: {
+      tag: 'Expertise',
+      title1: 'Technical',
+      title2: 'Stack',
+      text: 'The technologies I use in my projects and day-to-day work, from front-end to back-end. Drag the globe to spin it.',
+    },
     footer: {
       text: 'Software Engineering student at PUC Minas, open to talking about technology, projects and opportunities.',
       copy: '© 2026 Leonardo Pettersen · Built with React, Vite and Tailwind CSS.',

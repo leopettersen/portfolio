@@ -240,6 +240,12 @@ export const pt = {
       title1: 'Projetos',
       title2: 'em destaque',
     },
+    stack: {
+      tag: 'Habilidades',
+      title1: 'Stack',
+      title2: 'Tecnológica',
+      text: 'As tecnologias que uso nos meus projetos e no dia a dia de trabalho, do front-end ao back-end. Arraste o globo para girá-lo.',
+    },
     footer: {
       text: 'Estudante de Engenharia de Software na PUC Minas, aberto a conversar sobre tecnologia, projetos e oportunidades.',
       copy: '© 2026 Leonardo Pettersen · Desenvolvido com React, Vite e Tailwind CSS.',
