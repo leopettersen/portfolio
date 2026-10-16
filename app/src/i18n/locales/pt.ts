@@ -216,6 +216,7 @@ export const pt = {
       about: 'Sobre',
       experience: 'Experiência',
       projects: 'Projetos',
+      agent: 'Agente IA',
       contact: 'Contato',
       resume: 'Currículo',
     },
@@ -263,6 +264,13 @@ export const pt = {
     projects: {
       title1: 'Projetos',
       title2: 'em destaque',
+    },
+    agent: {
+      tag: 'Inteligência artificial',
+      title1: 'Pergunte ao',
+      title2: 'Leonardo',
+      text: 'Um agente de IA que responde, em primeira pessoa, perguntas sobre minha formação, experiências e projetos, usando só as informações deste portfólio.',
+      you: 'Você',
     },
     contact: {
       title: 'Vamos construir algo',

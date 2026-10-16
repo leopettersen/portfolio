@@ -217,6 +217,7 @@ export const en: typeof pt = {
       about: 'About',
       experience: 'Experience',
       projects: 'Projects',
+      agent: 'AI agent',
       contact: 'Contact',
       resume: 'Resume',
     },
@@ -264,6 +265,13 @@ export const en: typeof pt = {
     projects: {
       title1: 'Featured',
       title2: 'Projects',
+    },
+    agent: {
+      tag: 'Artificial intelligence',
+      title1: 'Ask',
+      title2: 'Leonardo',
+      text: 'An AI agent that answers, in first person, questions about my education, experience and projects, using only the information in this portfolio.',
+      you: 'You',
     },
     contact: {
       title: "Let's Build Something",
