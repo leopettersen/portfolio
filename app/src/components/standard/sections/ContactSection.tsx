@@ -6,8 +6,6 @@ import { RESUME_FILE_NAME, RESUME_URL } from '../resume';
 import type { SendStatus } from '../../../types';
 import { contacts } from '../../../data/contacts';
 import { FormField } from '../FormField';
-import { ReasonSelect } from '../ReasonSelect';
-import type { Reason } from '../reasons';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -16,13 +14,12 @@ const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 interface FormState {
     name: string;
     email: string;
-    reason: Reason;
     message: string;
 }
 
 type FormErrors = Partial<Record<'name' | 'email' | 'message', string>>;
 
-const INITIAL: FormState = { name: '', email: '', reason: 'hiring', message: '' };
+const INITIAL: FormState = { name: '', email: '', message: '' };
 
 export function ContactSection() {
     const { t } = useTranslation();
@@ -72,8 +69,6 @@ export function ContactSection() {
 
         setStatus('sending');
 
-        const reason = t(`standard.contact.reasons.${form.reason}`);
-
         try {
             await emailjs.send(
                 serviceId,
@@ -81,8 +76,7 @@ export function ContactSection() {
                 {
                     name: form.name.trim(),
                     email: form.email.trim(),
-                    reason,
-                    message: `[${reason}] ${form.message.trim()}`,
+                    message: form.message.trim(),
                 },
                 publicKey
             );
@@ -171,8 +165,6 @@ export function ContactSection() {
                         disabled={sending}
                     />
                 </div>
-
-                <ReasonSelect value={form.reason} onChange={setField('reason')} disabled={sending} />
 
                 <FormField
                     label={t('contact.messageLabel')}

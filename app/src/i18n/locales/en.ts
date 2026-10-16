@@ -269,12 +269,6 @@ export const en: typeof pt = {
       title: "Let's Build Something",
       text: "If you're interested in software development, web applications or technology projects, I'd be happy to talk about ideas, opportunities and collaborations.",
       formText: "Tell me about the role, the project or the idea, and I'll reply as soon as possible.",
-      reason: 'Reason',
-      reasons: {
-        hiring: 'Hiring',
-        collaboration: 'Collaboration',
-        other: 'Other',
-      },
       available: 'Open to talking about technology, projects and opportunities',
       privacy: 'Your message will be sent to my email, and your address will only be used to reply.',
     },

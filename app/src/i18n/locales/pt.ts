@@ -268,12 +268,6 @@ export const pt = {
       title: 'Vamos construir algo',
       text: 'Se você se interessa por desenvolvimento de software, aplicações web ou projetos de tecnologia, ficarei feliz em conversar sobre ideias, oportunidades e colaborações.',
       formText: 'Conte sobre a vaga, o projeto ou a ideia, e eu respondo assim que possível.',
-      reason: 'Motivo',
-      reasons: {
-        hiring: 'Contratação',
-        collaboration: 'Colaboração',
-        other: 'Outro',
-      },
       available: 'Aberto a conversar sobre tecnologia, projetos e oportunidades',
       privacy: 'Sua mensagem será enviada para o meu e-mail, e seu endereço será usado apenas para a resposta.',
     },
