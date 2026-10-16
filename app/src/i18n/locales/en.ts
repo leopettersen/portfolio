@@ -201,6 +201,17 @@ export const en: typeof pt = {
     title: 'Hello, welcome to my portfolio!',
     info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the header, it is also possible to translate from English to Portuguese.'
   },
+  login: {
+    question: 'How would you like to see the portfolio?',
+    system: {
+      title: 'System',
+      description: 'Explore it like an operating system, with a terminal, windows and icons.',
+    },
+    standard: {
+      title: 'Standard',
+      description: 'Browse a traditional page, scrolling through the sections.',
+    },
+  },
   standard: {
     menu: {
       about: 'About',

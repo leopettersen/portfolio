@@ -200,6 +200,17 @@ export const pt = {
     title: 'Olá, seja bem vindo ao meu portifólio!',
     info: 'O meu portifólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português pro inglês.'
   },
+  login: {
+    question: 'Como você prefere ver o portfólio?',
+    system: {
+      title: 'Sistema',
+      description: 'Explore como um sistema operacional, com terminal, janelas e ícones.',
+    },
+    standard: {
+      title: 'Normal',
+      description: 'Navegue por uma página tradicional, rolando entre as seções.',
+    },
+  },
   standard: {
     menu: {
       about: 'Sobre',
