@@ -7,7 +7,8 @@ import { askGemini, GeminiError, MAX_MESSAGE } from '../services/gemini';
 import { MarkdownText } from '../components/ui/MarkdownText';
 
 export function AgentPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const language = i18n.resolvedLanguage === 'en' ? 'en' : 'pt';
 
     const [messages, setMessages] = useState<AgentMessage[]>([]);
     const [input, setInput] = useState('');
@@ -70,6 +71,7 @@ export function AgentPage() {
         try {
             await askGemini(question, {
                 history,
+                language,
                 signal: controller.signal,
                 onChunk: (partial) => update({ text: partial }),
             });
