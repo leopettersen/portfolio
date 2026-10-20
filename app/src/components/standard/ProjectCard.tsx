@@ -11,7 +11,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     const { t } = useTranslation();
 
     return (
-        <div className="flex h-full w-full flex-col gap-3 rounded-2xl border border-line bg-surface/95 p-5 shadow-brand backdrop-blur-xl">
+        <div className="flex h-full w-full flex-col gap-3 rounded-2xl border border-line bg-surface p-5 shadow-brand">
             <div className="flex items-center justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">
                     <span className="shrink-0 rounded-md border border-brand/50 bg-brand/10 px-2 py-1 text-sm font-bold text-brand">

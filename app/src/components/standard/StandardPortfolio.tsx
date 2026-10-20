@@ -52,7 +52,7 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
                     <ExperienceSection />
                 </section>
 
-                <section id="projects" className="scroll-mt-32 xl:scroll-mt-0">
+                <section id="projects" className="scroll-mt-32">
                     <ProjectsSection />
                 </section>
 
