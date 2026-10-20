@@ -1,4 +1,5 @@
 import '@fontsource-variable/geist';
+import '@fontsource-variable/orbitron';
 import 'devicon/devicon.min.css';
 import { lazy, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +36,7 @@ export default function StandardPortfolio({ onSwitchMode }: StandardPortfolioPro
     }, [theme]);
 
     return (
-        <div className="relative isolate min-h-screen overflow-x-clip bg-page font-geist text-body">
+        <div className="relative isolate min-h-screen overflow-x-clip bg-page font-geist standard-mode text-body">
             <ScrollProgress />
             <Header onSwitchMode={onSwitchMode} />
 

@@ -21,6 +21,7 @@
   --line: #1e293b;
   --on-brand: #ffffff;
   --brand-shadow: 0 15px 40px -5px rgba(30, 64, 175, 0.35), 0 8px 10px -6px rgba(30, 64, 175, 0.1);
+  --font-orbitron: 'Orbitron Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root[data-theme="light"] {
@@ -56,4 +57,10 @@ html:not([data-theme]) *::after {
 
 html:not([data-theme]) :is(a, button, [role="button"], .cursor-pointer, label, summary) {
   cursor: url("/cursor-pointer.svg") 2 2, pointer !important;
+}
+
+/* Modo normal: Orbitron só nos títulos. O corpo fica na Geist, que é mais legível.
+   A regra é "plain" (fora de @layer), então vence qualquer utility de font-family. */
+.standard-mode :is(h1, h2, h3, h4) {
+  font-family: var(--font-orbitron);
 }
