@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 export interface CommandPromptProps {
     onSubmit: (command: string) => void;
+    active?: boolean;
 }
 
-export function CommandPrompt({ onSubmit }: CommandPromptProps) {
+export function CommandPrompt({ onSubmit, active = true }: CommandPromptProps) {
     const { t } = useTranslation();
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -23,6 +24,16 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
     }
 
     useEffect(() => {
+        if (active && !isTouch) {
+            inputRef.current?.focus();
+        }
+    }, [active, isTouch]);
+
+    useEffect(() => {
+        if (!active || isTouch) {
+            return;
+        }
+
         const handleGlobalClick = (event: MouseEvent) => {
             if (window.getSelection()?.toString()) {
                 return;
@@ -38,10 +49,6 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
                 }
             }
 
-            if (isTouch) {
-                return;
-            }
-
             inputRef.current?.focus();
         };
 
@@ -50,7 +57,7 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
         return () => {
             document.removeEventListener('click', handleGlobalClick);
         };
-    }, [isTouch]);
+    }, [active, isTouch]);
 
     return (
 
@@ -58,7 +65,6 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
             <span className="text-blue-500">guest@os:~$</span>
             <input
                 onKeyDown={handleKeyDown}
-                autoFocus={!isTouch}
                 className="sr-only"
                 type="text" 
                 ref={inputRef}

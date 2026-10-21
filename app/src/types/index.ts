@@ -8,6 +8,12 @@ export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guest
 
 export type WindowId = 'terminal' | SectionId;
 
+export interface OpenWindow {
+    id: WindowId;
+    layer: number;
+    offset: number;
+}
+
 export interface Section {
     id: SectionId;
     command: string;

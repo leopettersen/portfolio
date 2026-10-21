@@ -9,9 +9,12 @@ export interface TerminalProps {
   history: HistoryEntry[];
   onCommand: (command: string) => void;
   onClose: () => void;
+  active?: boolean;
+  onFocus?: () => void;
+  initialOffset?: number;
 }
 
-export function Terminal({ history, onCommand, onClose }: TerminalProps) {
+export function Terminal({ history, onCommand, onClose, active = true, onFocus, initialOffset }: TerminalProps) {
   const { t } = useTranslation();
   const historyRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +31,7 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
   const chipSections = sections.filter(section => section.showChip);
 
   return (
-    <Window title="terminal — zsh" onClose={onClose} onCommand={onCommand} showFooter={false}>
+    <Window title="terminal — zsh" onClose={onClose} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset}>
       <div className="h-full flex flex-col min-h-0">
 
         <div className="shrink-0">
@@ -90,7 +93,7 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
         </div>
 
         <div className="shrink-0 mt-6 pt-6 border-t border-slate-800/60">
-          <CommandPrompt onSubmit={onCommand} />
+          <CommandPrompt onSubmit={onCommand} active={active} />
         </div>
 
       </div>

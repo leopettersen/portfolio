@@ -11,8 +11,8 @@ interface DragStart {
     topOffset: number;
 }
 
-export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement | null>) {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement | null>, initialPosition = { x: 0, y: 0 }) {
+    const [position, setPosition] = useState(initialPosition);
     const dragStart = useRef<DragStart | null>(null);
     const moved = useRef(false);
 

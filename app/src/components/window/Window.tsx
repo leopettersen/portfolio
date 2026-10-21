@@ -10,18 +10,22 @@ export interface WindowProps {
     onClose: () => void;
     onCommand: (command: string) => void;
     showFooter?: boolean;
+    active?: boolean;
+    onFocus?: () => void;
+    initialOffset?: number;
 }
 
-export function Window({ title, children, onClose, onCommand, showFooter = true }: WindowProps) {
+export function Window({ title, children, onClose, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0 }: WindowProps) {
   const { t } = useTranslation();
   const [isMaximized, setIsMaximized] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const dragEnabled = !isMaximized && window.matchMedia('(min-width: 768px)').matches;
-  const { position, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, rootRef);
+  const { position, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, rootRef, { x: initialOffset, y: initialOffset });
 
   return (
     <div
       ref={rootRef}
+      onPointerDownCapture={onFocus}
       className={`pointer-events-auto shadow-2xl shadow-black/50 bg-slate-900 md:border border-slate-800/60 flex flex-col text-zinc-100 text-base md:text-lg font-mono overflow-hidden ${
         isMaximized
           ? 'absolute inset-0 w-full h-full max-h-none rounded-none'
@@ -57,7 +61,7 @@ export function Window({ title, children, onClose, onCommand, showFooter = true 
             />
         </div>
         
-        <span className="absolute left-1/2 -translate-x-1/2 text-sm text-slate-400">
+        <span className={`absolute left-1/2 -translate-x-1/2 text-sm ${active ? 'text-slate-200' : 'text-slate-400'}`}>
           {title}
         </span>
 
@@ -67,7 +71,7 @@ export function Window({ title, children, onClose, onCommand, showFooter = true 
       </div>
       {showFooter && (
         <div className="shrink-0 hidden md:flex justify-between items-center px-4 py-3 bg-slate-950 border-t border-slate-800/60 rounded-b-lg">
-          <CommandPrompt onSubmit={onCommand} />
+          <CommandPrompt onSubmit={onCommand} active={active} />
 
           <p className="text-xs text-slate-400 hidden sm:block">
             <Trans i18nKey="window.closeHint" values={{ command: 'close' }} components={{ 1: <span className="text-slate-400" /> }} />

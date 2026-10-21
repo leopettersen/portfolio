@@ -1,6 +1,6 @@
-import { useState, type ComponentType } from 'react';
+import { useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { SectionId, WindowId, HistoryEntry } from '../../types';
+import type { SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
 import { terminalApp } from '../../data/apps';
 import { Window } from '../window/Window';
@@ -29,16 +29,32 @@ export interface DesktopLayoutProps {
 
 export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
     const { t } = useTranslation();
-    const [openWindow, setOpenWindow] = useState<WindowId | null>(null);
+    const [windows, setWindows] = useState<OpenWindow[]>([]);
     const [unlocked, setUnlocked] = useState(false);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
+    const nextLayer = useRef(1);
 
-    const activeSection = sections.find(section => section.id === openWindow);
-    const ActivePage = activeSection ? sectionComponents[activeSection.id] : null;
+    const focusedWindow = windows.reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
 
     function openApp(id: WindowId) {
-        setOpenWindow(id);
+        const layer = nextLayer.current++;
+
+        setWindows(prev => prev.some(item => item.id === id)
+            ? prev.map(item => item.id === id ? { ...item, layer } : item)
+            : [...prev, { id, layer, offset: (prev.length % 5) * 24 }]);
+
         if (id === 'terminal') setUnlocked(true);
+    }
+
+    function focusWindow(id: WindowId) {
+        if (id === focusedWindow) return;
+
+        const layer = nextLayer.current++;
+        setWindows(prev => prev.map(item => item.id === id ? { ...item, layer } : item));
+    }
+
+    function closeWindow(id: WindowId) {
+        setWindows(prev => prev.filter(item => item.id !== id));
     }
 
     function addToHistory(command: string, output: string) {
@@ -60,7 +76,7 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
             openApp(section.id);
         } else if (command === 'close') {
             addToHistory(rawCommand, t('terminal.closingSection'));
-            setOpenWindow(null);
+            if (focusedWindow) closeWindow(focusedWindow);
         } else if (command === 'clear') {
             setHistory([]);
         } else if (command === 'logout' || command === 'exit') {
@@ -100,25 +116,33 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                         ))}
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    {openWindow === 'terminal' && (
-                        <Terminal
-                            history={history}
-                            onCommand={runCommand}
-                            onClose={() => setOpenWindow(null)}
-                        />
-                    )}
+                {windows.map(({ id, layer, offset }) => {
+                    const section = sections.find(item => item.id === id);
+                    const Page = section ? sectionComponents[section.id] : null;
+                    const windowProps = {
+                        onClose: () => closeWindow(id),
+                        onCommand: runCommand,
+                        active: id === focusedWindow,
+                        onFocus: () => focusWindow(id),
+                        initialOffset: offset,
+                    };
 
-                    {activeSection && (
-                        <Window
-                            title={activeSection.windowTitle}
-                            onClose={() => setOpenWindow(null)}
-                            onCommand={runCommand}
+                    return (
+                        <div
+                            key={id}
+                            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                            style={{ zIndex: layer }}
                         >
-                            {ActivePage ? <ActivePage /> : <p>{t('window.pageNotFound')}</p>}
-                        </Window>
-                    )}
-                </div>
+                            {id === 'terminal' ? (
+                                <Terminal history={history} {...windowProps} />
+                            ) : (
+                                <Window title={section?.windowTitle ?? id} {...windowProps}>
+                                    {Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
+                                </Window>
+                            )}
+                        </div>
+                    );
+                })}
             </main>
         </div>
     )
