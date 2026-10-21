@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { AgentDraft, Language, SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
+import type { AgentDraft, Language, SectionId, WindowId, WindowLeave, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
 import { resolveCommand, systemCommandNames, systemCommands } from '../../data/commands';
@@ -27,6 +27,12 @@ const sectionComponents: Record<SectionId, ComponentType> = {
     agent: AgentPage
 }
 
+const LEAVE_DURATION = 150;
+
+function reducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 export interface DesktopLayoutProps {
     welcome?: boolean;
     onLogout: () => void;
@@ -46,10 +52,20 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     const { toasts, push: pushToast, dismiss: dismissToast } = useToasts();
 
     const focusedWindow = windows
-        .filter(item => !item.minimized)
+        .filter(item => !item.minimized && !item.leaving)
         .reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
 
     const closeStart = useCallback(() => setStartOpen(false), []);
+
+    const leaveWindow = useCallback((id: WindowId, kind: WindowLeave) => {
+        setWindows(prev => prev.map(item => item.id === id ? { ...item, leaving: kind } : item));
+
+        setTimeout(() => {
+            setWindows(prev => kind === 'close'
+                ? prev.filter(item => !(item.id === id && item.leaving === 'close'))
+                : prev.map(item => item.id === id && item.leaving === 'minimize' ? { ...item, minimized: true, leaving: undefined } : item));
+        }, reducedMotion() ? 0 : LEAVE_DURATION);
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -62,6 +78,25 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
+
+    useEffect(() => {
+        if (startOpen) return;
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key !== 'Escape' || event.defaultPrevented) return;
+
+            const active = document.activeElement;
+            if (active instanceof HTMLElement && active.matches('input, textarea, select, [contenteditable="true"]')) {
+                active.blur();
+                return;
+            }
+
+            if (focusedWindow) leaveWindow(focusedWindow, 'close');
+        };
+
+        window.addEventListener('keydown', handleEscape);
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, [startOpen, focusedWindow, leaveWindow]);
 
     useEffect(() => {
         if (!welcome) return;
@@ -89,7 +124,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         const layer = nextLayer.current++;
 
         setWindows(prev => prev.some(item => item.id === id)
-            ? prev.map(item => item.id === id ? { ...item, layer, minimized: false } : item)
+            ? prev.map(item => item.id === id ? { ...item, layer, minimized: false, leaving: undefined } : item)
             : [...prev, { id, layer, offset: (prev.length % 5) * 24, minimized: false }]);
 
         if (id === 'terminal') setUnlocked(true);
@@ -103,7 +138,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     }
 
     function minimizeWindow(id: WindowId) {
-        setWindows(prev => prev.map(item => item.id === id ? { ...item, minimized: true } : item));
+        leaveWindow(id, 'minimize');
     }
 
     function toggleFromTaskbar(id: WindowId) {
@@ -131,7 +166,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     }
 
     function closeWindow(id: WindowId) {
-        setWindows(prev => prev.filter(item => item.id !== id));
+        leaveWindow(id, 'close');
     }
 
     function addToHistory(command: string, output: string) {
@@ -197,7 +232,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                         ))}
                 </div>
 
-                {windows.map(({ id, layer, offset, minimized }) => {
+                {windows.map(({ id, layer, offset, minimized, leaving }) => {
                     const section = sections.find(item => item.id === id);
                     const Page = section ? sectionComponents[section.id] : null;
                     const windowProps = {
@@ -207,6 +242,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                         active: id === focusedWindow,
                         onFocus: () => focusWindow(id),
                         initialOffset: offset,
+                        leaving,
                     };
 
                     return (

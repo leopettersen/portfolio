@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { HistoryEntry, Language } from '../../types';
+import type { HistoryEntry, Language, WindowLeave } from '../../types';
 import { CommandPrompt } from './CommandPrompt';
 import { sections } from '../../data/sections';
 import { Window } from '../window/Window';
@@ -15,9 +15,10 @@ export interface TerminalProps {
   active?: boolean;
   onFocus?: () => void;
   initialOffset?: number;
+  leaving?: WindowLeave;
 }
 
-export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset }: TerminalProps) {
+export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset, leaving }: TerminalProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const historyRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
   const chipSections = sections.filter(section => section.showChip);
 
   return (
-    <Window title={terminalApp.title} icon={terminalApp.icon} onClose={onClose} onMinimize={onMinimize} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset}>
+    <Window title={terminalApp.title} icon={terminalApp.icon} onClose={onClose} onMinimize={onMinimize} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset} leaving={leaving}>
       <div className="h-full flex flex-col min-h-0">
 
         <div className="shrink-0">

@@ -22,11 +22,14 @@ export interface ToastItem {
     kind: ToastKind;
 }
 
+export type WindowLeave = 'close' | 'minimize';
+
 export interface OpenWindow {
     id: WindowId;
     layer: number;
     offset: number;
     minimized: boolean;
+    leaving?: WindowLeave;
 }
 
 export interface Section {

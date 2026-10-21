@@ -1,10 +1,11 @@
-import { useRef, useState, type ReactNode } from 'react';
+import { useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Copy, Minus, Square, X, type LucideIcon } from 'lucide-react';
 import { CommandPrompt } from '../terminal/CommandPrompt';
 import { systemCommandNames } from '../../data/commands';
-import type { Language } from '../../types';
+import type { Language, WindowLeave } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
+import { resizeEdges, useResizable, type ResizeEdge } from '../../hooks/useResizable';
 
 export interface WindowProps {
     title: string;
@@ -17,30 +18,65 @@ export interface WindowProps {
     active?: boolean;
     onFocus?: () => void;
     initialOffset?: number;
+    leaving?: WindowLeave;
 }
+
+const edgeClasses: Record<ResizeEdge, string> = {
+    n: 'top-0 inset-x-3 h-1.5 cursor-ns-resize',
+    s: 'bottom-0 inset-x-3 h-1.5 cursor-ns-resize',
+    e: 'right-0 inset-y-3 w-1.5 cursor-ew-resize',
+    w: 'left-0 inset-y-3 w-1.5 cursor-ew-resize',
+    ne: 'top-0 right-0 h-3 w-3 cursor-nesw-resize',
+    nw: 'top-0 left-0 h-3 w-3 cursor-nwse-resize',
+    se: 'bottom-0 right-0 h-3 w-3 cursor-nwse-resize',
+    sw: 'bottom-0 left-0 h-3 w-3 cursor-nesw-resize',
+};
+
+const leaveAnimations: Record<WindowLeave, string> = {
+    close: 'motion-safe:animate-window-out',
+    minimize: 'motion-safe:animate-window-minimize',
+};
 
 const controlButton = 'flex h-10 w-12 items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-slate-100 transition-colors cursor-pointer';
 
-export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0 }: WindowProps) {
+export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0, leaving }: WindowProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const [isMaximized, setIsMaximized] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const isDesktop = window.matchMedia('(min-width: 768px)').matches;
   const dragEnabled = !isMaximized && isDesktop;
-  const { position, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, rootRef, { x: initialOffset, y: initialOffset });
+  const { position, setPosition, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, rootRef, { x: initialOffset, y: initialOffset });
+  const { size, handleProps } = useResizable(dragEnabled, rootRef, position, setPosition);
+
+  function toggleMaximized() {
+    setIsMaximized(prev => !prev);
+  }
+
+  function handleTitleDoubleClick(event: MouseEvent<HTMLDivElement>) {
+    if (!isDesktop) return;
+    if (event.target instanceof Element && event.target.closest('button')) return;
+    toggleMaximized();
+  }
+
+  const freeStyle = size
+    ? { transform: `translate(${position.x}px, ${position.y}px)`, width: size.width, height: size.height, maxHeight: 'none' }
+    : { transform: `translate(${position.x}px, ${position.y}px)`, maxHeight: `calc(100% - 2rem - ${2 * initialOffset}px)` };
 
   return (
     <div
       ref={rootRef}
       onPointerDownCapture={onFocus}
-      className={`pointer-events-auto shadow-2xl shadow-black/50 bg-slate-900 md:border border-slate-800/60 flex flex-col text-zinc-100 text-base md:text-lg font-mono overflow-hidden ${
+      className={`${leaving ? `pointer-events-none ${leaveAnimations[leaving]}` : 'pointer-events-auto motion-safe:animate-window-in'} shadow-2xl shadow-black/50 bg-slate-900 md:border border-slate-800/60 flex flex-col text-zinc-100 text-base md:text-lg font-mono overflow-hidden ${
         isMaximized
           ? 'absolute inset-0 w-full h-full max-h-none rounded-none'
-          : 'w-full md:w-5/6 lg:w-[60%] h-full md:h-auto md:max-h-[calc(100%-2rem)] md:rounded-lg'
+          : 'relative w-full md:w-5/6 lg:w-[60%] h-full md:h-auto md:max-h-[calc(100%-2rem)] md:rounded-lg'
       }`}
-      style={isMaximized || !isDesktop ? undefined : { transform: `translate(${position.x}px, ${position.y}px)`, maxHeight: `calc(100% - 2rem - ${2 * initialOffset}px)` }}
+      style={isMaximized || !isDesktop ? undefined : freeStyle}
     >
+      {dragEnabled && resizeEdges.map((edge) => (
+        <div key={edge} aria-hidden="true" className={`absolute z-10 touch-none ${edgeClasses[edge]}`} {...handleProps(edge)} />
+      ))}
 
       <div
         className={`flex h-10 shrink-0 items-center bg-slate-950 border-b border-slate-800/60 select-none${dragEnabled ? ' cursor-move' : ''}`}
@@ -48,6 +84,7 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerCancel}
+        onDoubleClick={handleTitleDoubleClick}
       >
 
         <button
@@ -70,7 +107,7 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
             </button>
             <button
               className={`${controlButton} hidden md:flex`}
-              onClick={() => setIsMaximized(prev => !prev)}
+              onClick={toggleMaximized}
               aria-label={isMaximized ? t('window.restore') : t('window.maximize')}
               title={isMaximized ? t('window.restore') : t('window.maximize')}
             >

@@ -71,6 +71,7 @@ export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement
 
     return {
         position,
+        setPosition,
         moved,
         onPointerDown,
         onPointerMove,

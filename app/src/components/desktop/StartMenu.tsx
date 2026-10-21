@@ -44,6 +44,7 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onResta
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key !== 'Escape') return;
+            event.preventDefault();
             if (powerOpen) setPowerOpen(false);
             else onClose();
         };
