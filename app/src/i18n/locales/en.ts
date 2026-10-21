@@ -1,8 +1,8 @@
 import { pt } from './pt';
 import imgProfile from '../../assets/Perfil.jpeg';
-import imgPortoesDoCeu from '../../assets/PortoesDoCeu.jpeg';
-import imgPortfolio from '../../assets/Portfolio.png';
-import imgOpm from '../../assets/OPM.png';
+import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
+import imgPortfolio from '../../assets/Portfolio.webp';
+import imgOpm from '../../assets/OPM.webp';
 
 export const en: typeof pt = {
   terminal: {

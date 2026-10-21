@@ -43,7 +43,7 @@ export function ProjectsPage() {
                         </p>
 
                         {project.image ? (
-                            <img src={project.image} alt={project.name} className="w-full aspect-video object-cover rounded-lg mt-4" />
+                            <img src={project.image} alt={project.name} loading="lazy" decoding="async" className="w-full aspect-video object-cover rounded-lg mt-4" />
                         ) : (
                             <div className="w-full aspect-video rounded-lg mt-4 flex items-center justify-center bg-slate-700/30 text-slate-500">
                                 {t('projectUI.imageComingSoon', 'Imagem em breve')}
