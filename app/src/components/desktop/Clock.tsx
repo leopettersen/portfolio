@@ -21,20 +21,22 @@ export function Clock() {
         };
     }, []);
 
-    const weekday = now.toLocaleDateString(locale, { weekday: 'short' }).replace('.', '');
-    const month = now.toLocaleDateString(locale, { month: 'short' }).replace('.', '');
-    const day = now.toLocaleDateString(locale, { day: 'numeric' });
-
     const time = now.toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit',
         hourCycle: 'h23',
     });
 
+    const date = now.toLocaleDateString(locale, {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    });
+
     return (
-        <span className="font-mono text-sm text-zinc-400 capitalize">
-            <span className="hidden sm:inline">{weekday} {month} {day} </span>
+        <time dateTime={now.toISOString()} className="flex flex-col items-end font-mono text-xs leading-tight text-zinc-200">
             <span>{time}</span>
-        </span>
+            <span className="hidden text-zinc-400 sm:inline">{date}</span>
+        </time>
     );
 }

@@ -20,12 +20,12 @@ export function CommandPrompt({ onSubmit, active = true }: CommandPromptProps) {
     }
 
     function handleClick() {
-        inputRef.current?.focus();
+        inputRef.current?.focus({ preventScroll: true });
     }
 
     useEffect(() => {
         if (active && !isTouch) {
-            inputRef.current?.focus();
+            inputRef.current?.focus({ preventScroll: true });
         }
     }, [active, isTouch]);
 
@@ -49,7 +49,7 @@ export function CommandPrompt({ onSubmit, active = true }: CommandPromptProps) {
                 }
             }
 
-            inputRef.current?.focus();
+            inputRef.current?.focus({ preventScroll: true });
         };
 
         document.addEventListener('click', handleGlobalClick);

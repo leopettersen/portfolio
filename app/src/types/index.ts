@@ -12,6 +12,7 @@ export interface OpenWindow {
     id: WindowId;
     layer: number;
     offset: number;
+    minimized: boolean;
 }
 
 export interface Section {

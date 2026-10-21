@@ -199,9 +199,11 @@ export const pt = {
   },
   landingInfo: {
     title: 'Olá, seja bem-vindo ao meu portfólio!',
-    info: 'O meu portfólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português para o inglês.'
+    info: 'O meu portfólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. Na barra de tarefas também é possível traduzir do português para o inglês.'
   },
-  topBar: {
+  taskbar: {
+    start: 'Iniciar',
+    apps: 'Aplicativos',
     switchMode: 'Trocar de modo',
   },
   login: {

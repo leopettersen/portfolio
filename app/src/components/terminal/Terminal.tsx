@@ -4,17 +4,19 @@ import type { HistoryEntry } from '../../types';
 import { CommandPrompt } from './CommandPrompt';
 import { sections } from '../../data/sections';
 import { Window } from '../window/Window';
+import { terminalApp } from '../../data/apps';
 
 export interface TerminalProps {
   history: HistoryEntry[];
   onCommand: (command: string) => void;
   onClose: () => void;
+  onMinimize: () => void;
   active?: boolean;
   onFocus?: () => void;
   initialOffset?: number;
 }
 
-export function Terminal({ history, onCommand, onClose, active = true, onFocus, initialOffset }: TerminalProps) {
+export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset }: TerminalProps) {
   const { t } = useTranslation();
   const historyRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +33,7 @@ export function Terminal({ history, onCommand, onClose, active = true, onFocus, 
   const chipSections = sections.filter(section => section.showChip);
 
   return (
-    <Window title="terminal — zsh" onClose={onClose} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset}>
+    <Window title={terminalApp.title} icon={terminalApp.icon} onClose={onClose} onMinimize={onMinimize} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset}>
       <div className="h-full flex flex-col min-h-0">
 
         <div className="shrink-0">

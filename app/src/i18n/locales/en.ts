@@ -200,9 +200,11 @@ export const en: typeof pt = {
   },
   landingInfo: {
     title: 'Hello, welcome to my portfolio!',
-    info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the header, it is also possible to translate from English to Portuguese.'
+    info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the taskbar, it is also possible to translate from English to Portuguese.'
   },
-  topBar: {
+  taskbar: {
+    start: 'Start',
+    apps: 'Apps',
     switchMode: 'Switch mode',
   },
   login: {

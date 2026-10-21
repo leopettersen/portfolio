@@ -1,10 +1,11 @@
-import { useRef, useState, type ComponentType } from 'react';
+import { useCallback, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
-import { terminalApp } from '../../data/apps';
+import { appInfo, terminalApp } from '../../data/apps';
 import { Window } from '../window/Window';
-import { TopBar } from './TopBar';
+import { Taskbar } from './Taskbar';
+import { StartMenu } from './StartMenu';
 import { DesktopIcon } from './DesktopIcon';
 import { Terminal } from '../terminal/Terminal';
 import { AboutPage } from '../../pages/AboutPage';
@@ -32,16 +33,21 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
     const [windows, setWindows] = useState<OpenWindow[]>([]);
     const [unlocked, setUnlocked] = useState(false);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
+    const [startOpen, setStartOpen] = useState(false);
     const nextLayer = useRef(1);
 
-    const focusedWindow = windows.reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
+    const focusedWindow = windows
+        .filter(item => !item.minimized)
+        .reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
+
+    const closeStart = useCallback(() => setStartOpen(false), []);
 
     function openApp(id: WindowId) {
         const layer = nextLayer.current++;
 
         setWindows(prev => prev.some(item => item.id === id)
-            ? prev.map(item => item.id === id ? { ...item, layer } : item)
-            : [...prev, { id, layer, offset: (prev.length % 5) * 24 }]);
+            ? prev.map(item => item.id === id ? { ...item, layer, minimized: false } : item)
+            : [...prev, { id, layer, offset: (prev.length % 5) * 24, minimized: false }]);
 
         if (id === 'terminal') setUnlocked(true);
     }
@@ -51,6 +57,23 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
 
         const layer = nextLayer.current++;
         setWindows(prev => prev.map(item => item.id === id ? { ...item, layer } : item));
+    }
+
+    function minimizeWindow(id: WindowId) {
+        setWindows(prev => prev.map(item => item.id === id ? { ...item, minimized: true } : item));
+    }
+
+    function toggleFromTaskbar(id: WindowId) {
+        if (id === focusedWindow) {
+            minimizeWindow(id);
+        } else {
+            openApp(id);
+        }
+    }
+
+    function openFromStart(id: WindowId) {
+        setStartOpen(false);
+        openApp(id);
     }
 
     function closeWindow(id: WindowId) {
@@ -93,10 +116,8 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
     }
 
     return (
-        <div className="h-[100dvh] w-full overflow-hidden bg-slate-900 flex flex-col">
-            <TopBar onLogout={onLogout} />
-
-            <main className="relative flex-1 overflow-hidden">
+        <div className="relative h-[100dvh] w-full overflow-hidden bg-slate-900 flex flex-col">
+            <main className="relative isolate flex-1 overflow-clip">
                 <div className="absolute top-0 left-0 grid grid-cols-4 gap-4 p-4 md:flex md:flex-col">
                     <DesktopIcon
                         icon={terminalApp.icon}
@@ -116,11 +137,12 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                         ))}
                 </div>
 
-                {windows.map(({ id, layer, offset }) => {
+                {windows.map(({ id, layer, offset, minimized }) => {
                     const section = sections.find(item => item.id === id);
                     const Page = section ? sectionComponents[section.id] : null;
                     const windowProps = {
                         onClose: () => closeWindow(id),
+                        onMinimize: () => minimizeWindow(id),
                         onCommand: runCommand,
                         active: id === focusedWindow,
                         onFocus: () => focusWindow(id),
@@ -130,13 +152,13 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                     return (
                         <div
                             key={id}
-                            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                            className={`absolute inset-0 items-center justify-center pointer-events-none ${minimized ? 'hidden' : 'flex'}`}
                             style={{ zIndex: layer }}
                         >
                             {id === 'terminal' ? (
                                 <Terminal history={history} {...windowProps} />
                             ) : (
-                                <Window title={section?.windowTitle ?? id} {...windowProps}>
+                                <Window title={appInfo(id).title} icon={appInfo(id).icon} {...windowProps}>
                                     {Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
                                 </Window>
                             )}
@@ -144,6 +166,18 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                     );
                 })}
             </main>
+
+            {startOpen && (
+                <StartMenu onOpen={openFromStart} onSwitchMode={onLogout} onClose={closeStart} />
+            )}
+
+            <Taskbar
+                windows={windows}
+                focusedWindow={focusedWindow}
+                startOpen={startOpen}
+                onStartToggle={() => setStartOpen(prev => !prev)}
+                onWindowClick={toggleFromTaskbar}
+            />
         </div>
     )
 }

@@ -8,7 +8,7 @@ interface DragStart {
     positionX: number;
     positionY: number;
     rect: DOMRect;
-    topOffset: number;
+    bounds: DOMRect;
 }
 
 export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement | null>, initialPosition = { x: 0, y: 0 }) {
@@ -33,7 +33,7 @@ export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement
             positionX: position.x,
             positionY: position.y,
             rect: element.getBoundingClientRect(),
-            topOffset: 2 * parseFloat(getComputedStyle(document.documentElement).fontSize) || 32
+            bounds: (element.closest('main') ?? document.documentElement).getBoundingClientRect()
         };
         moved.current = false;
         event.currentTarget.setPointerCapture(event.pointerId);
@@ -50,10 +50,10 @@ export function useDraggable(enabled: boolean, targetRef?: RefObject<HTMLElement
         let x = start.positionX + dx;
         let y = start.positionY + dy;
 
-        const minX = start.positionX - start.rect.left;
-        const maxX = minX + window.innerWidth - start.rect.width;
-        const minY = start.positionY - start.rect.top + start.topOffset;
-        const maxY = minY + window.innerHeight - start.topOffset - start.rect.height;
+        const minX = start.positionX - (start.rect.left - start.bounds.left);
+        const maxX = minX + start.bounds.width - start.rect.width;
+        const minY = start.positionY - (start.rect.top - start.bounds.top);
+        const maxY = minY + start.bounds.height - start.rect.height;
 
         x = Math.max(Math.min(x, maxX), minX);
         y = Math.max(Math.min(y, maxY), minY);
