@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import type { OpenWindow, WindowId } from '../../types';
+import type { Language, OpenWindow, WindowId } from '../../types';
 import { appInfo } from '../../data/apps';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { Clock } from './Clock';
@@ -14,7 +14,8 @@ export interface TaskbarProps {
 }
 
 export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWindowClick }: TaskbarProps) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const language = i18n.resolvedLanguage as Language;
 
     return (
         <footer className="relative z-40 flex h-12 shrink-0 items-center gap-2 border-t border-slate-800/60 bg-slate-950/95 px-2 font-mono text-zinc-400 backdrop-blur-md pb-[env(safe-area-inset-bottom)] box-content">
@@ -34,7 +35,7 @@ export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWi
                 </button>
 
                 {windows.map(({ id, minimized }) => {
-                    const { title, icon: Icon } = appInfo(id);
+                    const { title, icon: Icon } = appInfo(id, language);
                     const focused = id === focusedWindow && !minimized;
 
                     return (

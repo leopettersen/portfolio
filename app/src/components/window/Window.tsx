@@ -2,6 +2,8 @@ import { useRef, useState, type ReactNode } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Copy, Minus, Square, X, type LucideIcon } from 'lucide-react';
 import { CommandPrompt } from '../terminal/CommandPrompt';
+import { systemCommandNames } from '../../data/commands';
+import type { Language } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
 
 export interface WindowProps {
@@ -20,7 +22,8 @@ export interface WindowProps {
 const controlButton = 'flex h-10 w-12 items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-slate-100 transition-colors cursor-pointer';
 
 export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0 }: WindowProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage as Language;
   const [isMaximized, setIsMaximized] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const isDesktop = window.matchMedia('(min-width: 768px)').matches;
@@ -92,7 +95,7 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
           <CommandPrompt onSubmit={onCommand} active={active} />
 
           <p className="text-xs text-slate-400 hidden sm:block">
-            <Trans i18nKey="window.closeHint" values={{ command: 'close' }} components={{ 1: <span className="text-slate-400" /> }} />
+            <Trans i18nKey="window.closeHint" values={{ command: systemCommandNames.close[language] }} components={{ 1: <span className="text-slate-400" /> }} />
           </p>
         </div>
       )}

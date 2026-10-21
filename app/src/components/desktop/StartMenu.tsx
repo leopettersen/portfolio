@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, LogOut, Power, RotateCcw, Search, Sparkles, SquareChevronRight, type LucideIcon } from 'lucide-react';
-import type { WindowId } from '../../types';
+import type { Language, WindowId } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo } from '../../data/apps';
-import { systemCommands } from '../../data/commands';
+import { commandAliases, normalizeCommand, systemCommandNames, systemCommands } from '../../data/commands';
 
 export interface StartMenuProps {
     onOpen: (id: WindowId) => void;
@@ -26,12 +26,9 @@ interface SearchResult {
 
 const apps: WindowId[] = ['terminal', ...sections.map((section) => section.id)];
 
-function normalize(text: string) {
-    return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-}
-
 export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onRestart, onShutdown, onClose }: StartMenuProps) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const language = i18n.resolvedLanguage as Language;
     const menuRef = useRef<HTMLDivElement>(null);
     const [query, setQuery] = useState('');
     const [selected, setSelected] = useState(0);
@@ -64,25 +61,26 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onResta
         return id === 'terminal' ? 'terminal' : t(`standard.menu.${id}`);
     }
 
-    const term = normalize(query);
+    const term = normalizeCommand(query);
     const results: SearchResult[] = [];
 
     if (term) {
         for (const id of apps) {
-            const { label, icon } = appInfo(id);
-            if ([label, appName(id)].some((name) => normalize(name).includes(term))) {
+            const { label, icon, aliases } = appInfo(id, language);
+            if ([...aliases, appName(id)].some((name) => normalizeCommand(name).includes(term))) {
                 results.push({ key: `app-${id}`, icon, label, detail: appName(id), run: () => onOpen(id) });
             }
         }
 
         for (const command of systemCommands) {
-            if (command.includes(term)) {
+            const label = systemCommandNames[command][language];
+            if (commandAliases(command).some((name) => name.includes(term))) {
                 results.push({
                     key: `command-${command}`,
                     icon: SquareChevronRight,
-                    label: command,
+                    label,
                     detail: t(`commands.${command}`),
-                    run: () => onCommand(command),
+                    run: () => onCommand(label),
                 });
             }
         }
@@ -177,7 +175,7 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onResta
 
                         <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                             {apps.map((id) => {
-                                const { label, icon: Icon } = appInfo(id);
+                                const { label, icon: Icon } = appInfo(id, language);
 
                                 return (
                                     <button

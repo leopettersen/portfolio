@@ -2,6 +2,8 @@ import type {LucideIcon} from 'lucide-react';
 
 export type Language = 'pt' | 'en';
 
+export type Localized = Record<Language, string>;
+
 export type PortfolioMode = 'system' | 'standard';
 
 export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent';
@@ -22,8 +24,8 @@ export interface OpenWindow {
 
 export interface Section {
     id: SectionId;
-    command: string;
-    windowTitle: string;
+    command: Localized;
+    windowTitle: Localized;
     icon: LucideIcon;
     showShortcut: boolean;
     showChip: boolean;

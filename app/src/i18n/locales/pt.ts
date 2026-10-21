@@ -8,7 +8,7 @@ export const pt = {
     role: 'Estudante de Engenharia de Software',
     university: 'PUC Minas',
     typeMessage: 'digite',
-    typeCommand: 'help',
+    typeCommand: 'ajuda',
     toSeeCommands: 'para ver os comandos',
     openingSection: 'Abrindo seção: {{title}}',
     closingSection: 'Fechando seção atual.',

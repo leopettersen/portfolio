@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { AgentDraft, SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
+import type { AgentDraft, Language, SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
-import { systemCommands } from '../../data/commands';
+import { resolveCommand, systemCommandNames, systemCommands } from '../../data/commands';
 import { Window } from '../window/Window';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
@@ -32,7 +32,8 @@ export interface DesktopLayoutProps {
 }
 
 export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayoutProps) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const language = i18n.resolvedLanguage as Language;
     const [windows, setWindows] = useState<OpenWindow[]>([]);
     const [unlocked, setUnlocked] = useState(false);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
@@ -116,24 +117,26 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
     }
 
     function runCommand(rawCommand: string) {
-        const command = rawCommand.trim().toLowerCase();
-        if (!command) return;
+        if (!rawCommand.trim()) return;
 
-        const section = sections.find((s) => s.command === command);
+        const command = resolveCommand(rawCommand);
 
-        if (section) {
-            addToHistory(rawCommand, t('terminal.openingSection', { title: section.windowTitle }));
-            openApp(section.id);
-        } else if (command === 'close') {
+        if (command?.kind === 'section') {
+            addToHistory(rawCommand, t('terminal.openingSection', { title: appInfo(command.id, language).title }));
+            openApp(command.id);
+        } else if (command?.id === 'close') {
             addToHistory(rawCommand, t('terminal.closingSection'));
             if (focusedWindow) closeWindow(focusedWindow);
-        } else if (command === 'clear') {
+        } else if (command?.id === 'clear') {
             setHistory([]);
-        } else if (command === 'logout' || command === 'exit') {
+        } else if (command?.id === 'logout') {
             onLogout();
-        } else if (command === 'help') {
+        } else if (command?.id === 'help') {
             addToHistory(rawCommand, t('terminal.availableCommands', {
-                commands: [...sections.map((s) => s.command), ...systemCommands].join(', ')
+                commands: [
+                    ...sections.map((s) => s.command[language]),
+                    ...systemCommands.map((id) => systemCommandNames[id][language]),
+                ].join(', ')
             }));
             openApp('terminal');
         } else {
@@ -162,7 +165,7 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
                             <DesktopIcon
                                 key={section.id}
                                 icon={section.icon}
-                                label={section.command}
+                                label={section.command[language]}
                                 onOpen={() => openApp(section.id)}
                             />
                         ))}
@@ -189,7 +192,7 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
                             {id === 'terminal' ? (
                                 <Terminal history={history} {...windowProps} />
                             ) : (
-                                <Window title={appInfo(id).title} icon={appInfo(id).icon} {...windowProps}>
+                                <Window title={appInfo(id, language).title} icon={appInfo(id, language).icon} {...windowProps}>
                                     {id === 'agent' ? <AgentPage draft={agentDraft} /> : Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
                                 </Window>
                             )}

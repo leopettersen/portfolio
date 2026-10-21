@@ -1,10 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { HistoryEntry } from '../../types';
+import type { HistoryEntry, Language } from '../../types';
 import { CommandPrompt } from './CommandPrompt';
 import { sections } from '../../data/sections';
 import { Window } from '../window/Window';
 import { terminalApp } from '../../data/apps';
+import { systemCommandNames } from '../../data/commands';
 
 export interface TerminalProps {
   history: HistoryEntry[];
@@ -17,7 +18,8 @@ export interface TerminalProps {
 }
 
 export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset }: TerminalProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage as Language;
   const historyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -62,18 +64,18 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
               <button
                 key={section.id}
                 type="button"
-                onClick={() => onCommand(section.command)}
+                onClick={() => onCommand(section.command[language])}
                 className="border border-slate-700/50 px-3 py-2 md:py-1 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors cursor-pointer"
               >
-                [ {section.command} ]
+                [ {section.command[language]} ]
               </button>
             ))}
             <button
               type="button"
-              onClick={() => onCommand('help')}
+              onClick={() => onCommand(systemCommandNames.help[language])}
               className="border border-slate-700/50 px-3 py-2 md:py-1 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors"
             >
-              [ help ]
+              [ {systemCommandNames.help[language]} ]
             </button>
           </div>
         </div>
