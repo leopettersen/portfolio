@@ -198,8 +198,8 @@ export const pt = {
     skip: 'pressione qualquer tecla ou toque para pular',
   },
   landingInfo: {
-    title: 'Olá, seja bem vindo ao meu portifólio!',
-    info: 'O meu portifólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português pro inglês.'
+    title: 'Olá, seja bem-vindo ao meu portfólio!',
+    info: 'O meu portfólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português para o inglês.'
   },
   topBar: {
     switchMode: 'Trocar de modo',
