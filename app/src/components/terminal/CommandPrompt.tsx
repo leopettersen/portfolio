@@ -7,7 +7,7 @@ export interface CommandPromptProps {
 export function CommandPrompt({ onSubmit }: CommandPromptProps) {
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
-    const [isTouch, setIsTouch] = useState(false);
+    const [isTouch] = useState(() => window.matchMedia('(pointer: coarse)').matches);
 
     function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
@@ -21,9 +21,6 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
     }
 
     useEffect(() => {
-        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-        setIsTouch(isTouchDevice);
-
         const handleGlobalClick = (event: MouseEvent) => {
             if (window.getSelection()?.toString()) {
                 return;
@@ -39,7 +36,7 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
                 }
             }
 
-            if (isTouchDevice) {
+            if (isTouch) {
                 return;
             }
 
@@ -51,7 +48,7 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
         return () => {
             document.removeEventListener('click', handleGlobalClick);
         };
-    }, []);
+    }, [isTouch]);
 
     return (
 
