@@ -25,6 +25,10 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
         setIsTouch(isTouchDevice);
 
         const handleGlobalClick = (event: MouseEvent) => {
+            if (window.getSelection()?.toString()) {
+                return;
+            }
+
             const target = event.target;
 
             if (target instanceof HTMLElement) {
