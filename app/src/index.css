@@ -10,6 +10,7 @@
   --color-on-brand: var(--on-brand);
   --shadow-brand: var(--brand-shadow);
   --font-geist: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 :root {
