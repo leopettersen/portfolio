@@ -24,6 +24,17 @@ export interface ToastItem {
 
 export type WindowLeave = 'close' | 'minimize';
 
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface WindowLayout extends Point {
+    width?: number;
+    height?: number;
+    maximized: boolean;
+}
+
 export interface OpenWindow {
     id: WindowId;
     layer: number;

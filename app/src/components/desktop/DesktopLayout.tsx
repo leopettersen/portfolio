@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { AgentDraft, Language, SectionId, WindowId, WindowLeave, HistoryEntry, OpenWindow } from '../../types';
+import type { AgentDraft, Language, Point, SectionId, WindowId, WindowLayout, WindowLeave, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
 import { resolveCommand, systemCommandNames, systemCommands } from '../../data/commands';
@@ -10,6 +10,7 @@ import { StartMenu } from './StartMenu';
 import { DesktopIcon } from './DesktopIcon';
 import { ToastStack } from './ToastStack';
 import { useToasts } from '../../hooks/useToasts';
+import { loadDesktopState, saveDesktopState, type DesktopState } from '../../services/desktopStorage';
 import { Terminal } from '../terminal/Terminal';
 import { AboutPage } from '../../pages/AboutPage';
 import { ExperiencePage } from '../../pages/ExperiencePage';
@@ -29,6 +30,10 @@ const sectionComponents: Record<SectionId, ComponentType> = {
 
 const LEAVE_DURATION = 150;
 
+function cascadeOffset(index: number) {
+    return (index % 5) * 24;
+}
+
 function reducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
@@ -43,12 +48,20 @@ export interface DesktopLayoutProps {
 export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown }: DesktopLayoutProps) {
     const { t, i18n } = useTranslation();
     const language = i18n.resolvedLanguage as Language;
-    const [windows, setWindows] = useState<OpenWindow[]>([]);
-    const [unlocked, setUnlocked] = useState(false);
+    const [saved] = useState(loadDesktopState);
+    const [windows, setWindows] = useState<OpenWindow[]>(() => saved.windows.map((item, index) => ({
+        id: item.id,
+        layer: index + 1,
+        offset: cascadeOffset(index),
+        minimized: item.minimized,
+    })));
+    const [unlocked, setUnlocked] = useState(saved.unlocked);
+    const [layouts, setLayouts] = useState(saved.layouts);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
     const [startOpen, setStartOpen] = useState(false);
     const [agentDraft, setAgentDraft] = useState<AgentDraft | null>(null);
-    const nextLayer = useRef(1);
+    const nextLayer = useRef(saved.windows.length + 1);
+    const persisted = useRef<DesktopState>(saved);
     const { toasts, push: pushToast, dismiss: dismissToast } = useToasts();
 
     const focusedWindow = windows
@@ -56,6 +69,33 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         .reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
 
     const closeStart = useCallback(() => setStartOpen(false), []);
+
+    const persist = useCallback((patch: Partial<DesktopState>) => {
+        persisted.current = { ...persisted.current, ...patch };
+        saveDesktopState(persisted.current);
+    }, []);
+
+    useEffect(() => {
+        persist({
+            unlocked,
+            windows: windows
+                .filter(item => item.leaving !== 'close')
+                .sort((a, b) => a.layer - b.layer)
+                .map(item => ({ id: item.id, minimized: item.minimized || item.leaving === 'minimize' })),
+        });
+    }, [windows, unlocked, persist]);
+
+    useEffect(() => {
+        persist({ layouts });
+    }, [layouts, persist]);
+
+    function saveIcon(id: WindowId, position: Point) {
+        persist({ icons: { ...persisted.current.icons, [id]: position } });
+    }
+
+    function saveLayout(id: WindowId, layout: WindowLayout) {
+        setLayouts(prev => ({ ...prev, [id]: layout }));
+    }
 
     const leaveWindow = useCallback((id: WindowId, kind: WindowLeave) => {
         setWindows(prev => prev.map(item => item.id === id ? { ...item, leaving: kind } : item));
@@ -125,7 +165,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
 
         setWindows(prev => prev.some(item => item.id === id)
             ? prev.map(item => item.id === id ? { ...item, layer, minimized: false, leaving: undefined } : item)
-            : [...prev, { id, layer, offset: (prev.length % 5) * 24, minimized: false }]);
+            : [...prev, { id, layer, offset: cascadeOffset(prev.length), minimized: false }]);
 
         if (id === 'terminal') setUnlocked(true);
     }
@@ -218,6 +258,8 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                         icon={terminalApp.icon}
                         label={terminalApp.label}
                         onOpen={() => openApp('terminal')}
+                        initialPosition={saved.icons.terminal}
+                        onMove={(position) => saveIcon('terminal', position)}
                     />
 
                     {unlocked && sections
@@ -228,6 +270,8 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                                 icon={section.icon}
                                 label={section.command[language]}
                                 onOpen={() => openApp(section.id)}
+                                initialPosition={saved.icons[section.id]}
+                                onMove={(position) => saveIcon(section.id, position)}
                             />
                         ))}
                 </div>
@@ -243,6 +287,8 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                         onFocus: () => focusWindow(id),
                         initialOffset: offset,
                         leaving,
+                        initialLayout: layouts[id],
+                        onLayoutChange: (layout: WindowLayout) => saveLayout(id, layout),
                     };
 
                     return (

@@ -3,9 +3,9 @@ import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Copy, Minus, Square, X, type LucideIcon } from 'lucide-react';
 import { CommandPrompt } from '../terminal/CommandPrompt';
 import { systemCommandNames } from '../../data/commands';
-import type { Language, WindowLeave } from '../../types';
+import type { Language, Point, WindowLayout, WindowLeave } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
-import { resizeEdges, useResizable, type ResizeEdge } from '../../hooks/useResizable';
+import { resizeEdges, useResizable, type ResizeEdge, type Size } from '../../hooks/useResizable';
 
 export interface WindowProps {
     title: string;
@@ -19,6 +19,8 @@ export interface WindowProps {
     onFocus?: () => void;
     initialOffset?: number;
     leaving?: WindowLeave;
+    initialLayout?: WindowLayout;
+    onLayoutChange?: (layout: WindowLayout) => void;
 }
 
 const edgeClasses: Record<ResizeEdge, string> = {
@@ -39,18 +41,42 @@ const leaveAnimations: Record<WindowLeave, string> = {
 
 const controlButton = 'flex h-10 w-12 items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-slate-100 transition-colors cursor-pointer';
 
-export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0, leaving }: WindowProps) {
+export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0, leaving, initialLayout, onLayoutChange }: WindowProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
-  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(initialLayout?.maximized ?? false);
   const rootRef = useRef<HTMLDivElement>(null);
   const isDesktop = window.matchMedia('(min-width: 768px)').matches;
   const dragEnabled = !isMaximized && isDesktop;
-  const { position, setPosition, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, rootRef, { x: initialOffset, y: initialOffset });
-  const { size, handleProps } = useResizable(dragEnabled, rootRef, position, setPosition);
+  const initialPosition = initialLayout ? { x: initialLayout.x, y: initialLayout.y } : { x: initialOffset, y: initialOffset };
+  const initialSize = initialLayout?.width && initialLayout.height ? { width: initialLayout.width, height: initialLayout.height } : null;
+
+  function reportLayout(nextPosition: Point, nextSize: Size | null, maximized: boolean) {
+    onLayoutChange?.({ ...nextPosition, ...nextSize, maximized });
+  }
+
+  const { position, setPosition, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(
+    dragEnabled,
+    rootRef,
+    initialPosition,
+    handleDragEnd,
+  );
+  const { size, handleProps } = useResizable(
+    dragEnabled,
+    rootRef,
+    position,
+    setPosition,
+    initialSize,
+    (nextSize, nextPosition) => reportLayout(nextPosition, nextSize, false),
+  );
+
+  function handleDragEnd(nextPosition: Point) {
+    reportLayout(nextPosition, size, false);
+  }
 
   function toggleMaximized() {
-    setIsMaximized(prev => !prev);
+    setIsMaximized(!isMaximized);
+    reportLayout(position, size, !isMaximized);
   }
 
   function handleTitleDoubleClick(event: MouseEvent<HTMLDivElement>) {
@@ -60,8 +86,8 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
   }
 
   const freeStyle = size
-    ? { transform: `translate(${position.x}px, ${position.y}px)`, width: size.width, height: size.height, maxHeight: 'none' }
-    : { transform: `translate(${position.x}px, ${position.y}px)`, maxHeight: `calc(100% - 2rem - ${2 * initialOffset}px)` };
+    ? { transform: `translate(${position.x}px, ${position.y}px)`, width: size.width, height: size.height, maxWidth: '100%', maxHeight: '100%' }
+    : { transform: `translate(${position.x}px, ${position.y}px)`, maxHeight: `calc(100% - 2rem - ${2 * Math.abs(initialPosition.y)}px)` };
 
   return (
     <div

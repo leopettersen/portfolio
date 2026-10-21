@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { PointerEvent, RefObject } from 'react';
+import type { Point } from '../types';
 
 export type ResizeEdge = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
@@ -10,19 +11,15 @@ export interface Size {
     height: number;
 }
 
-interface Position {
-    x: number;
-    y: number;
-}
-
 interface ResizeStart {
     pointerId: number;
     edge: ResizeEdge;
     x: number;
     y: number;
-    position: Position;
+    position: Point;
     rect: DOMRect;
     bounds: DOMRect;
+    last: { size: Size; position: Point } | null;
 }
 
 const MIN_WIDTH = 420;
@@ -35,10 +32,12 @@ function clamp(value: number, min: number, max: number) {
 export function useResizable(
     enabled: boolean,
     targetRef: RefObject<HTMLElement | null>,
-    position: Position,
-    setPosition: (position: Position) => void,
+    position: Point,
+    setPosition: (position: Point) => void,
+    initialSize: Size | null = null,
+    onResizeEnd?: (size: Size, position: Point) => void,
 ) {
-    const [size, setSize] = useState<Size | null>(null);
+    const [size, setSize] = useState<Size | null>(initialSize);
     const resizeStart = useRef<ResizeStart | null>(null);
 
     function onPointerDown(edge: ResizeEdge) {
@@ -56,6 +55,7 @@ export function useResizable(
                 position,
                 rect: element.getBoundingClientRect(),
                 bounds: (element.closest('main') ?? document.documentElement).getBoundingClientRect(),
+                last: null,
             };
             event.currentTarget.setPointerCapture(event.pointerId);
         };
@@ -79,12 +79,16 @@ export function useResizable(
         const centeredLeft = start.rect.left - start.position.x + (start.rect.width - width) / 2;
         const centeredTop = start.rect.top - start.position.y + (start.rect.height - height) / 2;
 
-        setSize({ width, height });
-        setPosition({ x: left - centeredLeft, y: top - centeredTop });
+        const next = { size: { width, height }, position: { x: left - centeredLeft, y: top - centeredTop } };
+        start.last = next;
+        setSize(next.size);
+        setPosition(next.position);
     }
 
     function onPointerEnd() {
+        const last = resizeStart.current?.last;
         resizeStart.current = null;
+        if (last) onResizeEnd?.(last.size, last.position);
     }
 
     function handleProps(edge: ResizeEdge) {
