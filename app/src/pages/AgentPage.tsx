@@ -1,17 +1,35 @@
-import { useEffect, useRef, type FormEvent, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RotateCcw, Send, Sparkles, Square } from 'lucide-react';
 
+import type { AgentDraft } from '../types';
 import { MAX_MESSAGE } from '../services/gemini';
 import { MarkdownText } from '../components/ui/MarkdownText';
 import { useAgentChat } from '../hooks/useAgentChat';
 
-export function AgentPage() {
+export interface AgentPageProps {
+    draft?: AgentDraft | null;
+}
+
+export function AgentPage({ draft = null }: AgentPageProps) {
     const { t } = useTranslation();
     const { messages, input, setInput, loading, send, stop, reset, errorText } = useAgentChat();
+    const [appliedDraft, setAppliedDraft] = useState<AgentDraft | null>(null);
 
     const listRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
+
+    if (draft !== appliedDraft) {
+        setAppliedDraft(draft);
+        if (draft) setInput(draft.text.slice(0, MAX_MESSAGE));
+    }
+
+    useEffect(() => {
+        if (!draft) return;
+
+        const frame = requestAnimationFrame(() => inputRef.current?.focus());
+        return () => cancelAnimationFrame(frame);
+    }, [draft]);
 
     const suggestions = t('agent.suggestions', { returnObjects: true }) as string[];
 

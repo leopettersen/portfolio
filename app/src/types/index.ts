@@ -8,6 +8,11 @@ export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guest
 
 export type WindowId = 'terminal' | SectionId;
 
+export interface AgentDraft {
+    id: number;
+    text: string;
+}
+
 export interface OpenWindow {
     id: WindowId;
     layer: number;

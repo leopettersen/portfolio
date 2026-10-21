@@ -205,6 +205,14 @@ export const pt = {
     start: 'Iniciar',
     apps: 'Aplicativos',
     switchMode: 'Trocar de modo',
+    searchPlaceholder: 'Pesquisar apps e comandos',
+    askAgent: 'Perguntar ao agente:',
+  },
+  commands: {
+    help: 'Lista os comandos disponíveis',
+    clear: 'Limpa o histórico do terminal',
+    close: 'Fecha a janela em foco',
+    logout: 'Volta para a escolha de modo',
   },
   login: {
     question: 'Como você prefere ver o portfólio?',

@@ -206,6 +206,14 @@ export const en: typeof pt = {
     start: 'Start',
     apps: 'Apps',
     switchMode: 'Switch mode',
+    searchPlaceholder: 'Search apps and commands',
+    askAgent: 'Ask the agent:',
+  },
+  commands: {
+    help: 'Lists the available commands',
+    clear: 'Clears the terminal history',
+    close: 'Closes the focused window',
+    logout: 'Goes back to the mode choice',
   },
   login: {
     question: 'How would you like to see the portfolio?',

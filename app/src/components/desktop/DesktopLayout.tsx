@@ -1,8 +1,9 @@
-import { useCallback, useRef, useState, type ComponentType } from 'react';
+import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
+import type { AgentDraft, SectionId, WindowId, HistoryEntry, OpenWindow } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
+import { systemCommands } from '../../data/commands';
 import { Window } from '../window/Window';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
@@ -34,6 +35,7 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
     const [unlocked, setUnlocked] = useState(false);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
     const [startOpen, setStartOpen] = useState(false);
+    const [agentDraft, setAgentDraft] = useState<AgentDraft | null>(null);
     const nextLayer = useRef(1);
 
     const focusedWindow = windows
@@ -41,6 +43,18 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
         .reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
 
     const closeStart = useCallback(() => setStartOpen(false), []);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+                event.preventDefault();
+                setStartOpen(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     function openApp(id: WindowId) {
         const layer = nextLayer.current++;
@@ -76,6 +90,17 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
         openApp(id);
     }
 
+    function commandFromStart(command: string) {
+        setStartOpen(false);
+        runCommand(command);
+    }
+
+    function askAgentFromStart(question: string) {
+        setStartOpen(false);
+        setAgentDraft(prev => ({ id: (prev?.id ?? 0) + 1, text: question }));
+        openApp('agent');
+    }
+
     function closeWindow(id: WindowId) {
         setWindows(prev => prev.filter(item => item.id !== id));
     }
@@ -106,7 +131,7 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
             onLogout();
         } else if (command === 'help') {
             addToHistory(rawCommand, t('terminal.availableCommands', {
-                commands: sections.map((s) => s.command).join(', ') + ', clear, close, logout'
+                commands: [...sections.map((s) => s.command), ...systemCommands].join(', ')
             }));
             openApp('terminal');
         } else {
@@ -159,7 +184,7 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                                 <Terminal history={history} {...windowProps} />
                             ) : (
                                 <Window title={appInfo(id).title} icon={appInfo(id).icon} {...windowProps}>
-                                    {Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
+                                    {id === 'agent' ? <AgentPage draft={agentDraft} /> : Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
                                 </Window>
                             )}
                         </div>
@@ -168,7 +193,13 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
             </main>
 
             {startOpen && (
-                <StartMenu onOpen={openFromStart} onSwitchMode={onLogout} onClose={closeStart} />
+                <StartMenu
+                    onOpen={openFromStart}
+                    onCommand={commandFromStart}
+                    onAskAgent={askAgentFromStart}
+                    onSwitchMode={onLogout}
+                    onClose={closeStart}
+                />
             )}
 
             <Taskbar
