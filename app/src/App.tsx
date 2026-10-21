@@ -9,13 +9,23 @@ const StandardPortfolio = lazy(() => import('./components/standard/StandardPortf
 
 type Stage = 'boot' | 'login' | 'desktop' | 'standard';
 
+const LANDING_SEEN_KEY = 'landing-popup-seen';
+
+function landingSeen() {
+    try {
+        return sessionStorage.getItem(LANDING_SEEN_KEY) === 'true';
+    } catch {
+        return false;
+    }
+}
+
 export default function App() {
     const [stage, setStage] = useState<Stage>('boot');
     const [showLanding, setShowLanding] = useState(false);
 
     function closeLanding() {
         try {
-            sessionStorage.setItem('landing-popup-seen', 'true');
+            sessionStorage.setItem(LANDING_SEEN_KEY, 'true');
         } catch {
         }
         setShowLanding(false);
@@ -24,7 +34,7 @@ export default function App() {
     function enter(mode: PortfolioMode) {
         if (mode === 'system') {
             setStage('desktop');
-            setShowLanding(true);
+            setShowLanding(!landingSeen());
         } else {
             setStage('standard');
         }
