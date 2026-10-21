@@ -100,7 +100,7 @@ export const en: typeof pt = {
       date: 'Oct 2026',
       description: 'The system showcases my journey, projects, experiences, and contact methods in an interface inspired by a desktop with a terminal. Navigation can be done via commands or interface icons, with support for Portuguese and English, light and dark themes, and responsive design for computers and mobile devices. The goal is to present my work quickly, clearly, and interactively, without requiring registration or login.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
-      repoLink: 'https://github.com/leopettersen/portifolio',
+      repoLink: 'https://github.com/leopettersen/portfolio',
       image: imgPortfolio,
     },
     {

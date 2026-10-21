@@ -17,7 +17,7 @@ export const PERFIL = `
 
 # Projetos
 - Sistema Hospitalar "Portões do Céu" (dez/2026): sistema web de gestão hospitalar em Java com Spring Boot, Thymeleaf e MySQL, com API REST para pacientes, profissionais, consultas, internações, controle de quartos e histórico médico. Repositório: github.com/leopettersen/TP-sistema-hospitalar
-- Portfólio Profissional (out/2026): este site, que imita um sistema operacional com terminal, feito com React, TypeScript, Tailwind CSS, Supabase (guestbook), EmailJS, Docker e publicado na Vercel. Também tem este agente, que usa a API do Google Gemini. Repositório: github.com/leopettersen/portifolio
+- Portfólio Profissional (out/2026): este site, que imita um sistema operacional com terminal, feito com React, TypeScript, Tailwind CSS, Supabase (guestbook), EmailJS, Docker e publicado na Vercel. Também tem este agente, que usa a API do Google Gemini. Repositório: github.com/leopettersen/portfolio
 - Opera Máquinas (OPM) (jul/2026): interface web para otimizar e gerir a produção em ambientes industriais, com login e cadastro de usuários por função. Feito com HTML5, CSS3 e JavaScript. Repositório: github.com/leopettersen/trabalho-intedisciplinar1-opm
 
 # Habilidades
