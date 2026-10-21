@@ -15,7 +15,7 @@ export function LandingInfoPage({ onClose }: LandingInfoPageProps) {
             <button
             onClick={onClose}
             className="w-3 h-3 rounded-full bg-red-500 hover:cursor-pointer"
-            aria-label="Fechar"
+            aria-label={t('window.close')}
             ></button>
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
             <div className="w-3 h-3 rounded-full bg-green-500" />
@@ -34,7 +34,7 @@ export function LandingInfoPage({ onClose }: LandingInfoPageProps) {
             onClick={onClose}
             className="border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 hover:cursor-pointer transition-colors"
           >
-            Fechar
+            {t('window.close')}
           </button>
         </div>
       </div>

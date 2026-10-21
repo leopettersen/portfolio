@@ -16,6 +16,7 @@ export const en: typeof pt = {
     clearingHistory: 'Clearing history.',
     availableCommands: 'Available commands: {{commands}}',
     commandNotFound: 'Command not found: "{{command}}"',
+    inputLabel: 'Terminal command',
   },
   window: {
     back: 'Back',

@@ -1,10 +1,12 @@
 import { useRef, useState, useEffect, type KeyboardEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface CommandPromptProps {
     onSubmit: (command: string) => void;
 }
 
 export function CommandPrompt({ onSubmit }: CommandPromptProps) {
+    const { t } = useTranslation();
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const [isTouch] = useState(() => window.matchMedia('(pointer: coarse)').matches);
@@ -60,7 +62,7 @@ export function CommandPrompt({ onSubmit }: CommandPromptProps) {
                 className="sr-only"
                 type="text" 
                 ref={inputRef}
-                aria-label="Comando do terminal"
+                aria-label={t('terminal.inputLabel')}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
             />

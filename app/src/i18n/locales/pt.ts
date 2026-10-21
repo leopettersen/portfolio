@@ -15,6 +15,7 @@ export const pt = {
     clearingHistory: 'Limpando histórico.',
     availableCommands: 'Comandos disponíveis: {{commands}}',
     commandNotFound: 'Comando não encontrado: "{{command}}"',
+    inputLabel: 'Comando do terminal',
   },
   window: {
     back: 'Voltar',
