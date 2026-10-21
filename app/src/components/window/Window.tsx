@@ -69,7 +69,7 @@ export function Window({ title, children, onClose, onCommand, showFooter = true 
         <div className="shrink-0 hidden md:flex justify-between items-center px-4 py-3 bg-slate-950 border-t border-slate-800/60 rounded-b-lg">
           <CommandPrompt onSubmit={onCommand} />
 
-          <p className="text-xs text-slate-500 hidden sm:block">
+          <p className="text-xs text-slate-400 hidden sm:block">
             <Trans i18nKey="window.closeHint" values={{ command: 'close' }} components={{ 1: <span className="text-slate-400" /> }} />
           </p>
         </div>

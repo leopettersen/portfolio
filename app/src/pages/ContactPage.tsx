@@ -93,7 +93,7 @@ export function ContactPage() {
                         <div className="flex items-center justify-between gap-2">
                             <contact.icon size={20} />
 
-                            <span className="text-xs text-slate-500">
+                            <span className="text-xs text-slate-400">
                                 {String(index + 1).padStart(2, '0')}
                             </span>
                         </div>

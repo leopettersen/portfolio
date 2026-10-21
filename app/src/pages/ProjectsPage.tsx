@@ -22,7 +22,7 @@ export function ProjectsPage() {
 
                             <div className="flex items-baseline gap-3">
 
-                                <span className="text-sm font-semibold text-slate-500">
+                                <span className="text-sm font-semibold text-slate-400">
                                     {String(index + 1).padStart(2, '0')}
                                 </span>
 
@@ -45,7 +45,7 @@ export function ProjectsPage() {
                         {project.image ? (
                             <img src={project.image} alt={project.name} loading="lazy" decoding="async" className="w-full aspect-video object-cover rounded-lg mt-4" />
                         ) : (
-                            <div className="w-full aspect-video rounded-lg mt-4 flex items-center justify-center bg-slate-700/30 text-slate-500">
+                            <div className="w-full aspect-video rounded-lg mt-4 flex items-center justify-center bg-slate-700/30 text-slate-400">
                                 {t('projectUI.imageComingSoon', 'Imagem em breve')}
                             </div>
                         )}

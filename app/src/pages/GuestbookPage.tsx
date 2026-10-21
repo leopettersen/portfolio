@@ -85,7 +85,7 @@ export function GuestbookPage() {
                                 <span />
                             )}
 
-                            <span className="text-xs text-slate-500">
+                            <span className="text-xs text-slate-400">
                                 {newMessage.length}/500
                             </span>
                         </div>
@@ -102,7 +102,7 @@ export function GuestbookPage() {
                         className="sr-only"
                     />
 
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                         {t('guestbook.form.privacy')}
                     </p>
 

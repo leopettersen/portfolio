@@ -44,7 +44,7 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
             {t('terminal.university')}
           </h2>
 
-          <p className="text-slate-500 mt-6">
+          <p className="text-slate-400 mt-6">
             {t('terminal.typeMessage')}{' '}
             <span className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-300">
               {t('terminal.typeCommand')}

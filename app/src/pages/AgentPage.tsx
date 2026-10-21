@@ -110,7 +110,7 @@ export function AgentPage() {
                                         )}
 
                                         {message.stopped && (
-                                            <span className="text-xs text-slate-500">{t('agent.stopped')}</span>
+                                            <span className="text-xs text-slate-400">{t('agent.stopped')}</span>
                                         )}
                                     </div>
                                 )}
@@ -172,11 +172,11 @@ export function AgentPage() {
                 </div>
 
                 <div className="flex justify-between gap-4">
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                         {t('agent.disclaimer')}
                     </p>
 
-                    <span className="shrink-0 text-xs text-slate-500">
+                    <span className="shrink-0 text-xs text-slate-400">
                         {input.length}/{MAX_MESSAGE}
                     </span>
                 </div>
