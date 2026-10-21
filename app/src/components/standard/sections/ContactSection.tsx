@@ -129,7 +129,7 @@ export function ContactSection() {
 
                 <div className="mt-auto pt-8">
                     <div className="mb-3 border-t border-line" />
-                    <small className="flex items-center gap-2 text-[11px]">
+                    <small className="flex items-center gap-2 text-xs">
                         <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                         {t('standard.contact.available')}
                     </small>
@@ -201,7 +201,7 @@ export function ContactSection() {
                 </button>
 
                 <div className="mt-8 mb-3 border-t border-line" />
-                <small className="block text-center text-[11px]">{t('standard.contact.privacy')}</small>
+                <small className="block text-center text-xs">{t('standard.contact.privacy')}</small>
             </form>
         </div>
     );

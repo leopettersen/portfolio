@@ -15,11 +15,11 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
                 </div>
 
                 <div className="flex flex-wrap gap-2 md:shrink-0 md:flex-col md:items-end">
-                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-[10px] uppercase">
+                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-xs uppercase">
                         <Briefcase size={12} />
                         {t(`workModels.${experience.workModel}`)}
                     </span>
-                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-[10px]">
+                    <span className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-body/40 px-2 py-1 text-xs">
                         <CalendarDays size={12} />
                         {experience.period}
                     </span>
@@ -37,7 +37,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
 
             <div className="mt-2 flex flex-wrap gap-2">
                 {experience.skills.map((skill) => (
-                    <span key={skill} className="rounded-xl border border-brand/40 px-2 py-0.5 text-[11px] text-brand">
+                    <span key={skill} className="rounded-xl border border-brand/40 px-2 py-0.5 text-xs text-brand">
                         {skill}
                     </span>
                 ))}

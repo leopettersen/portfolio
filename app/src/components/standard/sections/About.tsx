@@ -21,7 +21,7 @@ export function About() {
                 <div className="my-3 border-t border-line" />
 
                 <div className="flex items-center gap-6">
-                    <span className="w-20 shrink-0 text-[10px]">{t('standard.about.role')}</span>
+                    <span className="w-20 shrink-0 text-xs">{t('standard.about.role')}</span>
                     <div>
                         <p className="font-semibold text-title">{current.experiencePosition}</p>
                         <p className="text-xs">{current.organization} · {current.period}</p>
@@ -29,7 +29,7 @@ export function About() {
                 </div>
 
                 <div className="mt-3 flex items-center gap-6">
-                    <span className="w-20 shrink-0 text-[10px]">{t('standard.about.education')}</span>
+                    <span className="w-20 shrink-0 text-xs">{t('standard.about.education')}</span>
                     <div>
                         <p className="font-semibold text-title">{about.education.title}</p>
                         <p className="text-xs">{about.education.college} · {about.education.period}</p>
@@ -65,7 +65,7 @@ export function About() {
                         <p className="text-sm">{about.interestsDescription}</p>
                         <div className="flex flex-wrap gap-2">
                             {about.interestsTags.map((tag) => (
-                                <span key={tag} className="rounded-xl border border-brand/40 px-2 py-0.5 text-[11px] text-brand">
+                                <span key={tag} className="rounded-xl border border-brand/40 px-2 py-0.5 text-xs text-brand">
                                     {tag}
                                 </span>
                             ))}
@@ -74,7 +74,7 @@ export function About() {
                 </div>
 
                 <div className="rounded-2xl border border-line bg-surface/95 p-5 shadow-brand backdrop-blur-xl">
-                    <span className="text-[10px] text-brand">{t('standard.about.educationTag')}</span>
+                    <span className="text-xs text-brand">{t('standard.about.educationTag')}</span>
 
                     <div className="mt-3 flex gap-3">
                         <div className="h-max rounded-md border border-brand/50 bg-brand/10 p-2 text-brand">
@@ -93,7 +93,7 @@ export function About() {
 
                             <div className="mt-1 flex flex-wrap gap-2">
                                 {about.education.tags.map((tag) => (
-                                    <span key={tag} className="rounded-xl border border-line px-2 py-0.5 text-[11px]">
+                                    <span key={tag} className="rounded-xl border border-line px-2 py-0.5 text-xs">
                                         {tag}
                                     </span>
                                 ))}
@@ -102,7 +102,7 @@ export function About() {
                     </div>
                 </div>
 
-                <span className="text-[10px] text-brand">{t('standard.about.goals')}</span>
+                <span className="text-xs text-brand">{t('standard.about.goals')}</span>
 
                 <div className="-mt-3 grid gap-5 md:grid-cols-2">
                     {about.goals.map((goal, index) => (
@@ -114,7 +114,7 @@ export function About() {
                         >
                             <div className="flex items-center gap-2">
                                 <span className="text-xl font-bold text-title">{String(index + 1).padStart(2, '0')}</span>
-                                <span className="text-[10px] uppercase text-brand">{goal.title}</span>
+                                <span className="text-xs uppercase text-brand">{goal.title}</span>
                             </div>
                             <p className="text-sm">{goal.description}</p>
                         </div>

@@ -73,7 +73,7 @@ export function GuestbookSection() {
                         className="sr-only"
                     />
 
-                    <p className="mb-3 text-[11px]">{t('guestbook.form.privacy')}</p>
+                    <p className="mb-3 text-xs">{t('guestbook.form.privacy')}</p>
 
                     <button
                         type="submit"

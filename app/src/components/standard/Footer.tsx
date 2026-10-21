@@ -62,7 +62,7 @@ export function Footer() {
                 </div>
             </div>
 
-            <p className="mt-5 text-center text-[10px] lg:text-left">
+            <p className="mt-5 text-center text-xs lg:text-left">
                 {t('standard.footer.copy')}
             </p>
         </footer>

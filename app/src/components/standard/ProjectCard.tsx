@@ -45,7 +45,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                         return (
                             <span
                                 key={technology}
-                                className="flex items-center gap-1 rounded-xl border border-brand px-2 py-0.5 text-[10px] text-brand"
+                                className="flex items-center gap-1 rounded-xl border border-brand px-2 py-0.5 text-xs text-brand"
                             >
                                 {icon && <TechIcon src={icon} />}
                                 {technology}

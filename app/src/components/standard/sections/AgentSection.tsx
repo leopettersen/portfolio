@@ -160,7 +160,7 @@ export function AgentSection() {
                         )}
                     </div>
 
-                    <div className="flex justify-between gap-4 text-[11px]">
+                    <div className="flex justify-between gap-4 text-xs">
                         <p>{t('agent.disclaimer')}</p>
                         <span className="shrink-0">{input.length}/{MAX_MESSAGE}</span>
                     </div>
