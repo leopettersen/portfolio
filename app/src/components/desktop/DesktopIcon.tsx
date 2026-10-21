@@ -30,7 +30,7 @@ export function DesktopIcon({ icon: Icon, label, onOpen }: DesktopIconProps) {
                 <Icon size={20} />
             </div>
 
-            <span className="text-s font-mono lowercase tracking-wide">
+            <span className="text-sm font-mono lowercase tracking-wide">
                 {label}
             </span>
         </button>
