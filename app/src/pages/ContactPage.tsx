@@ -111,9 +111,9 @@ export function ContactPage() {
 
             <div className="flex flex-col gap-4">
 
-                <h1 className="text-xl font-bold">
+                <h2 className="text-xl font-bold">
                     {t('contact.title')}
-                </h1>
+                </h2>
 
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
 

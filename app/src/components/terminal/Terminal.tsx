@@ -36,13 +36,13 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
             Leonardo Pettersen
           </h1>
 
-          <h2 className="font-medium text-slate-300">
+          <p className="font-medium text-slate-300">
             {t('terminal.role')}
-          </h2>
+          </p>
 
-          <h2 className="text-slate-400">
+          <p className="text-slate-400">
             {t('terminal.university')}
-          </h2>
+          </p>
 
           <p className="text-slate-400 mt-6">
             {t('terminal.typeMessage')}{' '}
@@ -74,7 +74,7 @@ export function Terminal({ history, onCommand, onClose }: TerminalProps) {
         </div>
 
         <div ref={historyRef} className="flex-1 min-h-0 overflow-y-auto mt-8 pr-2">
-          <div className="flex flex-col gap-3">
+          <div role="log" aria-live="polite" className="flex flex-col gap-3">
             {history.map((entry, index) => (
               <div key={index}>
                 <div>

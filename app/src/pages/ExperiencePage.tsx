@@ -14,9 +14,9 @@ export function ExperiencePage() {
                 <div key={experience.organization} className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
 
                     <div className="flex flex-wrap items-baseline justify-between gap-2 md:gap-4">
-                        <h1 className="text-xl font-bold">
+                        <h2 className="text-xl font-bold">
                             {experience.organization}
-                        </h1>
+                        </h2>
 
                         <span className="text-sm font-semibold text-slate-400">
                             {experience.period}
@@ -24,9 +24,9 @@ export function ExperiencePage() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
-                        <h2 className="text-lg font-semibold">
+                        <h3 className="text-lg font-semibold">
                             {experience.experiencePosition}
-                        </h2>
+                        </h3>
 
                         <span className="bg-slate-700/60 px-2 py-1 rounded-md text-sm text-slate-400">
                             {t(`workModels.${experience.workModel}`)}

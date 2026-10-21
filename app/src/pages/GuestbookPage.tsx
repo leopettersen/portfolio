@@ -29,9 +29,9 @@ export function GuestbookPage() {
             {/* Formulário */}
             <div className="flex flex-col gap-4">
 
-                <h1 className="text-xl font-bold">
+                <h2 className="text-xl font-bold">
                     {t('guestbook.form.title')}
-                </h1>
+                </h2>
 
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
 
@@ -162,9 +162,9 @@ export function GuestbookPage() {
                                 <div key={message.id} className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
 
                                     <div className="flex items-baseline justify-between gap-4">
-                                        <h1 className="text-xl font-bold">
+                                        <h2 className="text-xl font-bold">
                                             {message.name}
-                                        </h1>
+                                        </h2>
 
                                         <span className="text-sm font-semibold text-slate-400">
                                             {formatDate(message.created_at)}

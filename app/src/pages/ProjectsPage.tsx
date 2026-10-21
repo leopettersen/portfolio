@@ -26,9 +26,9 @@ export function ProjectsPage() {
                                     {String(index + 1).padStart(2, '0')}
                                 </span>
 
-                                <h1 className="text-xl font-bold">
+                                <h2 className="text-xl font-bold">
                                     {project.name}
-                                </h1>
+                                </h2>
 
                             </div>
 

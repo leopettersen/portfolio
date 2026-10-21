@@ -51,9 +51,9 @@ export function AgentPage() {
                     <Sparkles size={24} className="shrink-0 text-blue-500" />
 
                     <div className="flex flex-col min-w-0">
-                        <h1 className="text-xl font-bold">
+                        <h2 className="text-xl font-bold">
                             {t('agent.title')}
-                        </h1>
+                        </h2>
 
                         <span className="flex items-center gap-2 text-sm text-slate-400">
                             <span className={`w-2 h-2 rounded-full ${loading ? 'bg-yellow-500 animate-pulse' : 'bg-green-500'}`} />
