@@ -144,7 +144,11 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
 
     return (
         <div className="relative h-[100dvh] w-full overflow-hidden bg-slate-900 flex flex-col">
-            <main className="relative isolate flex-1 overflow-clip">
+            <main className="relative isolate flex-1 overflow-clip bg-[#0b1120] bg-[radial-gradient(45%_45%_at_50%_48%,rgba(59,130,246,0.16),transparent_70%)]">
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex select-none items-center justify-center font-mono text-[32vmin] font-extrabold leading-none text-transparent [-webkit-text-stroke:1px_rgba(59,130,246,0.18)]">
+                    LP
+                </div>
+
                 <div className="absolute top-0 left-0 grid grid-cols-4 gap-4 p-4 md:flex md:flex-col">
                     <DesktopIcon
                         icon={terminalApp.icon}
