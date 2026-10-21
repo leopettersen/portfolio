@@ -211,6 +211,14 @@ export const pt = {
     restart: 'Reiniciar',
     shutdown: 'Desligar',
   },
+  tray: {
+    online: 'Conectado à internet',
+    offline: 'Sem conexão com a internet',
+    battery: 'Bateria: {{percent}}%',
+    batteryCharging: 'Bateria: {{percent}}%, carregando',
+    fullscreen: 'Tela cheia',
+    exitFullscreen: 'Sair da tela cheia',
+  },
   power: {
     restarting: 'Reiniciando...',
     shuttingDown: 'Desligando...',

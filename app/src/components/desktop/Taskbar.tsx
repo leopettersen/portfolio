@@ -3,6 +3,7 @@ import type { OpenWindow, WindowId } from '../../types';
 import { appInfo } from '../../data/apps';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { Clock } from './Clock';
+import { SystemTray } from './SystemTray';
 
 export interface TaskbarProps {
     windows: OpenWindow[];
@@ -54,6 +55,7 @@ export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWi
             </nav>
 
             <div className="flex shrink-0 items-center justify-end gap-3 text-sm md:flex-1">
+                <SystemTray />
                 <LanguageToggle />
                 <Clock />
             </div>

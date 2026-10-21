@@ -212,6 +212,14 @@ export const en: typeof pt = {
     restart: 'Restart',
     shutdown: 'Shut down',
   },
+  tray: {
+    online: 'Connected to the internet',
+    offline: 'No internet connection',
+    battery: 'Battery: {{percent}}%',
+    batteryCharging: 'Battery: {{percent}}%, charging',
+    fullscreen: 'Full screen',
+    exitFullscreen: 'Exit full screen',
+  },
   power: {
     restarting: 'Restarting...',
     shuttingDown: 'Shutting down...',
