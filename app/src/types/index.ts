@@ -15,6 +15,13 @@ export interface AgentDraft {
     text: string;
 }
 
+export type ToastKind = 'welcome' | 'windows' | 'shortcuts' | 'offline' | 'online';
+
+export interface ToastItem {
+    id: number;
+    kind: ToastKind;
+}
+
 export interface OpenWindow {
     id: WindowId;
     layer: number;

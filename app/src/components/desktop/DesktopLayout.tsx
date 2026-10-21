@@ -8,6 +8,8 @@ import { Window } from '../window/Window';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { DesktopIcon } from './DesktopIcon';
+import { ToastStack } from './ToastStack';
+import { useToasts } from '../../hooks/useToasts';
 import { Terminal } from '../terminal/Terminal';
 import { AboutPage } from '../../pages/AboutPage';
 import { ExperiencePage } from '../../pages/ExperiencePage';
@@ -26,12 +28,13 @@ const sectionComponents: Record<SectionId, ComponentType> = {
 }
 
 export interface DesktopLayoutProps {
+    welcome?: boolean;
     onLogout: () => void;
     onRestart: () => void;
     onShutdown: () => void;
 }
 
-export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayoutProps) {
+export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown }: DesktopLayoutProps) {
     const { t, i18n } = useTranslation();
     const language = i18n.resolvedLanguage as Language;
     const [windows, setWindows] = useState<OpenWindow[]>([]);
@@ -40,6 +43,7 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
     const [startOpen, setStartOpen] = useState(false);
     const [agentDraft, setAgentDraft] = useState<AgentDraft | null>(null);
     const nextLayer = useRef(1);
+    const { toasts, push: pushToast, dismiss: dismissToast } = useToasts();
 
     const focusedWindow = windows
         .filter(item => !item.minimized)
@@ -58,6 +62,28 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
+
+    useEffect(() => {
+        if (!welcome) return;
+
+        const kinds = ['welcome', 'windows', 'shortcuts'] as const;
+        const timers = kinds.map((kind, index) => setTimeout(() => pushToast(kind), 600 + index * 1500));
+
+        return () => timers.forEach(clearTimeout);
+    }, [welcome, pushToast]);
+
+    useEffect(() => {
+        const handleOffline = () => pushToast('offline', ['online']);
+        const handleOnline = () => pushToast('online', ['offline']);
+
+        window.addEventListener('offline', handleOffline);
+        window.addEventListener('online', handleOnline);
+
+        return () => {
+            window.removeEventListener('offline', handleOffline);
+            window.removeEventListener('online', handleOnline);
+        };
+    }, [pushToast]);
 
     function openApp(id: WindowId) {
         const layer = nextLayer.current++;
@@ -212,6 +238,8 @@ export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayout
                     onClose={closeStart}
                 />
             )}
+
+            <ToastStack toasts={toasts} onDismiss={dismissToast} />
 
             <Taskbar
                 windows={windows}

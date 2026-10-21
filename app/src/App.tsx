@@ -3,44 +3,32 @@ import type { PortfolioMode } from './types';
 import { BootScreen } from './components/boot/BootScreen';
 import { PowerScreen, type PowerAction } from './components/boot/PowerScreen';
 import { DesktopLayout } from './components/desktop/DesktopLayout';
-import { LandingInfoPage } from './components/desktop/LandingInfoPage';
 import { LoginScreen } from './components/login/LoginScreen';
 
 const StandardPortfolio = lazy(() => import('./components/standard/StandardPortfolio'));
 
 type Stage = 'boot' | 'login' | 'desktop' | 'standard' | PowerAction;
 
-const LANDING_SEEN_KEY = 'landing-popup-seen';
+const WELCOME_SEEN_KEY = 'welcome-seen';
 
-function landingSeen() {
+function takeWelcome() {
     try {
-        return sessionStorage.getItem(LANDING_SEEN_KEY) === 'true';
+        const seen = sessionStorage.getItem(WELCOME_SEEN_KEY) === 'true';
+        sessionStorage.setItem(WELCOME_SEEN_KEY, 'true');
+        return !seen;
     } catch {
-        return false;
+        return true;
     }
 }
 
 export default function App() {
     const [stage, setStage] = useState<Stage>('boot');
-    const [showLanding, setShowLanding] = useState(false);
-
-    function closeLanding() {
-        try {
-            sessionStorage.setItem(LANDING_SEEN_KEY, 'true');
-        } catch {
-        }
-        setShowLanding(false);
-    }
-
-    function leaveDesktop(next: Stage) {
-        setStage(next);
-        setShowLanding(false);
-    }
+    const [welcome, setWelcome] = useState(false);
 
     function enter(mode: PortfolioMode) {
         if (mode === 'system') {
             setStage('desktop');
-            setShowLanding(!landingSeen());
+            setWelcome(takeWelcome());
         } else {
             setStage('standard');
         }
@@ -56,13 +44,11 @@ export default function App() {
             )}
             {stage === 'desktop' && (
                 <DesktopLayout
-                    onLogout={() => leaveDesktop('login')}
-                    onRestart={() => leaveDesktop('restart')}
-                    onShutdown={() => leaveDesktop('shutdown')}
+                    welcome={welcome}
+                    onLogout={() => setStage('login')}
+                    onRestart={() => setStage('restart')}
+                    onShutdown={() => setStage('shutdown')}
                 />
-            )}
-            {stage === 'desktop' && showLanding && (
-                <LandingInfoPage onClose={closeLanding} />
             )}
             {(stage === 'restart' || stage === 'shutdown') && (
                 <PowerScreen action={stage} onBoot={() => setStage('boot')} />

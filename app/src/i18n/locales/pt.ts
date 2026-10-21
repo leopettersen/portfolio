@@ -197,9 +197,31 @@ export const pt = {
     ],
     skip: 'pressione qualquer tecla ou toque para pular',
   },
-  landingInfo: {
-    title: 'Olá, seja bem-vindo ao meu portfólio!',
-    info: 'O meu portfólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. Na barra de tarefas também é possível traduzir do português para o inglês.'
+  toasts: {
+    region: 'Notificações',
+    dismiss: 'Dispensar notificação',
+    welcome: {
+      title: 'Bem-vindo ao meu portfólio!',
+      text: 'Isto simula um sistema operacional. Abra o terminal para começar: os outros ícones aparecem depois dele.',
+    },
+    windows: {
+      title: 'Janelas',
+      text: 'Arraste, maximize, minimize e feche as janelas. Os ícones da área de trabalho também podem ser arrastados.',
+      mobile: 'Use a barra de tarefas para alternar entre as janelas abertas e o botão Voltar para fechar.',
+    },
+    shortcuts: {
+      title: 'Atalhos',
+      text: 'Ctrl+K (⌘+K no Mac) abre a busca do menu iniciar. Use PT | EN na barra de tarefas para trocar o idioma.',
+      mobile: 'Toque no logo da barra de tarefas para abrir o menu iniciar. Use PT | EN para trocar o idioma.',
+    },
+    offline: {
+      title: 'Sem conexão',
+      text: 'O agente e o guestbook precisam de internet para funcionar.',
+    },
+    online: {
+      title: 'Conexão restabelecida',
+      text: 'O agente e o guestbook estão disponíveis de novo.',
+    },
   },
   taskbar: {
     start: 'Iniciar',

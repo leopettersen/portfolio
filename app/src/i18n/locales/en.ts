@@ -198,9 +198,31 @@ export const en: typeof pt = {
     ],
     skip: 'press any key or tap to skip',
   },
-  landingInfo: {
-    title: 'Hello, welcome to my portfolio!',
-    info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the taskbar, it is also possible to translate from English to Portuguese.'
+  toasts: {
+    region: 'Notifications',
+    dismiss: 'Dismiss notification',
+    welcome: {
+      title: 'Welcome to my portfolio!',
+      text: 'This simulates an operating system. Open the terminal to start: the other icons show up after it.',
+    },
+    windows: {
+      title: 'Windows',
+      text: 'Drag, maximize, minimize and close windows. Desktop icons can be dragged too.',
+      mobile: 'Use the taskbar to switch between open windows and the Back button to close them.',
+    },
+    shortcuts: {
+      title: 'Shortcuts',
+      text: 'Ctrl+K (⌘+K on Mac) opens the start menu search. Use PT | EN in the taskbar to switch languages.',
+      mobile: 'Tap the logo in the taskbar to open the start menu. Use PT | EN to switch languages.',
+    },
+    offline: {
+      title: 'No connection',
+      text: 'The agent and the guestbook need internet to work.',
+    },
+    online: {
+      title: 'Connection restored',
+      text: 'The agent and the guestbook are available again.',
+    },
   },
   taskbar: {
     start: 'Start',
