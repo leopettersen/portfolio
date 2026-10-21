@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import type { Project } from '../../types';
-import { techIcons } from '../../data/techIcons';
+import { githubIcon, techIcons } from '../../data/techIcons';
+import { TechIcon } from './TechIcon';
 
 export interface ProjectCardProps {
     project: Project;
@@ -38,15 +39,19 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
             <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap gap-1.5">
-                    {project.technologies.map((technology) => (
-                        <span
-                            key={technology}
-                            className="flex items-center gap-1 rounded-xl border border-brand px-2 py-0.5 text-[10px] text-brand"
-                        >
-                            {techIcons.has(technology) && <i className={techIcons.get(technology)} />}
-                            {technology}
-                        </span>
-                    ))}
+                    {project.technologies.map((technology) => {
+                        const icon = techIcons.get(technology);
+
+                        return (
+                            <span
+                                key={technology}
+                                className="flex items-center gap-1 rounded-xl border border-brand px-2 py-0.5 text-[10px] text-brand"
+                            >
+                                {icon && <TechIcon src={icon} />}
+                                {technology}
+                            </span>
+                        );
+                    })}
                 </div>
 
                 <a
@@ -55,7 +60,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     rel="noreferrer"
                     className="flex items-center gap-1 text-sm text-brand hover:underline"
                 >
-                    <i className="devicon-github-original" />
+                    <TechIcon src={githubIcon} />
                     GitHub
                 </a>
             </div>

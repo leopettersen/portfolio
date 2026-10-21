@@ -1,6 +1,5 @@
 import '@fontsource-variable/geist';
 import '@fontsource-variable/orbitron';
-import 'devicon/devicon.min.css';
 import { lazy, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeBoundary } from './SafeBoundary';
