@@ -207,6 +207,15 @@ export const pt = {
     switchMode: 'Trocar de modo',
     searchPlaceholder: 'Pesquisar apps e comandos',
     askAgent: 'Perguntar ao agente:',
+    power: 'Energia',
+    restart: 'Reiniciar',
+    shutdown: 'Desligar',
+  },
+  power: {
+    restarting: 'Reiniciando...',
+    shuttingDown: 'Desligando...',
+    safe: 'Agora é seguro desligar o computador.',
+    turnOn: 'Ligar',
   },
   commands: {
     help: 'Lista os comandos disponíveis',

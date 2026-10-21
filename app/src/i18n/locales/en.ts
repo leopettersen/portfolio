@@ -208,6 +208,15 @@ export const en: typeof pt = {
     switchMode: 'Switch mode',
     searchPlaceholder: 'Search apps and commands',
     askAgent: 'Ask the agent:',
+    power: 'Power',
+    restart: 'Restart',
+    shutdown: 'Shut down',
+  },
+  power: {
+    restarting: 'Restarting...',
+    shuttingDown: 'Shutting down...',
+    safe: "It's now safe to turn off your computer.",
+    turnOn: 'Turn on',
   },
   commands: {
     help: 'Lists the available commands',

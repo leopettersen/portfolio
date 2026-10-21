@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronRight, LogOut, Search, Sparkles, SquareChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight, LogOut, Power, RotateCcw, Search, Sparkles, SquareChevronRight, type LucideIcon } from 'lucide-react';
 import type { WindowId } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo } from '../../data/apps';
@@ -11,6 +11,8 @@ export interface StartMenuProps {
     onCommand: (command: string) => void;
     onAskAgent: (question: string) => void;
     onSwitchMode: () => void;
+    onRestart: () => void;
+    onShutdown: () => void;
     onClose: () => void;
 }
 
@@ -28,11 +30,12 @@ function normalize(text: string) {
     return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
 
-export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onClose }: StartMenuProps) {
+export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onRestart, onShutdown, onClose }: StartMenuProps) {
     const { t } = useTranslation();
     const menuRef = useRef<HTMLDivElement>(null);
     const [query, setQuery] = useState('');
     const [selected, setSelected] = useState(0);
+    const [powerOpen, setPowerOpen] = useState(false);
 
     useEffect(() => {
         const handlePointerDown = (event: PointerEvent) => {
@@ -43,7 +46,9 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onClose
         };
 
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') onClose();
+            if (event.key !== 'Escape') return;
+            if (powerOpen) setPowerOpen(false);
+            else onClose();
         };
 
         document.addEventListener('pointerdown', handlePointerDown);
@@ -53,7 +58,7 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onClose
             document.removeEventListener('pointerdown', handlePointerDown);
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [onClose]);
+    }, [onClose, powerOpen]);
 
     function appName(id: WindowId) {
         return id === 'terminal' ? 'terminal' : t(`standard.menu.${id}`);
@@ -94,6 +99,12 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onClose
     }
 
     const current = Math.min(selected, Math.max(results.length - 1, 0));
+
+    const powerOptions = [
+        { key: 'restart', icon: RotateCcw, label: t('taskbar.restart'), run: onRestart },
+        { key: 'shutdown', icon: Power, label: t('taskbar.shutdown'), run: onShutdown },
+        { key: 'switchMode', icon: LogOut, label: t('taskbar.switchMode'), run: onSwitchMode },
+    ];
 
     function handleSearchKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
         if (event.key === 'ArrowDown') {
@@ -185,14 +196,35 @@ export function StartMenu({ onOpen, onCommand, onAskAgent, onSwitchMode, onClose
                 )}
             </div>
 
-            <div className="flex justify-end border-t border-slate-800/60 bg-slate-950/60 px-4 py-2">
+            <div className="relative flex justify-end border-t border-slate-800/60 bg-slate-950/60 px-4 py-2">
+                {powerOpen && (
+                    <ul role="menu" aria-label={t('taskbar.power')} className="absolute bottom-full right-4 mb-1 flex min-w-44 flex-col rounded-md border border-slate-700/60 bg-slate-900 p-1 shadow-xl shadow-black/60">
+                        {powerOptions.map((option) => (
+                            <li key={option.key} role="none">
+                                <button
+                                    type="button"
+                                    role="menuitem"
+                                    onClick={option.run}
+                                    className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
+                                >
+                                    <option.icon size={16} className="shrink-0" />
+                                    {option.label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
                 <button
                     type="button"
-                    onClick={onSwitchMode}
-                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors cursor-pointer"
+                    onClick={() => setPowerOpen((prev) => !prev)}
+                    aria-label={t('taskbar.power')}
+                    aria-haspopup="menu"
+                    aria-expanded={powerOpen}
+                    title={t('taskbar.power')}
+                    className={`flex h-9 w-9 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800/80 hover:text-white transition-colors ${powerOpen ? 'bg-slate-800/80 text-white' : ''}`}
                 >
-                    <LogOut size={16} />
-                    {t('taskbar.switchMode')}
+                    <Power size={18} />
                 </button>
             </div>
         </div>

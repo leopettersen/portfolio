@@ -27,9 +27,11 @@ const sectionComponents: Record<SectionId, ComponentType> = {
 
 export interface DesktopLayoutProps {
     onLogout: () => void;
+    onRestart: () => void;
+    onShutdown: () => void;
 }
 
-export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
+export function DesktopLayout({ onLogout, onRestart, onShutdown }: DesktopLayoutProps) {
     const { t } = useTranslation();
     const [windows, setWindows] = useState<OpenWindow[]>([]);
     const [unlocked, setUnlocked] = useState(false);
@@ -198,6 +200,8 @@ export function DesktopLayout({ onLogout }: DesktopLayoutProps) {
                     onCommand={commandFromStart}
                     onAskAgent={askAgentFromStart}
                     onSwitchMode={onLogout}
+                    onRestart={onRestart}
+                    onShutdown={onShutdown}
                     onClose={closeStart}
                 />
             )}
