@@ -1,42 +1,45 @@
-import { supabase } from './supabase';
-
 import type { GuestbookMessage } from '../types';
 
 export const PAGE_SIZE = 20;
 
+const supabaseUrl = (import.meta.env.VITE_SUPABASE_URL ?? '').replace(/\/+$/, '');
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? '';
+
+async function request<T>(params: URLSearchParams, body?: object): Promise<T> {
+    if (!supabaseUrl || !supabaseKey) {
+        throw new Error('Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY no arquivo .env');
+    }
+
+    const response = await fetch(`${supabaseUrl}/rest/v1/guestbook_messages?${params}`, body
+        ? {
+            method: 'POST',
+            headers: { apikey: supabaseKey, 'Content-Type': 'application/json', Prefer: 'return=representation' },
+            body: JSON.stringify(body),
+        }
+        : { headers: { apikey: supabaseKey } });
+
+    if (!response.ok) {
+        throw new Error(`Supabase respondeu HTTP ${response.status}: ${await response.text().catch(() => '')}`);
+    }
+
+    return response.json();
+}
+
 export async function fetchMessages(lastId?: number): Promise<GuestbookMessage[]> {
-    let query = supabase
-        .from('guestbook_messages')
-        .select('*')
-        .order('id', { ascending: false })
-        .limit(PAGE_SIZE);
+    const params = new URLSearchParams({ select: '*', order: 'id.desc', limit: String(PAGE_SIZE) });
 
     if (lastId) {
-        query = query.lt('id', lastId);
+        params.set('id', `lt.${lastId}`);
     }
 
-    const { data, error } = await query;
-
-    if (error) {
-        throw error;
-    }
-
-    return data as GuestbookMessage[];
+    return request<GuestbookMessage[]>(params);
 }
 
 export async function addMessage(name: string, message: string): Promise<GuestbookMessage> {
-    const { data, error } = await supabase
-        .from('guestbook_messages')
-        .insert({
-            name: name.trim(),
-            message: message.trim(),
-        })
-        .select()
-        .single();
+    const [createdMessage] = await request<GuestbookMessage[]>(new URLSearchParams({ select: '*' }), {
+        name: name.trim(),
+        message: message.trim(),
+    });
 
-    if (error) {
-        throw error;
-    }
-
-    return data as GuestbookMessage;
+    return createdMessage;
 }
