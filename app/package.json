@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run perfil",
     "build": "tsc -b && vite build",
+    "perfil": "node scripts/gerar-perfil.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
