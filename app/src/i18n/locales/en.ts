@@ -219,6 +219,16 @@ export const en: typeof pt = {
     ],
     skip: 'press any key or tap to skip',
   },
+  github: {
+    title: 'GitHub widget',
+    openProfile: 'Open GitHub profile',
+    repos_one: '{{count}} repository',
+    repos_other: '{{count}} repositories',
+    followers_one: '{{count}} follower',
+    followers_other: '{{count}} followers',
+    recent: 'Recently updated',
+    languages: 'Languages by repository',
+  },
   crash: {
     title: "Your portfolio ran into a problem and needs to restart. We're just collecting some error info.",
     progress: '{{percent}}% complete',

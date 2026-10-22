@@ -84,16 +84,25 @@ export function useDraggable(
             last: null,
         };
         moved.current = false;
-        event.currentTarget.setPointerCapture(event.pointerId);
     }
 
     function onPointerMove(event: PointerEvent<HTMLElement>) {
         const start = dragStart.current;
         if (!start || start.pointerId !== event.pointerId) return;
 
+        if (event.buttons === 0) {
+            dragStart.current = null;
+            return;
+        }
+
         const dx = event.clientX - start.x;
         const dy = event.clientY - start.y;
-        if (Math.hypot(dx, dy) > 4) moved.current = true;
+
+        if (!moved.current) {
+            if (Math.hypot(dx, dy) <= 4) return;
+            moved.current = true;
+            event.currentTarget.setPointerCapture(event.pointerId);
+        }
 
         let x = start.positionX + dx;
         let y = start.positionY + dy;

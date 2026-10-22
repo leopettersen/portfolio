@@ -218,6 +218,16 @@ export const pt = {
     ],
     skip: 'pressione qualquer tecla ou toque para pular',
   },
+  github: {
+    title: 'Widget do GitHub',
+    openProfile: 'Abrir perfil no GitHub',
+    repos_one: '{{count}} repositório',
+    repos_other: '{{count}} repositórios',
+    followers_one: '{{count}} seguidor',
+    followers_other: '{{count}} seguidores',
+    recent: 'Atualizados recentemente',
+    languages: 'Linguagens por repositório',
+  },
   crash: {
     title: 'Seu portfólio encontrou um problema e precisa ser reiniciado. Estamos coletando algumas informações sobre o erro.',
     progress: '{{percent}}% concluído',

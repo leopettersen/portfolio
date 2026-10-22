@@ -4,6 +4,8 @@ import { sections } from '../data/sections';
 const STORAGE_KEY = 'desktop-state';
 const VERSION = 1;
 
+export type DesktopItemId = WindowId | 'github';
+
 export interface SavedWindow {
     id: WindowId;
     minimized: boolean;
@@ -11,7 +13,7 @@ export interface SavedWindow {
 
 export interface DesktopState {
     unlocked: boolean;
-    icons: Partial<Record<WindowId, Point>>;
+    icons: Partial<Record<DesktopItemId, Point>>;
     layouts: Partial<Record<WindowId, WindowLayout>>;
     windows: SavedWindow[];
 }
@@ -34,6 +36,10 @@ function isWindowId(value: unknown): value is WindowId {
     return windowIds.includes(value as WindowId);
 }
 
+function isItemId(value: unknown): value is DesktopItemId {
+    return value === 'github' || isWindowId(value);
+}
+
 function readPoint(value: unknown): Point | null {
     return isRecord(value) && isNumber(value.x) && isNumber(value.y) ? { x: value.x, y: value.y } : null;
 }
@@ -51,13 +57,13 @@ function readLayout(value: unknown): WindowLayout | null {
     return layout;
 }
 
-function readEntries<T>(value: unknown, read: (item: unknown) => T | null) {
-    const result: Partial<Record<WindowId, T>> = {};
+function readEntries<K extends string, T>(value: unknown, isKey: (key: unknown) => key is K, read: (item: unknown) => T | null) {
+    const result: Partial<Record<K, T>> = {};
     if (!isRecord(value)) return result;
 
     for (const [id, item] of Object.entries(value)) {
         const parsed = read(item);
-        if (isWindowId(id) && parsed) result[id] = parsed;
+        if (isKey(id) && parsed) result[id] = parsed;
     }
 
     return result;
@@ -86,8 +92,8 @@ export function loadDesktopState(): DesktopState {
 
         return {
             unlocked: data.unlocked === true,
-            icons: readEntries(data.icons, readPoint),
-            layouts: readEntries(data.layouts, readLayout),
+            icons: readEntries(data.icons, isItemId, readPoint),
+            layouts: readEntries(data.layouts, isWindowId, readLayout),
             windows: readWindows(data.windows),
         };
     } catch {

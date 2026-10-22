@@ -17,7 +17,8 @@ import { REPO_URL, SITE_URL } from '../../data/site';
 import { useToasts } from '../../hooks/useToasts';
 import { useTerminalAgent } from '../../hooks/useTerminalAgent';
 import { MAX_MESSAGE } from '../../services/gemini';
-import { loadDesktopState, saveDesktopState, type DesktopState } from '../../services/desktopStorage';
+import { loadDesktopState, saveDesktopState, type DesktopItemId, type DesktopState } from '../../services/desktopStorage';
+import { GithubWidget } from './GithubWidget';
 import { Terminal } from '../terminal/Terminal';
 import { AboutPage } from '../../pages/AboutPage';
 import { ExperiencePage } from '../../pages/ExperiencePage';
@@ -122,7 +123,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         persist({ icons: iconPositions });
     }, [iconPositions, persist]);
 
-    function saveIcon(id: WindowId, position: Point) {
+    function saveIcon(id: DesktopItemId, position: Point) {
         setIconPositions(prev => ({ ...prev, [id]: position }));
     }
 
@@ -402,6 +403,10 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                                 onMove={(position) => saveIcon(section.id, position)}
                             />
                         ))}
+                </div>
+
+                <div className={refreshing ? 'invisible' : ''}>
+                    <GithubWidget key={iconsVersion} initialPosition={iconPositions.github} onMove={(position) => saveIcon('github', position)} />
                 </div>
 
                 {windows.map(({ id, layer, offset, minimized, leaving }) => {
