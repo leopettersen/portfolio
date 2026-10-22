@@ -1,10 +1,13 @@
 import { pt } from './pt';
 import imgProfile from '../../assets/Perfil.jpeg';
-import imgPortoesDoCeu from '../../assets/PortoesDoCeu.jpeg';
-import imgPortfolio from '../../assets/Portfolio.png';
-import imgOpm from '../../assets/OPM.png';
+import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
+import imgPortfolio from '../../assets/Portfolio.webp';
+import imgOpm from '../../assets/OPM.webp';
 
 export const en: typeof pt = {
+  site: {
+    title: 'Leonardo Pettersen | Portfolio',
+  },
   terminal: {
     role: 'Software Engineering Student',
     university: 'PUC Minas',
@@ -13,9 +16,30 @@ export const en: typeof pt = {
     toSeeCommands: 'to see available commands',
     openingSection: 'Opening section: {{title}}',
     closingSection: 'Closing current section.',
-    clearingHistory: 'Clearing history.',
-    availableCommands: 'Available commands: {{commands}}',
+    availableCommands: 'Available commands:',
     commandNotFound: 'Command not found: "{{command}}"',
+    inputLabel: 'Terminal command',
+    languageCurrent: 'Current language: English. Use "lang pt" or "lang en".',
+    languageChanged: 'Language changed to English.',
+    languageUsage: 'Unknown language: "{{value}}". Use "lang pt" or "lang en".',
+    askUsage: 'Write the question after the command. E.g.: ask where do you study?',
+    askBusy: 'The agent is still answering the previous question.',
+    matrixReduced: 'matrix disabled: "reduce motion" is turned on in your system.',
+    neofetch: {
+      os: 'OS',
+      osValue: 'LeoOS (portfolio)',
+      host: 'Host',
+      kernel: 'Kernel',
+      shell: 'Shell',
+      shellValue: 'zsh (simulated)',
+      uptime: 'Uptime',
+      uptimeValue: '{{count}} min',
+      resolution: 'Resolution',
+      font: 'Font',
+      stack: 'Stack',
+      languages: 'Languages',
+      languagesValue: 'Portuguese, English',
+    },
   },
   window: {
     back: 'Back',
@@ -83,7 +107,8 @@ export const en: typeof pt = {
     }
   ],
   projectUI: {
-    imageComingSoon: 'Image coming soon'
+    imageComingSoon: 'Image coming soon',
+    viewOnline: 'View live'
   },
   projects: [
     {
@@ -99,7 +124,8 @@ export const en: typeof pt = {
       date: 'Oct 2026',
       description: 'The system showcases my journey, projects, experiences, and contact methods in an interface inspired by a desktop with a terminal. Navigation can be done via commands or interface icons, with support for Portuguese and English, light and dark themes, and responsive design for computers and mobile devices. The goal is to present my work quickly, clearly, and interactively, without requiring registration or login.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
-      repoLink: 'https://github.com/leopettersen/portifolio',
+      repoLink: 'https://github.com/leopettersen/portfolio',
+      liveLink: 'https://www.leopettersen.dev/',
       image: imgPortfolio,
     },
     {
@@ -123,6 +149,7 @@ export const en: typeof pt = {
     sendingButton: 'Sending...',
     successMsg: 'Message sent! Thank you for reaching out.',
     errorMsg: 'Could not send. Please try again or use one of the contacts above.',
+    limitedMsg: 'You just sent a message. Please wait a moment before sending another.',
     errors: {
       nameRequired: 'Please enter your name.',
       emailRequired: 'Please enter your email.',
@@ -151,7 +178,7 @@ export const en: typeof pt = {
         sending: 'Sending...',
         success: 'Message sent! Thank you for reaching out.',
         error: 'Could not send your message. Please try again.',
-        wait: 'Please wait a few seconds before sending another message.',
+        wait: 'Please wait {{seconds}} s before sending another message.',
     },
   },
   agent: {
@@ -197,12 +224,124 @@ export const en: typeof pt = {
     ],
     skip: 'press any key or tap to skip',
   },
-  landingInfo: {
-    title: 'Hello, welcome to my portfolio!',
-    info: 'My portfolio simulates an Operating System. You can drag, maximize, minimize and close windows, and drag icons on the desktop. In the header, it is also possible to translate from English to Portuguese.'
+  github: {
+    title: 'GitHub widget',
+    openProfile: 'Open GitHub profile',
+    repos_one: '{{count}} repository',
+    repos_other: '{{count}} repositories',
+    followers_one: '{{count}} follower',
+    followers_other: '{{count}} followers',
+    recent: 'Recently updated',
+    languages: 'Languages by repository',
   },
-  topBar: {
+  crash: {
+    title: "Your portfolio ran into a problem and needs to restart. We're just collecting some error info.",
+    progress: '{{percent}}% complete',
+    stopCode: 'Stop code',
+    failed: 'What failed',
+    restart: 'Restart',
+    standard: 'Open standard mode',
+    appTitle: 'The app stopped working',
+    appText: 'This window ran into an error. The rest of the system keeps working.',
+    retry: 'Try again',
+  },
+  contextMenu: {
+    desktop: 'Desktop menu',
+    window: 'Window menu',
+    taskbar: 'Taskbar menu',
+    openTerminal: 'Open terminal',
+    refresh: 'Refresh',
+    arrangeIcons: 'Arrange icons',
+    switchLanguage: 'Switch to Portuguese',
+    fullscreen: 'Full screen',
+    exitFullscreen: 'Exit full screen',
+    copyLink: 'Copy portfolio link',
+    viewSource: 'View source code',
+    about: 'About this system',
+    reset: 'Reset desktop',
+    closeWindow: 'Close window',
+    resetConfirm: {
+      title: 'Reset the desktop?',
+      text: 'All windows will be closed and icons, positions and sizes go back to the default.',
+      cancel: 'Cancel',
+      confirm: 'Reset',
+    },
+  },
+  toasts: {
+    region: 'Notifications',
+    dismiss: 'Dismiss notification',
+    welcome: {
+      title: 'Welcome to my portfolio!',
+      text: 'This simulates an operating system. Open the terminal to start: the other icons show up after it.',
+    },
+    windows: {
+      title: 'Windows',
+      text: 'Drag, maximize, minimize and close windows. Desktop icons can be dragged too.',
+      mobile: 'Use the taskbar to switch between open windows and the Back button to close them.',
+    },
+    shortcuts: {
+      title: 'Shortcuts',
+      text: 'Ctrl+K (⌘+K on Mac) opens the start menu search. Use PT | EN in the taskbar to switch languages.',
+      mobile: 'Tap the logo in the taskbar to open the start menu. Use PT | EN to switch languages.',
+    },
+    offline: {
+      title: 'No connection',
+      text: 'The agent and the guestbook need internet to work.',
+    },
+    online: {
+      title: 'Connection restored',
+      text: 'The agent and the guestbook are available again.',
+    },
+    linkCopied: {
+      title: 'Link copied',
+      text: 'The portfolio link is on your clipboard.',
+    },
+    copyFailed: {
+      title: 'Could not copy',
+      text: 'Copy the link manually: https://www.leopettersen.dev/',
+    },
+  },
+  taskbar: {
+    start: 'Start',
+    apps: 'Apps',
     switchMode: 'Switch mode',
+    searchPlaceholder: 'Search apps and commands',
+    askAgent: 'Ask the agent:',
+    power: 'Power',
+    restart: 'Restart',
+    shutdown: 'Shut down',
+  },
+  tray: {
+    online: 'Connected to the internet',
+    offline: 'No internet connection',
+    battery: 'Battery: {{percent}}%',
+    batteryCharging: 'Battery: {{percent}}%, charging',
+    fullscreen: 'Full screen',
+    exitFullscreen: 'Exit full screen',
+  },
+  power: {
+    restarting: 'Restarting...',
+    shuttingDown: 'Shutting down...',
+    safe: "It's now safe to turn off your computer.",
+    turnOn: 'Turn on',
+  },
+  commands: {
+    about: 'Who I am, education and goals',
+    projects: 'Academic and personal projects',
+    experience: 'My professional journey',
+    contact: 'Ways to reach me',
+    guestbook: 'Leave a message on the guestbook',
+    agent: 'Chat with an AI that knows my profile',
+    help: 'Lists the available commands',
+    ask: 'Asks the AI agent something: ask <question>',
+    clear: 'Clears the terminal history',
+    close: 'Closes the focused window',
+    logout: 'Goes back to the mode choice',
+    lang: 'Switches the language: lang pt | lang en',
+    resume: 'Opens my resume as a PDF',
+    neofetch: 'Shows the system information',
+    reboot: 'Restarts the system',
+    shutdown: 'Shuts the system down',
   },
   login: {
     question: 'How would you like to see the portfolio?',

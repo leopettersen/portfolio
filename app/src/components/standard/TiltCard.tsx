@@ -8,6 +8,10 @@ export interface TiltCardProps {
     children?: ReactNode;
 }
 
+function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 export function TiltCard({ tiltLimit = 10, scale = 1.03, perspective = 1200, className = '', children }: TiltCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const rest = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
@@ -17,7 +21,7 @@ export function TiltCard({ tiltLimit = 10, scale = 1.03, perspective = 1200, cla
 
     function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
         const card = cardRef.current;
-        if (!card) return;
+        if (!card || prefersReducedMotion()) return;
 
         const rect = card.getBoundingClientRect();
         const px = (event.clientX - rect.left) / rect.width;
@@ -37,7 +41,7 @@ export function TiltCard({ tiltLimit = 10, scale = 1.03, perspective = 1200, cla
     return (
         <div
             ref={cardRef}
-            onPointerEnter={() => setIsHovered(true)}
+            onPointerEnter={() => setIsHovered(!prefersReducedMotion())}
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
             className={`relative overflow-hidden will-change-transform ${className}`}

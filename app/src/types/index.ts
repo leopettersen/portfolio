@@ -2,16 +2,51 @@ import type {LucideIcon} from 'lucide-react';
 
 export type Language = 'pt' | 'en';
 
+export type Localized = Record<Language, string>;
+
 export type PortfolioMode = 'system' | 'standard';
 
-export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent';
+export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent' | 'resume';
 
 export type WindowId = 'terminal' | SectionId;
 
+export interface AgentDraft {
+    id: number;
+    text: string;
+}
+
+export type ToastKind = 'welcome' | 'windows' | 'shortcuts' | 'offline' | 'online' | 'linkCopied' | 'copyFailed';
+
+export interface ToastItem {
+    id: number;
+    kind: ToastKind;
+}
+
+export type WindowLeave = 'close' | 'minimize';
+
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface WindowLayout extends Point {
+    width?: number;
+    height?: number;
+    maximized: boolean;
+}
+
+export interface OpenWindow {
+    id: WindowId;
+    layer: number;
+    offset: number;
+    minimized: boolean;
+    leaving?: WindowLeave;
+}
+
 export interface Section {
     id: SectionId;
-    command: string;
-    windowTitle: string;
+    command: Localized;
+    windowTitle: Localized;
     icon: LucideIcon;
     showShortcut: boolean;
     showChip: boolean;
@@ -40,9 +75,25 @@ export interface About {
     goals: Goal[];
 }
 
+export type TerminalOutput =
+  | { type: 'text'; text: string }
+  | { type: 'help' }
+  | { type: 'neofetch'; uptimeMinutes: number; resolution: string }
+  | { type: 'agent'; requestId: number };
+
+export interface TerminalAnswer {
+  question: string;
+  text: string;
+  streaming: boolean;
+  stopped?: boolean;
+  errorCode?: string;
+  retryAfter?: number | null;
+}
+
 export interface HistoryEntry {
+  id: number;
   command: string;
-  output: string;
+  output: TerminalOutput;
 }
 
 export type WorkModel = 'onsite' | 'hybrid' | 'remote';
@@ -62,6 +113,7 @@ export interface Project {
     description: string;
     technologies: string[];
     repoLink: string;
+    liveLink?: string;
     image?: string;
 }
 

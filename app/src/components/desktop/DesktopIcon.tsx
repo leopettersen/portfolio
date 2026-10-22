@@ -1,15 +1,20 @@
+import { useRef } from 'react';
 import type { LucideIcon } from 'lucide-react';
+import type { Point } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
 
 export interface DesktopIconProps {
     icon: LucideIcon;
     label: string;
     onOpen: () => void;
+    initialPosition?: Point;
+    onMove?: (position: Point) => void;
 }
 
-export function DesktopIcon({ icon: Icon, label, onOpen }: DesktopIconProps) {
+export function DesktopIcon({ icon: Icon, label, onOpen, initialPosition, onMove }: DesktopIconProps) {
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const dragEnabled = window.matchMedia('(min-width: 768px)').matches;
-    const { position, moved, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled);
+    const { position, moved, onPointerDown, onPointerMove, onPointerUp, onPointerCancel } = useDraggable(dragEnabled, buttonRef, initialPosition, onMove);
 
     function handleClick() {
         if (moved.current) return;
@@ -18,6 +23,7 @@ export function DesktopIcon({ icon: Icon, label, onOpen }: DesktopIconProps) {
 
     return (
         <button
+            ref={buttonRef}
             onClick={handleClick}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
@@ -30,7 +36,7 @@ export function DesktopIcon({ icon: Icon, label, onOpen }: DesktopIconProps) {
                 <Icon size={20} />
             </div>
 
-            <span className="text-s font-mono lowercase tracking-wide">
+            <span className="text-sm font-mono lowercase tracking-wide">
                 {label}
             </span>
         </button>

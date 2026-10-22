@@ -16,17 +16,17 @@ export function AboutPage() {
                     className="w-32 md:w-36 lg:w-40 aspect-square shrink-0 object-cover rounded-full border border-slate-800/60 shadow-lg shadow-black/50"
                 />
                 <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg w-full min-w-0">
-                    <h1 className="text-2xl font-bold">{about.overviewTitle}</h1>
+                    <h2 className="text-2xl font-bold">{about.overviewTitle}</h2>
                     <p className="text-slate-400">{about.overviewParagraph}</p>
                 </div>
             </div>
 
             <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 md:gap-4">
-                    <h1 className="text-xl font-bold">{t('about.sections.education', 'Educação')}</h1>
+                    <h2 className="text-xl font-bold">{t('about.sections.education', 'Educação')}</h2>
                     <span className="text-sm font-semibold text-slate-400">{about.education.period}</span>
                 </div>
-                <h2 className="text-lg font-semibold">{about.education.title} - {about.education.college}</h2>
+                <h3 className="text-lg font-semibold">{about.education.title} - {about.education.college}</h3>
                 <p className="text-slate-400">{about.education.description}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                     {about.education.tags.map((tag) => (
@@ -36,7 +36,7 @@ export function AboutPage() {
             </div>
 
             <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
-                <h1 className="text-xl font-bold">{t('about.sections.interests', 'Interesses')}</h1>
+                <h2 className="text-xl font-bold">{t('about.sections.interests', 'Interesses')}</h2>
                 <p className="text-slate-400">{about.interestsDescription}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                     {about.interestsTags.map((tag) => (
@@ -46,11 +46,11 @@ export function AboutPage() {
             </div>
 
             <div className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
-                <h1 className="text-xl font-bold">{t('about.sections.goals', 'Metas')}</h1>
+                <h2 className="text-xl font-bold">{t('about.sections.goals', 'Metas')}</h2>
                 <ul className="flex flex-col gap-4">
                     {about.goals.map((goal) => (
                         <li key={goal.title}>
-                            <h2 className="text-lg font-semibold">{goal.title}</h2>
+                            <h3 className="text-lg font-semibold">{goal.title}</h3>
                             <p className="text-slate-400">{goal.description}</p>
                         </li>
                     ))}

@@ -1,93 +1,13 @@
-import { useState, type FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
 import { ArrowUpRight, Download, Send } from 'lucide-react';
 import { RESUME_FILE_NAME, RESUME_URL } from '../resume';
-import type { SendStatus } from '../../../types';
 import { contacts } from '../../../data/contacts';
+import { useContactForm } from '../../../hooks/useContactForm';
 import { FormField } from '../FormField';
-
-const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-interface FormState {
-    name: string;
-    email: string;
-    message: string;
-}
-
-type FormErrors = Partial<Record<'name' | 'email' | 'message', string>>;
-
-const INITIAL: FormState = { name: '', email: '', message: '' };
 
 export function ContactSection() {
     const { t } = useTranslation();
-    const [form, setForm] = useState<FormState>(INITIAL);
-    const [errors, setErrors] = useState<FormErrors>({});
-    const [status, setStatus] = useState<SendStatus>('idle');
-    const sending = status === 'sending';
-
-    function validate(): FormErrors {
-        const found: FormErrors = {};
-
-        if (!form.name.trim()) {
-            found.name = t('contact.errors.nameRequired');
-        }
-
-        if (!form.email.trim()) {
-            found.email = t('contact.errors.emailRequired');
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-            found.email = t('contact.errors.emailInvalid');
-        }
-
-        if (!form.message.trim()) {
-            found.message = t('contact.errors.messageRequired');
-        } else if (form.message.trim().length < 10) {
-            found.message = t('contact.errors.messageMinLength');
-        }
-
-        return found;
-    }
-
-    function setField<K extends keyof FormState>(field: K) {
-        return (value: FormState[K]) => {
-            setForm((prev) => ({ ...prev, [field]: value }));
-            setErrors((prev) => ({ ...prev, [field]: undefined }));
-            if (status === 'success' || status === 'error') setStatus('idle');
-        };
-    }
-
-    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-
-        if (new FormData(event.currentTarget).get('website')) return;
-
-        const found = validate();
-        setErrors(found);
-        if (Object.keys(found).length > 0) return;
-
-        setStatus('sending');
-
-        try {
-            await emailjs.send(
-                serviceId,
-                templateId,
-                {
-                    name: form.name.trim(),
-                    email: form.email.trim(),
-                    message: form.message.trim(),
-                },
-                publicKey
-            );
-
-            setStatus('success');
-            setForm(INITIAL);
-        } catch (error) {
-            console.error(error);
-            setStatus('error');
-        }
-    }
+    const { form, setField, website, setWebsite, errors, status, sending, statusText, handleSubmit } = useContactForm();
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 lg:flex-row lg:items-stretch">
@@ -129,7 +49,7 @@ export function ContactSection() {
 
                 <div className="mt-auto pt-8">
                     <div className="mb-3 border-t border-line" />
-                    <small className="flex items-center gap-2 text-[11px]">
+                    <small className="flex items-center gap-2 text-xs">
                         <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                         {t('standard.contact.available')}
                     </small>
@@ -180,6 +100,8 @@ export function ContactSection() {
                 <input
                     type="text"
                     name="website"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
                     tabIndex={-1}
                     autoComplete="off"
                     aria-hidden="true"
@@ -187,8 +109,7 @@ export function ContactSection() {
                 />
 
                 <p role="status" className={`mb-3 min-h-4 text-sm ${status === 'success' ? 'text-green-500' : 'text-red-500'}`}>
-                    {status === 'success' && t('contact.successMsg')}
-                    {status === 'error' && t('contact.errorMsg')}
+                    {statusText}
                 </p>
 
                 <button
@@ -201,7 +122,7 @@ export function ContactSection() {
                 </button>
 
                 <div className="mt-8 mb-3 border-t border-line" />
-                <small className="block text-center text-[11px]">{t('standard.contact.privacy')}</small>
+                <small className="block text-center text-xs">{t('standard.contact.privacy')}</small>
             </form>
         </div>
     );

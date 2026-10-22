@@ -98,7 +98,7 @@ export function BootScreen({ onFinish }: BootScreenProps) {
                     <div className="h-full bg-blue-500 transition-all duration-300" style={{ width: `${progress}%` }} />
                 </div>
 
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-400">
                     {t('boot.skip')}
                 </p>
 

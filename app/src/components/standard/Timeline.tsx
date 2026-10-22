@@ -64,13 +64,13 @@ export function TimelineItem({ children }: { children: ReactNode }) {
     return (
         <div ref={ref} className="relative">
             <span
-                className={`absolute -left-[2.4rem] top-6 z-10 size-3 rounded-full border-2 transition-all duration-300 lg:-left-[2.9rem] ${
+                className={`absolute -left-[2.4rem] top-6 z-10 size-3 rounded-full border-2 transition-all duration-300 motion-reduce:transition-none lg:-left-[2.9rem] ${
                     active
                         ? 'scale-125 border-brand bg-brand shadow-[0_0_14px_var(--brand)]'
                         : 'border-line bg-surface'
                 }`}
             />
-            <div className={`transition-all duration-500 ${active ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-40'}`}>
+            <div className={`transition-all duration-500 motion-reduce:transition-none ${active ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-40 motion-reduce:translate-y-0'}`}>
                 {children}
             </div>
         </div>

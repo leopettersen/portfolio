@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileUser, Globe, Menu, Monitor, X } from 'lucide-react';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
 import { navLinks } from './links';
+import { useActiveSection } from './useActiveSection';
+
+const sectionIds = ['home', ...navLinks.map((link) => link.href.slice(1)), 'resume'];
 
 export interface HeaderProps {
     onSwitchMode: () => void;
@@ -12,6 +15,38 @@ export interface HeaderProps {
 export function Header({ onSwitchMode }: HeaderProps) {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
+    const active = useActiveSection(sectionIds);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
+    const resumeActive = active === 'resume';
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key !== 'Escape') return;
+            setIsOpen(false);
+            toggleRef.current?.focus();
+        };
+
+        const onPointerDown = (event: PointerEvent) => {
+            const target = event.target as Node;
+            if (panelRef.current?.contains(target) || toggleRef.current?.contains(target)) return;
+            setIsOpen(false);
+        };
+
+        window.addEventListener('keydown', onKeyDown);
+        document.addEventListener('pointerdown', onPointerDown, true);
+
+        return () => {
+            window.removeEventListener('keydown', onKeyDown);
+            document.removeEventListener('pointerdown', onPointerDown, true);
+        };
+    }, [isOpen]);
+
+    function isActive(href: string) {
+        return active === href.slice(1);
+    }
 
     return (
         <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] xl:max-w-max">
@@ -28,7 +63,11 @@ export function Header({ onSwitchMode }: HeaderProps) {
                     <ul className="flex items-center gap-5 text-sm">
                         {navLinks.map((link) => (
                             <li key={link.href}>
-                                <a href={link.href} className="rounded-xl px-1.5 py-1 hover:text-title hover:bg-brand/10 transition-colors">
+                                <a
+                                    href={link.href}
+                                    aria-current={isActive(link.href) ? 'location' : undefined}
+                                    className={`rounded-xl px-1.5 py-1 hover:text-title hover:bg-brand/10 transition-colors ${isActive(link.href) ? 'text-title bg-brand/10' : ''}`}
+                                >
                                     {t(`standard.menu.${link.key}`)}
                                 </a>
                             </li>
@@ -55,7 +94,8 @@ export function Header({ onSwitchMode }: HeaderProps) {
 
                         <a
                             href="#resume"
-                            className="flex items-center gap-2 rounded-2xl bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand hover:bg-brand hover:text-on-brand transition-colors"
+                            aria-current={resumeActive ? 'location' : undefined}
+                            className={`flex items-center gap-2 rounded-2xl px-3 py-1.5 text-xs font-semibold hover:bg-brand hover:text-on-brand transition-colors ${resumeActive ? 'bg-brand text-on-brand' : 'bg-brand/10 text-brand'}`}
                         >
                             <FileUser size={15} />
                             {t('standard.menu.resume')}
@@ -64,6 +104,7 @@ export function Header({ onSwitchMode }: HeaderProps) {
                 </div>
 
                 <button
+                    ref={toggleRef}
                     type="button"
                     onClick={() => setIsOpen((prev) => !prev)}
                     className="rounded-lg p-1 text-title hover:bg-brand/10 transition-colors xl:hidden"
@@ -75,8 +116,9 @@ export function Header({ onSwitchMode }: HeaderProps) {
             </nav>
 
             <div
-                className={`absolute right-0 top-full mt-3 w-full overflow-hidden rounded-2xl border border-line bg-surface/95 p-4 text-body shadow-brand backdrop-blur-xl transition-all duration-300 xl:hidden ${
-                    isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0 pointer-events-none'
+                ref={panelRef}
+                className={`absolute right-0 top-full mt-3 w-full overflow-hidden rounded-2xl border border-line bg-surface/95 p-4 text-body shadow-brand backdrop-blur-xl transition-all duration-300 motion-reduce:transition-none xl:hidden ${
+                    isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0 pointer-events-none motion-reduce:translate-y-0'
                 }`}
             >
                 <ul className="flex flex-col">
@@ -85,7 +127,8 @@ export function Header({ onSwitchMode }: HeaderProps) {
                             <a
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="block rounded-lg px-3 py-3 text-sm font-medium hover:bg-brand/10 hover:text-title transition-colors"
+                                aria-current={isActive(link.href) ? 'location' : undefined}
+                                className={`block rounded-lg px-3 py-3 text-sm font-medium hover:bg-brand/10 hover:text-title transition-colors ${isActive(link.href) ? 'bg-brand/10 text-title' : ''}`}
                             >
                                 {t(`standard.menu.${link.key}`)}
                             </a>
@@ -104,6 +147,7 @@ export function Header({ onSwitchMode }: HeaderProps) {
                     <a
                         href="#resume"
                         onClick={() => setIsOpen(false)}
+                        aria-current={resumeActive ? 'location' : undefined}
                         className="flex items-center gap-2 rounded-xl bg-brand px-4 py-2 font-semibold text-on-brand hover:opacity-90 transition-opacity"
                     >
                         <FileUser size={15} />

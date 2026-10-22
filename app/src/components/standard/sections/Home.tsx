@@ -35,7 +35,7 @@ export function Home() {
                     {stats.map((stat) => (
                         <div key={stat.label} className="min-w-0 border-l border-brand pl-3">
                             <h3 className="text-xl font-semibold text-title">{stat.value}</h3>
-                            <p className="mt-2 text-[10px] uppercase">{stat.label}</p>
+                            <p className="mt-2 text-xs uppercase">{stat.label}</p>
                         </div>
                     ))}
                 </div>

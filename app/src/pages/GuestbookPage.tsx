@@ -18,6 +18,8 @@ export function GuestbookPage() {
         setWebsite,
         formErrors,
         status,
+        sending,
+        statusText,
         handleSubmit,
         handleLoadMore,
         formatDate,
@@ -29,9 +31,9 @@ export function GuestbookPage() {
             {/* Formulário */}
             <div className="flex flex-col gap-4">
 
-                <h1 className="text-xl font-bold">
+                <h2 className="text-xl font-bold">
                     {t('guestbook.form.title')}
-                </h1>
+                </h2>
 
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
 
@@ -46,6 +48,7 @@ export function GuestbookPage() {
                             maxLength={40}
                             value={newName}
                             onChange={(event) => setNewName(event.target.value)}
+                            disabled={sending}
                             placeholder={t('guestbook.form.namePlaceholder')}
                             aria-invalid={!!formErrors.name}
                             aria-describedby={formErrors.name ? 'guestbook-name-error' : undefined}
@@ -69,6 +72,7 @@ export function GuestbookPage() {
                             maxLength={500}
                             value={newMessage}
                             onChange={(event) => setNewMessage(event.target.value)}
+                            disabled={sending}
                             placeholder={t('guestbook.form.messagePlaceholder')}
                             rows={5}
                             aria-invalid={!!formErrors.message}
@@ -85,7 +89,7 @@ export function GuestbookPage() {
                                 <span />
                             )}
 
-                            <span className="text-xs text-slate-500">
+                            <span className="text-xs text-slate-400">
                                 {newMessage.length}/500
                             </span>
                         </div>
@@ -102,33 +106,23 @@ export function GuestbookPage() {
                         className="sr-only"
                     />
 
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                         {t('guestbook.form.privacy')}
                     </p>
 
                     <button
                         type="submit"
-                        disabled={status === 'sending'}
+                        disabled={sending}
                         className="self-start border border-slate-700/60 px-4 py-2 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {status === 'sending'
+                        {sending
                             ? t('guestbook.form.sending')
                             : t('guestbook.form.submit')}
                     </button>
 
-                    {status === 'success' && (
-                        <p role="status" className="text-sm text-green-400">
-                            {t('guestbook.form.success')}
-                        </p>
-                    )}
-
-                    {status === 'error' && (
-                        <p role="status" className="text-sm text-red-400">
-                            {formErrors.message === t('guestbook.form.wait')
-                                ? t('guestbook.form.wait')
-                                : t('guestbook.form.error')}
-                        </p>
-                    )}
+                    <p role="status" className={`text-sm ${status === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                        {statusText}
+                    </p>
 
                 </form>
 
@@ -162,9 +156,9 @@ export function GuestbookPage() {
                                 <div key={message.id} className="flex flex-col gap-2 bg-slate-800/60 p-4 rounded-lg">
 
                                     <div className="flex items-baseline justify-between gap-4">
-                                        <h1 className="text-xl font-bold">
+                                        <h2 className="text-xl font-bold">
                                             {message.name}
-                                        </h1>
+                                        </h2>
 
                                         <span className="text-sm font-semibold text-slate-400">
                                             {formatDate(message.created_at)}

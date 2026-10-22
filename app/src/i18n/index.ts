@@ -7,6 +7,7 @@ import { localeMap } from './localeMap';
 
 i18n.on('languageChanged', () => {
   document.documentElement.lang = localeMap[i18n.resolvedLanguage === 'en' ? 'en' : 'pt'];
+  document.title = i18n.t('site.title');
 });
 
 i18n

@@ -1,46 +1,36 @@
-// O que o agente sabe sobre mim. Vai inteiro como instrução de sistema em cada pergunta.
+import { EXTRA } from './_perfilExtra.js';
 
 export const NOME = 'Leonardo Federici Pettersen';
 
 export const PERFIL = `
 # Quem sou
-- Leonardo Federici Pettersen, estudante de Engenharia de Software na PUC Minas.
-- Começando na jornada da tecnologia e do desenvolvimento de software. Apaixonado por tecnologia, programação e inovação.
+- Leonardo Federici Pettersen. Estudante de Engenharia de Software na PUC Minas, começando na jornada da tecnologia e desenvolvimento de software. Apaixonado por tecnologia, programação e inovação.
 
 # Formação
-- Engenharia de Software na PUC Minas (jan/2026 a dez/2029).
-- O curso cobre programação, modelagem, projeto, construção e teste de software, gestão de projetos, qualidade de software, bancos de dados, redes, sistemas operacionais, sistemas distribuídos, segurança, cloud e mobile.
+- Engenharia de Software na PUC Minas (Jan 2026 - Dez 2029).
+- O curso aborda conteúdos como programação de computadores, linguagens de programação, estatística, lógica matemática aplicada a especificações de software, aspectos técnicos da engenharia de software como análise, modelagem, projeto, construção e teste de software, aspectos gerenciais da engenharia de software como gerência de projetos de software, gerência de configuração e evolução de software, garantia da qualidade dos processos de software, gestão da produção de software. Contempla também os aspectos relacionados ao trabalho em equipe, gestão de pessoas, comunicação com os diversos stakeholders envolvidos em um projeto e interação humano-computador. Aborda ainda as recentes tecnologias necessárias à construção de software como bancos de dados, redes de computadores, sistemas operacionais, sistemas distribuídos, segurança e tecnologias de dispositivos móveis e em nuvem.
 
 # Experiência
-- dti digital (out/2026 até hoje), Estágio em Desenvolvimento de Software, modelo híbrido: atuo na Enterprise Aurora, em um time ágil, desenvolvendo soluções com C# e .NET no back-end e React com TypeScript no front-end.
-- PUC Minas (ago/2026 até hoje), Monitor de Introdução a Algoritmos, presencial: ajudo os alunos com as dificuldades individuais na disciplina (Python).
+- dti digital (Out 2026 - Atual), Estágio em Desenvolvimento de Software, híbrido: Atuo como estagiário em desenvolvimento de sistemas na Enterprise Aurora, em um time que segue metodologias ágeis. Trabalho no desenvolvimento de soluções de software com C# no back-end e React com TypeScript no front-end, participando das atividades do time e contribuindo com a evolução dos produtos. Habilidades: C#, .NET, React, TypeScript.
+- PUC Minas (Ago 2026 - Atual), Monitor de Introdução a Algoritmos, presencial: Atuo na monitoria da disciplina, com o objetivo de mitigar as dificuldades individuais e o histórico de retenção da matéria. Habilidades: Docência, Liderança, Python.
 
 # Projetos
-- Sistema Hospitalar "Portões do Céu" (dez/2026): sistema web de gestão hospitalar em Java com Spring Boot, Thymeleaf e MySQL, com API REST para pacientes, profissionais, consultas, internações, controle de quartos e histórico médico. Repositório: github.com/leopettersen/TP-sistema-hospitalar
-- Portfólio Profissional (out/2026): este site, que imita um sistema operacional com terminal, feito com React, TypeScript, Tailwind CSS, Supabase (guestbook), EmailJS, Docker e publicado na Vercel. Também tem este agente, que usa a API do Google Gemini. Repositório: github.com/leopettersen/portifolio
-- Opera Máquinas (OPM) (jul/2026): interface web para otimizar e gerir a produção em ambientes industriais, com login e cadastro de usuários por função. Feito com HTML5, CSS3 e JavaScript. Repositório: github.com/leopettersen/trabalho-intedisciplinar1-opm
-
-# Habilidades
-- Linguagens: C#, TypeScript, JavaScript, Java, Python, HTML, CSS.
-- Front-end: React, Tailwind CSS.
-- Back-end: .NET, Spring Boot.
-- Banco de dados: MySQL, Supabase.
-- Ferramentas: Git, GitHub, Docker, Figma, Vercel.
-- Outras: docência e liderança (monitoria).
+- Sistema Hospitalar - Portões do Céu (Dez 2026): Sistema web de gestão hospitalar desenvolvido em Java com Spring Boot, utilizando API REST e banco de dados relacional para o gerenciamento de pacientes, profissionais, consultas e internações. A aplicação organiza processos essenciais, como agendamento, controle de quartos e histórico médico. Tecnologias: Java, SpringBoot, Thymeleaf, MySQL. Repositório: github.com/leopettersen/TP-sistema-hospitalar
+- Portfólio Profissional (Out 2026): O sistema apresenta minha trajetória, projetos, experiências e formas de contato em uma interface inspirada em um desktop com terminal. A navegação pode ser feita por comandos ou pelos ícones da interface, com suporte a português e inglês, temas claro e escuro e adaptação para computadores e celulares. O objetivo é apresentar meu trabalho de forma rápida, clara e interativa, sem necessidade de cadastro ou login. Tecnologias: TypeScript, React, Supabase, Docker. Repositório: github.com/leopettersen/portfolio. Site: www.leopettersen.dev
+- Opera Máquinas (OPM) (Jul 2026): Interface web voltada para a otimização e gestão da produção em ambientes industriais, centralizando ferramentas essenciais para a rotina operacional. O sistema busca organizar processos críticos, como o controle de login e cadastro de usuários por função. Tecnologias: HTML5, CSS3, JavaScript. Repositório: github.com/leopettersen/trabalho-intedisciplinar1-opm
 
 # Interesses
-- Tecnologia, programação e inovação.
-- Esportes: futebol (cruzeirense fanático, acompanho o futebol brasileiro e internacional), natação, basquete e futebol americano.
+- Além do interesse por tecnologia e desenvolvimento de software, sou apaixonado por futebol e esportes em geral, cruzeirense fanático! Acompanho o futebol brasileiro e internacional, também gosto de natação, basquete e futebol americano.
+- Temas: Esportes, Futebol, Inovação, Programação, Tecnologia.
 
 # Metas
-- Participar de um WeMakeSoftware com o meu grupo, apresentando um projeto para uma banca de avaliadores.
-- Contribuir para projetos open-source com código, documentação ou testes.
-- Me tornar um desenvolvedor de software altamente qualificado, contribuindo para projetos inovadores e impactantes.
+- Participar de um WeMakeSoftware: Participar de um WeMakeSoftware juntamente com o meu grupo, para ter a experiência de apresentar um projeto de software para uma banca de avaliadores, e receber feedbacks sobre o projeto.
+- Contribuir para projetos open-source: Contribuir para projetos open-source, seja com código, documentação ou testes, para aprender com a comunidade e ajudar a melhorar softwares utilizados por muitas pessoas, já que sou um ávido usuário deles.
+- Estabelecer uma carreira sólida em desenvolvimento de software: Me tornar um desenvolvedor de software altamente qualificado, contribuindo para projetos inovadores e impactantes.
 
 # Contato
-- E-mail: leonardopettersen465@yahoo.com
 - GitHub: github.com/leopettersen
-- LinkedIn: linkedin.com/in/leonardopettersen
+- E-mail: leonardopettersen465@yahoo.com
 - WhatsApp: +55 (31) 98690-6362
-- Também dá para usar o comando "contact" deste site para me mandar uma mensagem.
-`;
+- LinkedIn: linkedin.com/in/leonardopettersen
+${EXTRA}`;

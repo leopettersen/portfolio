@@ -1,20 +1,44 @@
 import imgProfile from '../../assets/Perfil.jpeg';
-import imgPortoesDoCeu from '../../assets/PortoesDoCeu.jpeg';
-import imgPortfolio from '../../assets/Portfolio.png';
-import imgOpm from '../../assets/OPM.png';
+import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
+import imgPortfolio from '../../assets/Portfolio.webp';
+import imgOpm from '../../assets/OPM.webp';
 
 export const pt = {
+  site: {
+    title: 'Leonardo Pettersen | Portfólio',
+  },
   terminal: {
     role: 'Estudante de Engenharia de Software',
     university: 'PUC Minas',
     typeMessage: 'digite',
-    typeCommand: 'help',
+    typeCommand: 'ajuda',
     toSeeCommands: 'para ver os comandos',
     openingSection: 'Abrindo seção: {{title}}',
     closingSection: 'Fechando seção atual.',
-    clearingHistory: 'Limpando histórico.',
-    availableCommands: 'Comandos disponíveis: {{commands}}',
+    availableCommands: 'Comandos disponíveis:',
     commandNotFound: 'Comando não encontrado: "{{command}}"',
+    inputLabel: 'Comando do terminal',
+    languageCurrent: 'Idioma atual: português. Use "idioma pt" ou "idioma en".',
+    languageChanged: 'Idioma alterado para português.',
+    languageUsage: 'Idioma desconhecido: "{{value}}". Use "idioma pt" ou "idioma en".',
+    askUsage: 'Escreva a pergunta depois do comando. Ex.: perguntar onde você estuda?',
+    askBusy: 'O agente ainda está respondendo a pergunta anterior.',
+    matrixReduced: 'matrix desativado: a opção "reduzir movimento" está ligada no seu sistema.',
+    neofetch: {
+      os: 'OS',
+      osValue: 'LeoOS (portfólio)',
+      host: 'Host',
+      kernel: 'Kernel',
+      shell: 'Shell',
+      shellValue: 'zsh (simulado)',
+      uptime: 'Uptime',
+      uptimeValue: '{{count}} min',
+      resolution: 'Resolução',
+      font: 'Fonte',
+      stack: 'Stack',
+      languages: 'Idiomas',
+      languagesValue: 'português, inglês',
+    },
   },
   window: {
     back: 'Voltar',
@@ -82,7 +106,8 @@ export const pt = {
     }
   ],
   projectUI: {
-    imageComingSoon: 'Imagem em breve'
+    imageComingSoon: 'Imagem em breve',
+    viewOnline: 'Ver online'
   },
   projects: [
     {
@@ -98,7 +123,8 @@ export const pt = {
       date: 'Out 2026',
       description: 'O sistema apresenta minha trajetória, projetos, experiências e formas de contato em uma interface inspirada em um desktop com terminal. A navegação pode ser feita por comandos ou pelos ícones da interface, com suporte a português e inglês, temas claro e escuro e adaptação para computadores e celulares. O objetivo é apresentar meu trabalho de forma rápida, clara e interativa, sem necessidade de cadastro ou login.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
-      repoLink: 'https://github.com/leopettersen/portifolio',
+      repoLink: 'https://github.com/leopettersen/portfolio',
+      liveLink: 'https://www.leopettersen.dev/',
       image: imgPortfolio,
     },
     {
@@ -122,6 +148,7 @@ export const pt = {
     sendingButton: 'Enviando...',
     successMsg: 'Mensagem enviada! Obrigado pelo contato.',
     errorMsg: 'Não foi possível enviar. Tente novamente ou use um dos contatos acima.',
+    limitedMsg: 'Você acabou de enviar uma mensagem. Aguarde um pouco para enviar outra.',
     errors: {
       nameRequired: 'Informe seu nome.',
       emailRequired: 'Informe seu e-mail.',
@@ -150,7 +177,7 @@ export const pt = {
         sending: 'Enviando...',
         success: 'Mensagem enviada! Obrigado pelo contato.',
         error: 'Não foi possível enviar. Tente novamente.',
-        wait: 'Aguarde alguns segundos antes de enviar outra mensagem.',
+        wait: 'Aguarde {{seconds}} s para enviar outra mensagem.',
     },
   },
   agent: {
@@ -196,12 +223,124 @@ export const pt = {
     ],
     skip: 'pressione qualquer tecla ou toque para pular',
   },
-  landingInfo: {
-    title: 'Olá, seja bem vindo ao meu portifólio!',
-    info: 'O meu portifólio simula um Sistema Operacional. Você pode arrastar, maximizar, minimizar e fechar janelas, arrastar ícones na área de trabalho. No cabeçalho também é possível traduzir do português pro inglês.'
+  github: {
+    title: 'Widget do GitHub',
+    openProfile: 'Abrir perfil no GitHub',
+    repos_one: '{{count}} repositório',
+    repos_other: '{{count}} repositórios',
+    followers_one: '{{count}} seguidor',
+    followers_other: '{{count}} seguidores',
+    recent: 'Atualizados recentemente',
+    languages: 'Linguagens por repositório',
   },
-  topBar: {
+  crash: {
+    title: 'Seu portfólio encontrou um problema e precisa ser reiniciado. Estamos coletando algumas informações sobre o erro.',
+    progress: '{{percent}}% concluído',
+    stopCode: 'Código de parada',
+    failed: 'O que falhou',
+    restart: 'Reiniciar',
+    standard: 'Abrir modo normal',
+    appTitle: 'O aplicativo parou de funcionar',
+    appText: 'Esta janela encontrou um erro. O resto do sistema continua funcionando.',
+    retry: 'Tentar de novo',
+  },
+  contextMenu: {
+    desktop: 'Menu da área de trabalho',
+    window: 'Menu da janela',
+    taskbar: 'Menu da barra de tarefas',
+    openTerminal: 'Abrir terminal',
+    refresh: 'Atualizar',
+    arrangeIcons: 'Organizar ícones',
+    switchLanguage: 'Mudar para inglês',
+    fullscreen: 'Tela cheia',
+    exitFullscreen: 'Sair da tela cheia',
+    copyLink: 'Copiar link do portfólio',
+    viewSource: 'Ver código-fonte',
+    about: 'Sobre este sistema',
+    reset: 'Redefinir área de trabalho',
+    closeWindow: 'Fechar janela',
+    resetConfirm: {
+      title: 'Redefinir a área de trabalho?',
+      text: 'Todas as janelas serão fechadas e os ícones, posições e tamanhos voltam ao padrão.',
+      cancel: 'Cancelar',
+      confirm: 'Redefinir',
+    },
+  },
+  toasts: {
+    region: 'Notificações',
+    dismiss: 'Dispensar notificação',
+    welcome: {
+      title: 'Bem-vindo ao meu portfólio!',
+      text: 'Isto simula um sistema operacional. Abra o terminal para começar: os outros ícones aparecem depois dele.',
+    },
+    windows: {
+      title: 'Janelas',
+      text: 'Arraste, maximize, minimize e feche as janelas. Os ícones da área de trabalho também podem ser arrastados.',
+      mobile: 'Use a barra de tarefas para alternar entre as janelas abertas e o botão Voltar para fechar.',
+    },
+    shortcuts: {
+      title: 'Atalhos',
+      text: 'Ctrl+K (⌘+K no Mac) abre a busca do menu iniciar. Use PT | EN na barra de tarefas para trocar o idioma.',
+      mobile: 'Toque no logo da barra de tarefas para abrir o menu iniciar. Use PT | EN para trocar o idioma.',
+    },
+    offline: {
+      title: 'Sem conexão',
+      text: 'O agente e o guestbook precisam de internet para funcionar.',
+    },
+    online: {
+      title: 'Conexão restabelecida',
+      text: 'O agente e o guestbook estão disponíveis de novo.',
+    },
+    linkCopied: {
+      title: 'Link copiado',
+      text: 'O link do portfólio está na sua área de transferência.',
+    },
+    copyFailed: {
+      title: 'Não foi possível copiar',
+      text: 'Copie o link manualmente: https://www.leopettersen.dev/',
+    },
+  },
+  taskbar: {
+    start: 'Iniciar',
+    apps: 'Aplicativos',
     switchMode: 'Trocar de modo',
+    searchPlaceholder: 'Pesquisar apps e comandos',
+    askAgent: 'Perguntar ao agente:',
+    power: 'Energia',
+    restart: 'Reiniciar',
+    shutdown: 'Desligar',
+  },
+  tray: {
+    online: 'Conectado à internet',
+    offline: 'Sem conexão com a internet',
+    battery: 'Bateria: {{percent}}%',
+    batteryCharging: 'Bateria: {{percent}}%, carregando',
+    fullscreen: 'Tela cheia',
+    exitFullscreen: 'Sair da tela cheia',
+  },
+  power: {
+    restarting: 'Reiniciando...',
+    shuttingDown: 'Desligando...',
+    safe: 'Agora é seguro desligar o computador.',
+    turnOn: 'Ligar',
+  },
+  commands: {
+    about: 'Quem eu sou, formação e objetivos',
+    projects: 'Projetos acadêmicos e pessoais',
+    experience: 'Minha trajetória profissional',
+    contact: 'Formas de falar comigo',
+    guestbook: 'Deixe um recado no mural de visitas',
+    agent: 'Converse com uma IA que conhece meu perfil',
+    help: 'Lista os comandos disponíveis',
+    ask: 'Pergunta algo ao agente de IA: perguntar <pergunta>',
+    clear: 'Limpa o histórico do terminal',
+    close: 'Fecha a janela em foco',
+    logout: 'Volta para a escolha de modo',
+    lang: 'Troca o idioma: idioma pt | idioma en',
+    resume: 'Abre o meu currículo em PDF',
+    neofetch: 'Mostra as informações do sistema',
+    reboot: 'Reinicia o sistema',
+    shutdown: 'Desliga o sistema',
   },
   login: {
     question: 'Como você prefere ver o portfólio?',

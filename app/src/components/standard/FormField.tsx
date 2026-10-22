@@ -20,7 +20,7 @@ export function FormField({ label, name, value, onChange, placeholder, type = 't
 
     return (
         <div className="w-full">
-            <label htmlFor={id} className="mb-1 block text-[10px] font-medium uppercase">{label}</label>
+            <label htmlFor={id} className="mb-1 block text-xs font-medium uppercase">{label}</label>
 
             <div className={`rounded-md border bg-body/5 px-3 py-2 transition-colors hover:border-brand hover:bg-brand/5 focus-within:border-brand focus-within:bg-brand/5 ${error ? 'border-red-500' : 'border-body/20'}`}>
                 {multiline ? (
@@ -55,7 +55,7 @@ export function FormField({ label, name, value, onChange, placeholder, type = 't
                 )}
             </div>
 
-            <div className="mt-1 mb-3 flex min-h-4 justify-between gap-4 text-[11px]">
+            <div className="mt-1 mb-3 flex min-h-4 justify-between gap-4 text-xs">
                 <p id={errorId} className="text-red-500">{error}</p>
                 {multiline && maxLength && <span className="shrink-0">{value.length}/{maxLength}</span>}
             </div>

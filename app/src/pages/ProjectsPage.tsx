@@ -1,4 +1,4 @@
-import { Code, ArrowUpRight } from 'lucide-react';
+import { Code, ArrowUpRight, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Project } from '../types';
 import { Tag } from '../components/ui/Tag';
@@ -22,13 +22,13 @@ export function ProjectsPage() {
 
                             <div className="flex items-baseline gap-3">
 
-                                <span className="text-sm font-semibold text-slate-500">
+                                <span className="text-sm font-semibold text-slate-400">
                                     {String(index + 1).padStart(2, '0')}
                                 </span>
 
-                                <h1 className="text-xl font-bold">
+                                <h2 className="text-xl font-bold">
                                     {project.name}
-                                </h1>
+                                </h2>
 
                             </div>
 
@@ -43,9 +43,9 @@ export function ProjectsPage() {
                         </p>
 
                         {project.image ? (
-                            <img src={project.image} alt={project.name} className="w-full aspect-video object-cover rounded-lg mt-4" />
+                            <img src={project.image} alt={project.name} loading="lazy" decoding="async" className="w-full aspect-video object-cover rounded-lg mt-4" />
                         ) : (
-                            <div className="w-full aspect-video rounded-lg mt-4 flex items-center justify-center bg-slate-700/30 text-slate-500">
+                            <div className="w-full aspect-video rounded-lg mt-4 flex items-center justify-center bg-slate-700/30 text-slate-400">
                                 {t('projectUI.imageComingSoon', 'Imagem em breve')}
                             </div>
                         )}
@@ -60,11 +60,21 @@ export function ProjectsPage() {
                                 ))}
                             </div>
 
-                            <a href={project.repoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
-                                <Code size={16} />
-                                GitHub
-                                <ArrowUpRight size={15} />
-                            </a>
+                            <div className="flex flex-wrap gap-2">
+                                {project.liveLink && (
+                                    <a href={project.liveLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
+                                        <Globe size={16} />
+                                        {t('projectUI.viewOnline')}
+                                        <ArrowUpRight size={15} />
+                                    </a>
+                                )}
+
+                                <a href={project.repoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
+                                    <Code size={16} />
+                                    GitHub
+                                    <ArrowUpRight size={15} />
+                                </a>
+                            </div>
 
                         </div>
 

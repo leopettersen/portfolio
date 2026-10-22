@@ -10,6 +10,50 @@
   --color-on-brand: var(--on-brand);
   --shadow-brand: var(--brand-shadow);
   --font-geist: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@theme {
+  --animate-toast-in: toast-in 200ms ease-out;
+  --animate-toast-timer: toast-timer 10s linear forwards;
+  --animate-window-in: window-in 150ms ease-out;
+  --animate-window-out: window-out 150ms ease-in forwards;
+  --animate-window-minimize: window-minimize 150ms ease-in forwards;
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+
+  @keyframes toast-timer {
+    to {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes window-in {
+    from {
+      opacity: 0;
+      scale: 0.95;
+    }
+  }
+
+  @keyframes window-out {
+    to {
+      opacity: 0;
+      scale: 0.95;
+    }
+  }
+
+  @keyframes window-minimize {
+    to {
+      opacity: 0;
+      scale: 0.6;
+      translate: 0 40vh;
+    }
+  }
 }
 
 :root {
@@ -36,27 +80,31 @@
 }
 
 html[data-theme] {
-  scroll-behavior: smooth;
   background-color: var(--page);
   scrollbar-width: thin;
   scrollbar-color: var(--brand) var(--page);
 }
 
-/* Scrollbar personalizada para o textarea */
-.custom-scrollbar {
+html[data-theme] body * {
+  scrollbar-color: var(--brand) transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme] {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  * {
     scrollbar-width: thin;
-    scrollbar-color: blue transparent;
-}
-
-html:not([data-theme]),
-html:not([data-theme]) *,
-html:not([data-theme]) *::before,
-html:not([data-theme]) *::after {
-  cursor: url("/cursor.svg") 2 2, auto !important;
-}
-
-html:not([data-theme]) :is(a, button, [role="button"], .cursor-pointer, label, summary) {
-  cursor: url("/cursor-pointer.svg") 2 2, pointer !important;
+    scrollbar-color: var(--color-blue-500) transparent;
+  }
 }
 
 /* Modo normal: Orbitron só nos títulos. O corpo fica na Geist, que é mais legível.

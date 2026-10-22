@@ -12,6 +12,25 @@ interface FormErrors {
 const LAST_SENT_KEY = 'guestbook:lastSent';
 const SEND_INTERVAL = 30_000;
 
+type GuestbookStatus = SendStatus | 'limited';
+
+function secondsToWait() {
+    try {
+        const elapsed = Date.now() - Number(localStorage.getItem(LAST_SENT_KEY) ?? 0);
+        return Math.max(0, Math.ceil((SEND_INTERVAL - elapsed) / 1000));
+    } catch {
+        return 0;
+    }
+}
+
+function saveLastSent() {
+    try {
+        localStorage.setItem(LAST_SENT_KEY, String(Date.now()));
+    } catch {
+        return;
+    }
+}
+
 export function useGuestbook() {
     const { t, i18n } = useTranslation();
 
@@ -26,7 +45,9 @@ export function useGuestbook() {
     const [website, setWebsite] = useState('');
 
     const [formErrors, setFormErrors] = useState<FormErrors>({});
-    const [status, setStatus] = useState<SendStatus>('idle');
+    const [status, setStatus] = useState<GuestbookStatus>('idle');
+    const [waitSeconds, setWaitSeconds] = useState(0);
+    const sending = status === 'sending';
 
     const locale = localeMap[i18n.resolvedLanguage === 'en' ? 'en' : 'pt'];
 
@@ -94,43 +115,48 @@ export function useGuestbook() {
         return errors;
     }
 
+    function clearStatus() {
+        if (status !== 'idle' && status !== 'sending') setStatus('idle');
+    }
+
+    function changeName(value: string) {
+        setNewName(value);
+        setFormErrors((prev) => ({ ...prev, name: undefined }));
+        clearStatus();
+    }
+
+    function changeMessage(value: string) {
+        setNewMessage(value);
+        setFormErrors((prev) => ({ ...prev, message: undefined }));
+        clearStatus();
+    }
+
+    function finish() {
+        setNewName('');
+        setNewMessage('');
+        setWebsite('');
+        setFormErrors({});
+        setStatus('success');
+    }
+
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        if (sending) return;
 
         if (website.trim()) {
-            setStatus('success');
-
-            setNewName('');
-            setNewMessage('');
-            setWebsite('');
-            setFormErrors({});
-
+            finish();
             return;
         }
 
-        const lastSent = localStorage.getItem(LAST_SENT_KEY);
-
-        if (lastSent) {
-            const elapsed = Date.now() - Number(lastSent);
-
-            if (elapsed < SEND_INTERVAL) {
-                setStatus('error');
-
-                setFormErrors({
-                    ...formErrors,
-                    message: t('guestbook.form.wait'),
-                });
-
-                return;
-            }
-        }
-
         const validationErrors = validate();
-
         setFormErrors(validationErrors);
+        if (Object.keys(validationErrors).length > 0) return;
 
-        if (Object.keys(validationErrors).length > 0) {
-            setStatus('idle');
+        const wait = secondsToWait();
+
+        if (wait > 0) {
+            setWaitSeconds(wait);
+            setStatus('limited');
             return;
         }
 
@@ -140,14 +166,8 @@ export function useGuestbook() {
             const createdMessage = await addMessage(newName, newMessage);
 
             setMessages((prev) => [createdMessage, ...prev]);
-
-            localStorage.setItem(LAST_SENT_KEY, String(Date.now()));
-
-            setNewName('');
-            setNewMessage('');
-            setWebsite('');
-            setFormErrors({});
-            setStatus('success');
+            saveLastSent();
+            finish();
         } catch (error) {
             setStatus('error');
             console.error(error);
@@ -162,11 +182,13 @@ export function useGuestbook() {
         });
     }
 
-    const statusText = status === 'success'
-        ? t('guestbook.form.success')
-        : status === 'error'
-            ? formErrors.message === t('guestbook.form.wait') ? t('guestbook.form.wait') : t('guestbook.form.error')
-            : '';
+    const statusText = {
+        idle: '',
+        sending: '',
+        success: t('guestbook.form.success'),
+        error: t('guestbook.form.error'),
+        limited: t('guestbook.form.wait', { seconds: waitSeconds }),
+    }[status];
 
     return {
         messages,
@@ -175,13 +197,14 @@ export function useGuestbook() {
         error,
         hasMore,
         newName,
-        setNewName,
+        setNewName: changeName,
         newMessage,
-        setNewMessage,
+        setNewMessage: changeMessage,
         website,
         setWebsite,
         formErrors,
         status,
+        sending,
         statusText,
         handleSubmit,
         handleLoadMore,

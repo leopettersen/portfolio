@@ -41,14 +41,16 @@ export async function askGemini(message: string, { history = [], language, signa
     }
 
     // Sem a função (ex.: build estático sem /api), a rota devolve o index.html
-    if ((response.headers.get('content-type') ?? '').includes('text/html')) {
+    const rateLimited = response.status === 429;
+
+    if (!rateLimited && (response.headers.get('content-type') ?? '').includes('text/html')) {
         throw new GeminiError('no_api', 'A rota /api/gemini não existe aqui.');
     }
 
     if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         const retryAfter = Number(response.headers.get('Retry-After')) || null;
-        throw new GeminiError(body.error ?? 'error', body.message ?? `HTTP ${response.status}`, retryAfter);
+        throw new GeminiError(body.error ?? (rateLimited ? 'rate_limited' : 'error'), body.message ?? `HTTP ${response.status}`, retryAfter);
     }
 
     if (!response.body) {
@@ -76,4 +78,31 @@ export async function askGemini(message: string, { history = [], language, signa
 
     onChunk?.(text);
     return text;
+}
+
+export interface AnswerPatch {
+    text?: string;
+    streaming?: boolean;
+    stopped?: boolean;
+    errorCode?: string;
+    retryAfter?: number | null;
+}
+
+export async function streamAnswer(question: string, options: Omit<AskOptions, 'onChunk'>, update: (patch: AnswerPatch) => void) {
+    try {
+        await askGemini(question, { ...options, onChunk: (text) => update({ text }) });
+        update({ streaming: false });
+    } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') {
+            update({ streaming: false, stopped: true });
+            return;
+        }
+
+        console.error(error);
+        update({
+            streaming: false,
+            errorCode: error instanceof GeminiError ? error.code : 'generic',
+            retryAfter: error instanceof GeminiError ? error.retryAfter : null,
+        });
+    }
 }
