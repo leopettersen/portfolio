@@ -9,7 +9,7 @@
   <tr>
     <td width="800px">
       <div align="justify">
-        Este é o meu portfólio profissional, criado no <b>Laboratório 01</b> da disciplina de Desenvolvimento e Integração de Aplicações Web (DIAW), do curso de Engenharia de Software da PUC Minas. Depois da tela de inicialização, o visitante escolhe entre o <i>modo sistema</i>, em que explora as seções digitando comandos no terminal ou clicando nos ícones da área de trabalho, e o <i>modo normal</i>, uma página única com tema claro e escuro e currículo em PDF. Nos dois modos é possível conversar com um <b>agente de IA</b> que responde sobre mim em primeira pessoa, deixar um recado no <b>guestbook</b> e me enviar uma mensagem pelo formulário de contato. O site é <i>bilíngue</i> (português e inglês) e <i>responsivo</i>.
+        Este é o meu portfólio profissional, criado no <b>Laboratório 01</b> da disciplina de Desenvolvimento e Integração de Aplicações Web (DIAW), do curso de Engenharia de Software da PUC Minas. Depois da tela de inicialização, o visitante escolhe entre o <i>modo sistema</i>, em que explora as seções digitando comandos no terminal ou clicando nos ícones da área de trabalho, e o <i>modo normal</i>, uma página única com tema claro e escuro. Nos dois modos dá para ver o currículo em PDF, conversar com um <b>agente de IA</b> que responde sobre mim em primeira pessoa, deixar um recado no <b>guestbook</b> e me enviar uma mensagem pelo formulário de contato. O site é <i>bilíngue</i> (português e inglês) e <i>responsivo</i>.
       </div>
     </td>
     <td>
@@ -39,7 +39,7 @@
 ![i18next](https://img.shields.io/badge/i18next-26.4.2-007ec6?style=for-the-badge&logo=i18next&logoColor=white)
 ![Motion](https://img.shields.io/badge/Motion-14.3.0-007ec6?style=for-the-badge)
 ![React PDF](https://img.shields.io/badge/React_PDF-11.0.0-007ec6?style=for-the-badge)
-![Supabase](https://img.shields.io/badge/Supabase-2.117.2-007ec6?style=for-the-badge&logo=supabase&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-007ec6?style=for-the-badge&logo=supabase&logoColor=white)
 ![EmailJS](https://img.shields.io/badge/EmailJS-5.0.2-007ec6?style=for-the-badge)
 ![Google Gemini](https://img.shields.io/badge/Gemini-3.5_Flash_Lite-007ec6?style=for-the-badge&logo=googlegemini&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-22-007ec6?style=for-the-badge&logo=nodedotjs&logoColor=white)
@@ -83,7 +83,7 @@
 
 Este projeto é o meu portfólio profissional: um site onde reúno minha trajetória, projetos, experiências e formas de contato em um só lugar. Foi desenvolvido como o **Laboratório 01** da disciplina de Desenvolvimento e Integração de Aplicações Web (DIAW), do curso de Engenharia de Software da PUC Minas, e continua como meu portfólio de fato depois da entrega.
 
-O site abre com uma tela de inicialização (boot) e chega a uma tela de login, que pergunta como o visitante prefere ver o portfólio. No **modo sistema**, em vez de um site tradicional com menu e rolagem, a interface imita um **sistema operacional**: a área de trabalho começa com um único atalho, o terminal. Ao abrir o terminal, os demais ícones aparecem. A partir daí, o visitante explora o conteúdo de dois jeitos: digitando comandos (`about`, `projects`, `experience`, `contact`, `agent`) ou clicando nos ícones. Cada seção abre em uma janela que pode ser arrastada, maximizada e fechada. No **modo normal**, o mesmo conteúdo aparece em uma página única com rolagem, menu fixo, tema claro e escuro e o currículo em PDF.
+O site abre com uma tela de inicialização (boot) e chega a uma tela de login, que pergunta como o visitante prefere ver o portfólio. No **modo sistema**, em vez de um site tradicional com menu e rolagem, a interface imita um **sistema operacional**, com barra de tarefas, menu Iniciar e janelas. A área de trabalho começa com um único atalho, o terminal. Ao abrir o terminal, os demais ícones aparecem. A partir daí, o visitante explora o conteúdo digitando comandos (`sobre`, `projetos`, `experiencia`, `contato`, `agente`...), clicando nos ícones ou buscando no menu Iniciar. Cada seção abre em uma janela que pode ser arrastada, redimensionada, minimizada, maximizada e fechada, e várias podem ficar abertas ao mesmo tempo. No **modo normal**, o mesmo conteúdo aparece em uma página única com rolagem, menu fixo e tema claro e escuro.
 
 A ideia é que quem chega entenda em poucos segundos quem eu sou, veja meus projetos e experiências e consiga entrar em contato. O site é bilíngue (português e inglês), responsivo (celular, tablet e computador) e tem um **guestbook**, onde qualquer pessoa pode deixar uma mensagem pública, e um **agente de IA**, que usa o Google Gemini para responder perguntas sobre mim em primeira pessoa.
 O site é aberto a qualquer pessoa, sem cadastro nem login. Por isso o foco está em ser claro, rápido de navegar e fácil de contatar.
@@ -95,57 +95,76 @@ O site é aberto a qualquer pessoa, sem cadastro nem login. Por isso o foco est�
 1. **Ligue o sistema:** acesse [leopettersen.dev](https://www.leopettersen.dev/). A tela de inicialização aparece sozinha. Para pular, aperte qualquer tecla ou toque na tela.
 2. **Escolha o modo:** na tela de login, escolha **Sistema** (terminal, janelas e ícones) ou **Normal** (página tradicional com rolagem).
 
+> [!TIP]
+> Para abrir direto em um modo, pulando o boot e o login, use [leopettersen.dev/?mode=sistema](https://www.leopettersen.dev/?mode=sistema) ou [leopettersen.dev/?mode=normal](https://www.leopettersen.dev/?mode=normal) (também valem `system` e `standard`). A barra de endereço acompanha o modo atual, então recarregar a página mantém o modo escolhido.
+
 ### 🖥️ Modo sistema
 
-1. **Abra o terminal:** clique no ícone `terminal` da área de trabalho. Os demais ícones aparecem.
-2. **Navegue:** clique nos ícones, nos atalhos do terminal ou digite um comando e aperte Enter.
-3. **Troque o idioma** (PT/EN) na barra superior. A escolha fica salva no navegador.
-4. **Troque de modo** pelo botão **Trocar de modo** da barra superior ou com o comando `logout`, que voltam para a tela de login.
+1. **Abra o terminal:** clique no ícone `terminal` da área de trabalho. Os demais ícones aparecem. Na primeira visita, dicas de uso aparecem como notificações no canto inferior direito.
+2. **Navegue:** clique nos ícones, nos atalhos do terminal, digite um comando e aperte Enter, ou abra o **menu Iniciar** (logo na barra de tarefas ou **Ctrl+K** / **⌘+K**) e busque por apps e comandos. Se a busca não encontrar nada, ela oferece **Perguntar ao agente**.
+3. **Organize as janelas:** várias podem ficar abertas ao mesmo tempo. Arraste pela barra de título, redimensione pelas bordas e cantos, dê duplo clique no título para maximizar e aperte **Esc** para fechar a janela em foco (dentro de um campo, o primeiro Esc só tira o foco). Na barra de tarefas, clicar em uma janela traz ela para a frente ou a minimiza.
+4. **Use o botão direito:** na área de trabalho (abrir o terminal, organizar ícones, trocar idioma, tela cheia, copiar o link, ver o código-fonte, informações do sistema e redefinir a área de trabalho), na barra de título e nos botões da barra de tarefas.
+5. **Veja a bandeja:** no canto direito da barra de tarefas ficam a conexão, a bateria (quando o navegador informa), a tela cheia, o idioma (PT/EN) e o relógio.
+6. **Desligue, reinicie ou troque de modo** pelo botão de energia do menu Iniciar, ou volte à tela de login com o comando `sair`.
+
+A área de trabalho fica salva no navegador: posições dos ícones, posição e tamanho de cada janela, janelas abertas e minimizadas. Ela continua igual ao trocar de modo, reiniciar ou desligar, e o botão direito > **Redefinir área de trabalho** volta ao padrão. No canto superior direito, um widget mostra meu perfil do GitHub, os repositórios atualizados recentemente e as linguagens que mais uso.
 
 | Comando | O que faz |
 | :--- | :--- |
-| `about` | Abre a janela **Sobre Mim** |
-| `projects` | Abre a linha do tempo de **Projetos** |
-| `experience` | Abre as **Experiências** |
-| `contact` | Abre os **Contatos** e o formulário de mensagem |
-| `agent` | Abre o **Agente IA**, para fazer perguntas sobre mim |
-| `guestbook` | Abre o **Guestbook** (comando escondido: só aparece no `help`) |
-| `help` | Lista os comandos disponíveis |
-| `clear` | Limpa o histórico do terminal |
-| `close` | Fecha a janela aberta |
-| `logout` (ou `exit`) | Volta para a tela de login, para escolher outro modo |
+| `sobre` | Abre a janela **sobre.md**: quem eu sou, formação e objetivos |
+| `projetos` | Abre **projetos/**, a linha do tempo de projetos |
+| `experiencia` | Abre **experiencia/**, minha trajetória profissional |
+| `contato` | Abre **contato.sh**, com os contatos e o formulário de mensagem |
+| `guestbook` | Abre o **guestbook.md**, o mural de recados |
+| `agente` | Abre o **agente.md**, para conversar com o agente de IA |
+| `curriculo` | Abre o **curriculo.pdf** |
+| `perguntar <pergunta>` | Pergunta ao agente e mostra a resposta no próprio terminal, mantendo a conversa |
+| `ajuda` | Lista os comandos, com uma descrição de cada um |
+| `limpar` | Limpa o histórico do terminal e a conversa do `perguntar` |
+| `fechar` | Fecha a janela em foco |
+| `idioma [pt\|en]` | Mostra ou troca o idioma |
+| `neofetch` | Mostra as informações do sistema |
+| `reiniciar` / `desligar` | Reinicia ou desliga o sistema |
+| `sair` (ou `exit`) | Volta para a tela de login, para escolher outro modo |
 
-A barra de comando no rodapé das janelas aceita os mesmos comandos, então dá para trocar de seção sem voltar ao terminal.
+Todos os comandos também aceitam o nome em inglês (`about`, `projects`, `ask`, `help`...), em qualquer idioma. No terminal, **↑/↓** navegam pelos últimos comandos, **Tab** completa o comando (as letras que faltam aparecem apagadas enquanto se digita) e **←/→** movem o cursor. A barra de comando no rodapé das janelas aceita os mesmos comandos.
 
-No celular, os ícones ficam em uma grade, as janelas ocupam a tela inteira e o botão **Voltar** fecha a janela.
+No celular, as janelas ocupam a tela acima da barra de tarefas, o botão **Voltar** fecha a janela e a barra de tarefas alterna entre as janelas abertas. Arrastar, redimensionar, os menus de botão direito e o widget do GitHub ficam só no computador.
 
 ### 📄 Modo normal
 
-1. **Navegue:** role a página ou use o menu fixo no topo para ir direto a uma seção (no celular, o menu abre pelo botão ☰).
+1. **Navegue:** role a página ou use o menu fixo no topo para ir direto a uma seção. O menu destaca a seção que está na tela. No celular, o menu abre pelo botão ☰ e fecha com Esc ou com um toque fora dele.
 2. **Personalize:** no menu, troque o idioma (PT/EN) e alterne entre tema claro e escuro. As duas escolhas ficam salvas no navegador.
 3. **Veja o currículo:** o botão **Currículo** leva ao PDF, que pode ser ampliado, baixado ou aberto em uma nova aba.
 4. **Troque de modo** pelo ícone de monitor no menu, que volta para a tela de login.
 
-Na seção de projetos, em telas a partir de 1024px, os cards se empilham: conforme a rolagem, cada projeto sobe e cobre o anterior.
+Na seção de projetos, em telas a partir de 1024px, os cards se empilham: conforme a rolagem, cada projeto sobe e cobre o anterior. Projetos publicados têm o botão **Ver online**, além do link do GitHub.
 
 ---
 
 ## ✨ Funcionalidades Principais
 
 - 🖥️ **Tela de inicialização (boot):** simula a partida de um sistema operacional, em poucos segundos e com opção de pular.
-- 🔀 **Dois modos de navegação:** uma tela de login permite escolher entre o modo sistema e o modo normal, e é possível trocar de modo a qualquer momento.
-- 🪟 **Área de trabalho interativa:** ícones e janelas arrastáveis no computador; janelas com botões de fechar, minimizar e maximizar.
-- ⌨️ **Terminal com comandos:** histórico, atalhos clicáveis e os comandos listados acima, também disponíveis na barra de comando de cada janela.
-- 📄 **Modo normal:** página única com as seções Início, Sobre, Experiência, Projetos, Agente IA, Currículo, Contato e Guestbook, menu fixo, barra de progresso da rolagem e cards de projetos que se empilham ao rolar.
+- 🔀 **Dois modos de navegação:** uma tela de login permite escolher entre o modo sistema e o modo normal, é possível trocar de modo a qualquer momento e o link `?mode=` abre direto em um deles.
+- 🪟 **Área de trabalho no estilo Windows 11:** barra de tarefas com menu Iniciar, busca, botão de energia (reiniciar, desligar e trocar de modo) e bandeja com conexão, bateria, tela cheia, idioma e relógio. Papel de parede feito só com CSS.
+- 🗂️ **Várias janelas:** abrir várias ao mesmo tempo, arrastar, redimensionar pelas bordas e cantos, minimizar, maximizar com duplo clique, fechar com Esc e menus de botão direito, com animações que respeitam o "reduzir movimento" do sistema.
+- 💾 **Área de trabalho salva:** posições dos ícones, posição e tamanho das janelas e janelas abertas ficam no navegador entre visitas.
+- ⌨️ **Terminal com comandos:** histórico com ↑/↓, autocompletar com Tab (com sugestão em letras apagadas), ajuda com a descrição de cada comando, `neofetch`, perguntas ao agente no próprio terminal e um easter egg.
+- 🔔 **Notificações:** dicas de boas-vindas na primeira visita e avisos de conexão perdida e recuperada.
+- 🐙 **Widget do GitHub:** perfil, repositórios atualizados recentemente e linguagens, direto da API pública do GitHub.
+- 🧯 **Recuperação de erros:** se uma janela quebra, só ela mostra "O aplicativo parou de funcionar", com a opção de tentar de novo. Um erro geral mostra uma tela azul com a opção de reiniciar ou abrir o modo normal.
+- 📄 **Modo normal:** página única com as seções Início, Sobre, Experiência, Projetos, Agente IA, Currículo, Contato e Guestbook, menu fixo que destaca a seção atual, barra de progresso da rolagem e cards de projetos que se empilham ao rolar.
 - 🌗 **Tema claro e escuro (modo normal):** segue a preferência do sistema no primeiro acesso e lembra a escolha do visitante.
-- 🌐 **Bilíngue (PT/EN):** interface e conteúdos nos dois idiomas, com o idioma escolhido lembrado pelo navegador (o primeiro acesso é sempre em português).
+- 🌐 **Bilíngue (PT/EN):** interface, conteúdos, nomes de comandos e janelas e o título da aba nos dois idiomas, com o idioma escolhido lembrado pelo navegador (o primeiro acesso é sempre em português).
 - 👤 **Sobre Mim:** apresentação, formação, interesses e objetivos profissionais.
-- 🕒 **Projetos em linha do tempo:** do mais antigo ao mais recente, com descrição, tecnologias, link do GitHub e imagem ou GIF.
+- 🕒 **Projetos em linha do tempo:** do mais antigo ao mais recente, com descrição, tecnologias, link do GitHub, link do site publicado (quando houver) e imagem.
 - 💼 **Experiências:** organização, cargo, período, modelo de trabalho, descrição e habilidades.
-- 🤖 **Agente IA:** responde em primeira pessoa, com a resposta aparecendo enquanto é gerada, usando só as informações do meu perfil e no idioma escolhido. Tem limite de perguntas por visitante.
-- 📑 **Currículo em PDF (modo normal):** visualização no próprio site, com zoom, download e opção de abrir em nova aba.
-- 📨 **Contato:** ícones clicáveis (e-mail, WhatsApp, LinkedIn e GitHub) e formulário com validação, enviado por e-mail via EmailJS.
-- 💬 **Guestbook:** mensagens públicas armazenadas no Supabase, com botão "carregar mais", intervalo mínimo entre envios e campo-isca contra robôs.
+- 🤖 **Agente IA:** responde em primeira pessoa, com a resposta aparecendo enquanto é gerada, usando só as informações do meu perfil e no idioma escolhido. Tem limite de perguntas por visitante, na função e no firewall da Vercel.
+- 📑 **Currículo em PDF:** visualização no próprio site, nos dois modos, com zoom, download e opção de abrir em nova aba.
+- 📨 **Contato:** ícones clicáveis (e-mail, WhatsApp, LinkedIn e GitHub) e formulário com validação, enviado por e-mail via EmailJS, com campo-isca contra robôs, bloqueio de navegadores automatizados e intervalo mínimo de 60 segundos entre envios.
+- 💬 **Guestbook:** mensagens públicas armazenadas no Supabase, com botão "carregar mais", intervalo mínimo de 30 segundos entre envios e campo-isca contra robôs.
+- ♿ **Acessibilidade:** navegação por teclado nos menus, foco devolvido ao fechar menus e diálogos, rótulos para leitores de tela e respeito ao "reduzir movimento".
+- 🔎 **SEO:** metadados para compartilhamento (Open Graph e Twitter/X), endereço canônico, dados estruturados (JSON-LD), `robots.txt` e `sitemap.xml`.
 - 📱 **Responsivo:** layout adaptado a celular, tablet e computador.
 
 ---
@@ -161,21 +180,22 @@ Na seção de projetos, em telas a partir de 1024px, os cards se empilham: confo
 * **Animações:** [Motion](https://motion.dev/)
 * **Visualização de PDF:** [react-pdf](https://github.com/wojtekmaj/react-pdf)
 * **Ícones:** [Lucide](https://lucide.dev/) e [Devicon](https://devicon.dev/)
-* **Fonte:** [Geist](https://vercel.com/font) (via Fontsource)
+* **Fontes (via Fontsource):** [JetBrains Mono](https://www.jetbrains.com/lp/mono/) no modo sistema, [Geist](https://vercel.com/font) no texto do modo normal e [Orbitron](https://fonts.google.com/specimen/Orbitron) nos títulos do modo normal
 * **Internacionalização (PT/EN):** [i18next](https://www.i18next.com/) e [react-i18next](https://react.i18next.com/)
 
 ### 🗄️ Dados e Serviços
 
 O único código que roda no servidor é uma função serverless da Vercel (`app/api/gemini.ts`), que chama o Gemini sem expor a chave no navegador. Os serviços externos são:
 
-* **Banco de dados (guestbook):** [Supabase](https://supabase.com/)
+* **Banco de dados (guestbook):** [Supabase](https://supabase.com/), acessado direto pela API REST, sem SDK
 * **Envio de e-mail (formulário de contato):** [EmailJS](https://www.emailjs.com/)
 * **Inteligência artificial (agente):** [Google Gemini](https://ai.google.dev/)
+* **Widget do GitHub:** [API REST pública do GitHub](https://docs.github.com/rest), chamada direto do navegador
 
 ### ⚙️ Infraestrutura e Ferramentas
 
 * **Containerização (execução local):** [Docker](https://www.docker.com/) e Docker Compose
-* **Hospedagem e função serverless:** [Vercel](https://vercel.com/)
+* **Hospedagem, função serverless e firewall:** [Vercel](https://vercel.com/)
 * **Automação:** [GitHub Actions](https://github.com/features/actions) (mantém o Supabase ativo)
 * **Análise estática:** [oxlint](https://oxc.rs/docs/guide/usage/linter)
 * **Protótipos:** [Figma](https://www.figma.com/)
@@ -192,13 +212,14 @@ Versões conforme o `app/package.json`.
 | `i18next` | ^26.4.2 | Motor de internacionalização |
 | `react-i18next` | ^17.0.15 | Integração do i18next com o React |
 | `i18next-browser-languagedetector` | ^8.2.1 | Lembra o idioma escolhido no navegador |
-| `@supabase/supabase-js` | ^2.117.2 | Cliente do Supabase (guestbook) |
 | `@emailjs/browser` | ^5.0.2 | Envio de e-mail do formulário de contato |
 | `lucide-react` | ^1.49.0 | Ícones |
-| `motion` | ^14.3.0 | Animações e efeitos ligados à rolagem (modo normal) |
-| `react-pdf` | ^11.0.0 | Exibição do currículo em PDF (modo normal) |
-| `devicon` | ^2.17.0 | Ícones das tecnologias (modo normal) |
-| `@fontsource-variable/geist` | ^5.3.0 | Fonte Geist (modo normal) |
+| `motion` | ^14.3.0 | Barra de progresso da rolagem (modo normal) |
+| `react-pdf` | ^11.0.0 | Exibição do currículo em PDF (nos dois modos) |
+| `devicon` | ^2.17.0 | Ícones das tecnologias, usados como SVGs individuais pintados com a cor do tema |
+| `@fontsource-variable/jetbrains-mono` | ^5.3.0 | Fonte JetBrains Mono (modo sistema) |
+| `@fontsource-variable/geist` | ^5.3.0 | Fonte Geist (texto do modo normal) |
+| `@fontsource-variable/orbitron` | ^5.3.0 | Fonte Orbitron (títulos do modo normal) |
 
 **Desenvolvimento:** `typescript` (~6.0.2), `vite` (^8.3.0), `@vitejs/plugin-react` (^6.1.1), `oxlint` (^1.81.0), `@types/react`, `@types/react-dom` e `@types/node`.
 
@@ -208,86 +229,103 @@ Versões conforme o `app/package.json`.
 
 ### Visão geral
 
-O projeto é uma **SPA (Single Page Application)** em React e TypeScript, construída com Vite e publicada na Vercel. O guestbook e o envio de e-mail são chamados diretamente pelo front-end, usando Supabase e EmailJS. O agente de IA é a única parte com código no servidor: o navegador chama a rota `/api/gemini` do próprio site, e quem fala com o Gemini é uma **Vercel Function** (em produção) ou um plugin do `vite.config.ts` (em `npm run dev` e `npm run preview`). As duas usam a mesma lógica, que fica em `app/api/_gemini.ts`.
+O projeto é uma **SPA (Single Page Application)** em React e TypeScript, construída com Vite e publicada na Vercel. O guestbook, o envio de e-mail e o widget do GitHub são chamados diretamente pelo front-end, usando a API REST do Supabase, o EmailJS e a API pública do GitHub. O agente de IA é a única parte com código no servidor: o navegador chama a rota `/api/gemini` do próprio site, e quem fala com o Gemini é uma **Vercel Function** (em produção) ou um plugin do `vite.config.ts` (em `npm run dev` e `npm run preview`). As duas usam a mesma lógica, que fica em `app/api/_gemini.ts`.
 
 ### Principais componentes
 
-- **`App`:** controla a etapa atual: tela de boot, tela de login (escolha de modo), área de trabalho (modo sistema) ou página única (modo normal).
+- **`App`:** controla a etapa atual: tela de boot, tela de login (escolha de modo), área de trabalho (modo sistema), página única (modo normal) ou as telas de reiniciar e desligar. Lê o `?mode=` na entrada e mantém a URL em dia com o modo atual.
 - **`LoginScreen`:** tela que pergunta qual modo o visitante prefere.
-- **`DesktopLayout`:** dono do estado do modo sistema. Guarda qual janela está aberta, se os ícones já foram liberados, o histórico do terminal e a função que executa os comandos.
-- **`DesktopIcon`:** ícone da área de trabalho, arrastável.
-- **`Window`:** janela padrão, com barra de título arrastável, botões de fechar, minimizar e maximizar e barra de comando no rodapé.
-- **`Terminal` e `CommandPrompt`:** o terminal mostra apresentação, atalhos e histórico; o `CommandPrompt` é a linha de comando, compartilhada entre o terminal e o rodapé das janelas.
+- **`BootScreen`, `PowerScreen` e `CrashScreen`:** a inicialização, as telas de reiniciar e desligar e a tela azul mostrada quando o modo sistema quebra fora de uma janela.
+- **`DesktopLayout`:** dono do estado do modo sistema. Guarda as janelas abertas (ordem, minimizadas e layout de cada uma), se os ícones já foram liberados, as posições dos ícones, o histórico do terminal e a função que executa os comandos. Também cuida das notificações, dos atalhos de teclado e do menu de botão direito.
+- **`Taskbar`, `StartMenu` e `SystemTray`:** a barra de tarefas, o menu Iniciar com busca e botão de energia, e a bandeja com conexão, bateria, tela cheia, idioma e relógio.
+- **`DesktopIcon` e `GithubWidget`:** os ícones da área de trabalho e o widget do GitHub, ambos arrastáveis.
+- **`ContextMenu`, `ConfirmDialog` e `ToastStack`:** o menu de botão direito, a confirmação de "Redefinir área de trabalho" e as notificações.
+- **`Window` e `WindowCrash`:** a janela padrão, com barra de título arrastável, redimensionamento pelas bordas, botões de fechar, minimizar e maximizar e barra de comando no rodapé. Se o conteúdo quebra, só aquela janela mostra o `WindowCrash`.
+- **`Terminal`, `CommandPrompt` e `HistoryOutput`:** o terminal mostra apresentação, atalhos e histórico; o `CommandPrompt` é a linha de comando (histórico, Tab e sugestões), compartilhada entre o terminal e o rodapé das janelas; o `HistoryOutput` desenha as respostas (ajuda, `neofetch` e as respostas do agente).
+- **`AgentChat` e `ResumeViewer`:** o chat do agente e o visualizador do currículo, cada um com um visual para cada modo (`tone="standard"` ou `"system"`).
 - **`StandardPortfolio`:** a página do modo normal, com header, seções e rodapé. É carregada sob demanda (`lazy`), só quando o visitante escolhe esse modo.
-- **`pages/`:** o conteúdo de cada janela do modo sistema (About, Projects, Experience, Contact, Agent e Guestbook).
+- **`pages/`:** o conteúdo de cada janela do modo sistema (About, Projects, Experience, Contact, Agent, Guestbook e Resume).
 - **`components/standard/sections/`:** as seções do modo normal (Home, About, Experience, Projects, Agent, Resume, Contact e Guestbook).
-- **`data/`:** a lista de seções, os contatos, o app do terminal e o mapa de ícones das tecnologias.
-- **`hooks/`:** a lógica compartilhada entre os dois modos, como a conversa com o agente (`useAgentChat`) e o guestbook (`useGuestbook`).
-- **`services/`:** o acesso ao Supabase, as funções do guestbook e a chamada à rota do agente.
+- **`data/`:** a lista de seções, os comandos e seus nomes nos dois idiomas, os apps do menu Iniciar, os contatos, os endereços do site e o mapa de ícones das tecnologias.
+- **`hooks/`:** a lógica compartilhada, como a conversa com o agente (`useAgentChat` e `useTerminalAgent`), o formulário de contato (`useContactForm`), o guestbook (`useGuestbook`), arrastar e redimensionar (`useDraggable` e `useResizable`), as notificações (`useToasts`) e a bandeja (`useOnline`, `useBattery` e `useFullscreen`).
+- **`services/`:** o guestbook (API REST do Supabase), a chamada à rota do agente, o resumo do GitHub, o estado salvo da área de trabalho e o link com `?mode=`.
 - **`i18n/`:** configuração do i18next e os textos e conteúdos (sobre, projetos e experiências) em português e inglês.
 - **`api/`:** a função serverless do agente, a lógica compartilhada com o Vite e o perfil que o agente usa para responder.
+- **`scripts/`:** o script que gera o perfil do agente a partir dos dados do site.
 
 ### Fluxo de navegação
 
-Não há roteamento por URL: o site inteiro vive em uma única tela. A etapa atual (boot, login, modo sistema ou modo normal) é um **estado local do React** no `App`.
+Não há um roteador: o site inteiro vive em uma única tela. A etapa atual (boot, login, modo sistema, modo normal, reiniciar ou desligar) é um **estado local do React** no `App`. A única informação na URL é o modo (`?mode=sistema` ou `?mode=normal`), lido na entrada para pular o boot e o login e atualizado com `history.replaceState` a cada troca, sem criar entradas no histórico do navegador.
 
-No modo sistema, a navegação é controlada por um estado local no `DesktopLayout`, que guarda qual janela está aberta (o terminal, uma seção ou nenhuma). Ícones, atalhos e comandos não têm lógicas separadas: todos terminam em **uma função só** (`runCommand`), que atualiza esse estado. Digitar `projects` no terminal, digitar no rodapé de uma janela ou clicar no ícone tem o mesmo efeito. O `help`, o `clear` e os comandos desconhecidos escrevem no histórico do terminal, que também mora no `DesktopLayout` e por isso não se perde quando uma janela abre e fecha. O `logout` (ou `exit`) devolve o visitante para a tela de login.
+No modo sistema, a navegação é controlada pelo `DesktopLayout`, que guarda a lista de janelas abertas, a ordem em que estão empilhadas e quais estão minimizadas. Ícones, atalhos, a busca do menu Iniciar e os comandos não têm lógicas separadas: todos terminam nas mesmas funções (`runCommand` e `openApp`), que atualizam esse estado. Digitar `projetos` no terminal, digitar no rodapé de uma janela, buscar no menu Iniciar ou clicar no ícone tem o mesmo efeito. A `ajuda`, o `limpar`, o `perguntar` e os comandos desconhecidos escrevem no histórico do terminal, que também mora no `DesktopLayout` e por isso não se perde quando uma janela abre e fecha. O `sair` (ou `exit`) devolve o visitante para a tela de login.
 
-A lista de seções (usada nos ícones e nos comandos) fica centralizada em `data/sections.ts`, de modo que adicionar uma seção nova significa registrá-la nesse arquivo, nos tipos do projeto e no mapa de páginas do `DesktopLayout`.
+O estado da área de trabalho (ícones liberados, posições dos ícones e do widget, layout de cada janela e janelas abertas) é salvo no `localStorage` por `services/desktopStorage.ts` e restaurado na próxima visita. O histórico do terminal e a conversa com o agente não são salvos.
+
+A lista de seções (usada nos ícones, nos comandos e no menu Iniciar) fica centralizada em `data/sections.ts`, de modo que adicionar uma seção nova significa registrá-la nesse arquivo (com o nome do comando e o título da janela nos dois idiomas), nos tipos do projeto, no mapa de páginas do `DesktopLayout` e na descrição dos comandos em `i18n/`.
 
 No modo normal, todas as seções ficam na mesma página, e o menu leva a cada uma por âncoras (`#about`, `#projects`...).
 
 ### Idioma
 
-O `react-i18next` guarda o idioma atual e a escolha do visitante no navegador. Ele traduz os textos da interface (rótulos, botões, mensagens do terminal e do formulário) e também os conteúdos longos (sobre, experiências e projetos), que ficam nos arquivos `i18n/locales/pt.ts` e `en.ts`. O arquivo em inglês é tipado a partir do português (`typeof pt`), então um conteúdo sem tradução não compila. O agente recebe o idioma atual e responde nele.
+O `react-i18next` guarda o idioma atual e a escolha do visitante no navegador. Ele traduz os textos da interface (rótulos, botões, mensagens do terminal e do formulário, nomes dos comandos e títulos das janelas, título da aba) e também os conteúdos longos (sobre, experiências e projetos), que ficam nos arquivos `i18n/locales/pt.ts` e `en.ts`. O arquivo em inglês é tipado a partir do português (`typeof pt`), então um conteúdo sem tradução não compila. O agente recebe o idioma atual e responde nele.
 
 ### Decisões arquiteturais
 
 - **Back-end mínimo, só para o agente:** o site só precisa de um banco para o guestbook e de envio de e-mail, e ambos são cobertos por serviços prontos. A exceção é o agente: a chave do Gemini não pode ir para o navegador, então uma Vercel Function faz a chamada.
-- **Dois modos sobre o mesmo conteúdo:** o modo sistema e o modo normal leem os mesmos textos do i18n e usam os mesmos hooks e serviços, então um projeto ou experiência novo aparece nos dois.
-- **Modo normal carregado sob demanda:** quem escolhe o modo sistema não baixa o código do modo normal (como o visualizador de PDF).
-- **Navegação por estado local, sem biblioteca de rotas:** o site é uma tela única, então não há páginas distintas que justifiquem um roteador. Isso mantém o projeto mais simples e com menos dependências.
+- **Dois modos sobre o mesmo conteúdo:** o modo sistema e o modo normal leem os mesmos textos do i18n e usam os mesmos hooks, serviços e componentes (como o `AgentChat`, o `ResumeViewer` e o `useContactForm`), então um projeto, experiência ou correção nova aparece nos dois.
+- **Modo normal carregado sob demanda:** quem escolhe o modo sistema não baixa o código do modo normal. Nesse modo, o visualizador de PDF também só é baixado quando a janela do currículo é aberta.
+- **Navegação por estado local, sem biblioteca de rotas:** o site é uma tela única, então não há páginas distintas que justifiquem um roteador. Isso mantém o projeto mais simples e com menos dependências. Só o modo vai para a URL, para permitir links diretos.
 - **Conteúdo fixo no código:** projetos e experiências mudam pouco, então ficam versionados junto ao projeto, sem depender de banco.
-- **Comandos em inglês, interface traduzida:** os comandos (`about`, `help`...) são o mesmo nos dois idiomas, e só os textos mudam.
+- **Comandos nos dois idiomas:** os comandos e os títulos das janelas mudam com o idioma (`sobre`/`about`, `sobre.md`/`about.md`), mas os nomes dos dois idiomas sempre funcionam. Nomes que vêm do Unix, como `neofetch`, não são traduzidos.
+- **Área de trabalho salva no navegador:** o `localStorage` guarda o estado do modo sistema, com versão e validação na leitura. Um estado inválido ou de outra versão é descartado.
+- **Erros contidos:** cada janela tem a sua barreira de erro, então um problema em uma seção não derruba o resto. Um erro fora das janelas mostra a tela azul, que reinicia limpando o estado salvo ou leva ao modo normal.
 - **Segurança do guestbook no banco:** as regras de acesso (RLS) e os limites de tamanho valem no próprio Supabase, e não só no navegador. Como a chave pública do Supabase fica no código do cliente por natureza, a proteção vem dessas regras.
 - **Chaves públicas no front-end:** só variáveis `VITE_*` públicas entram no código do navegador. A `GEMINI_API_KEY` não tem o prefixo `VITE_` de propósito, para ficar só no servidor. Chaves secretas (como a `service_role` do Supabase e a chave privada do EmailJS) nunca são usadas.
-- **Agente preso ao perfil:** o Gemini recebe como instrução o perfil escrito em `app/api/_perfil.ts` e a regra de usar só essas informações, para não inventar dados.
+- **Agente preso ao perfil:** o Gemini recebe como instrução o perfil em `app/api/_perfil.ts` e a regra de usar só essas informações, para não inventar dados. Esse perfil é gerado a partir dos dados do site antes de cada build, então não fica desatualizado.
+- **Limite do agente em duas camadas:** a função limita por IP (8 perguntas por minuto e 100 por dia) e responde com o tempo exato de espera. Uma regra no firewall da Vercel limita a rota na borda (10 por minuto por IP) e vale entre instâncias.
 - **Docker só para execução local:** a Vercel faz o build e o deploy do site sem containers.
 - **Boot curto e pulável:** a tela de inicialização reforça o conceito, mas não atrasa quem tem pressa.
-- **Celular sem arrastar:** arrastar com o dedo conflita com a rolagem, então no celular os ícones são fixos e as janelas ocupam a tela inteira.
+- **Celular sem arrastar:** arrastar com o dedo conflita com a rolagem, então no celular os ícones são fixos, as janelas ocupam a tela e não há redimensionamento nem menus de botão direito.
 
 ### Trade-offs
 
-- Como não há rotas, cada seção não tem URL própria: não é possível compartilhar um link direto para Projects, e o botão voltar do navegador não fecha janelas.
+- Cada seção não tem URL própria: o link direto leva só ao modo, e o botão voltar do navegador não fecha janelas.
 - Atualizar um projeto ou experiência exige um novo deploy.
-- A moderação do guestbook é manual (apagar linhas no painel do Supabase). O intervalo entre envios e o campo-isca desanimam o abuso casual, mas quem chamar a API diretamente os contorna.
-- Só uma janela fica aberta por vez, e as posições de janelas e ícones não são salvas entre visitas.
+- A moderação do guestbook é manual (apagar linhas no painel do Supabase). O intervalo entre envios e o campo-isca desanimam o abuso casual, mas quem chamar a API diretamente os contorna. O mesmo vale para o intervalo do formulário de contato, que fica no navegador.
+- A área de trabalho fica salva só no navegador: não acompanha o visitante em outro dispositivo e some se os dados do site forem apagados.
 - Os conteúdos extensos (sobre, projetos e experiências) ficam centralizados diretamente nos arquivos de idioma (`pt.ts` e `en.ts`). A tipagem rigorosa do TypeScript vincula o arquivo em inglês ao português, impossibilitando que o deploy seja feito se faltar a tradução de algum campo.
-- O limite de perguntas do agente (8 por minuto e 100 por dia, por IP) fica na memória da função: é um freio, não uma garantia, porque cada instância da função tem a sua contagem.
-- O perfil do agente (`app/api/_perfil.ts`) é separado dos textos do site, então uma mudança no conteúdo precisa ser feita nos dois lugares.
+- O limite do agente na função fica na memória de cada instância, e o plano gratuito da Vercel permite só uma regra de limite no firewall, com contagem por região.
+- O perfil do agente é gerado a partir dos textos em português. O que não está no site (habilidades e observações) fica em `app/api/_perfilExtra.ts` e precisa ser mantido à mão.
+- O widget do GitHub usa a API sem autenticação, limitada a 60 requisições por hora por IP. O cache de 1 hora na sessão reduz as chamadas, e o widget some se a API falhar.
+- Como o site é uma SPA sem pré-renderização, os buscadores que executam JavaScript veem a tela de boot. O trecho mostrado na busca vem da meta descrição.
 - O Supabase gratuito pausa projetos sem uso, então um workflow do GitHub Actions consulta o banco a cada 12 horas para mantê-lo ativo.
 
 ### Diagrama
 
 ```mermaid
 flowchart LR
-  V[Visitante] --> B[Tela de boot]
+  V[Visitante] --> U{"?mode= na URL"}
+  U -->|sem modo| B[Tela de boot]
   B --> L[Tela de login: escolha de modo]
+  U -->|sistema| D
+  U -->|normal| P
   L -->|modo sistema| D[Área de trabalho]
   L -->|modo normal| P[Página única com rolagem]
-  D -->|clique no ícone| N["Estado: janela aberta"]
-  D -->|abre| T[Terminal]
-  T -->|comandos| R[runCommand]
-  W[Barra de comando das janelas] -->|comandos| R
-  R --> N
+  D --> K[Ícones, barra de tarefas e menu Iniciar]
+  D --> T[Terminal]
+  K & T & W[Barra de comando das janelas] -->|comandos| R[runCommand / openApp]
+  R --> N["Estado: janelas abertas"]
   R --> H[Histórico do terminal]
-  R -->|logout| L
-  N --> J["Janelas: About, Projects, Experience, Contact, Agent, Guestbook"]
+  R -->|sair| L
+  N <-->|salva e restaura| LS[(localStorage)]
+  N --> J["Janelas: sobre, projetos, experiencia, contato, guestbook, agente, curriculo"]
   P --> Q["Seções: Home, About, Experience, Projects, Agent, Resume, Contact, Guestbook"]
   J & Q -->|formulário de contato| E[EmailJS]
   J & Q <-->|mensagens| S[(Supabase)]
-  J & Q -->|perguntas| F["/api/gemini (Vercel Function)"]
+  J & Q & T -->|perguntas| F["/api/gemini (Vercel Function)"]
   F --> G[Google Gemini]
+  D -->|widget| GH[API do GitHub]
+  D -.->|erro fora das janelas| C[Tela azul]
   I[react-i18next] -. idioma .-> J & Q
 ```
 
@@ -371,9 +409,12 @@ Todos os comandos rodam dentro de `app/`.
 | Comando | O que faz |
 | :--- | :--- |
 | `npm run dev` | Inicia o servidor de desenvolvimento do Vite |
-| `npm run build` | Verifica os tipos (`tsc -b`) e gera a versão de produção em `dist/` |
+| `npm run build` | Gera o perfil do agente, verifica os tipos (`tsc -b`) e gera a versão de produção em `dist/` |
 | `npm run preview` | Serve localmente a versão gerada pelo build |
 | `npm run lint` | Executa a análise estática com o oxlint |
+| `npm run perfil` | Gera o `api/_perfil.ts` do agente a partir dos dados em português do site |
+
+O `npm run perfil` roda sozinho antes de todo `npm run build` (script `prebuild`), então o perfil do agente acompanha o conteúdo do site. Não edite o `api/_perfil.ts` à mão: para informações que não estão no site, como habilidades, use o `api/_perfilExtra.ts`.
 
 O projeto não tem testes automatizados. A verificação de tipos acontece no `npm run build` (ou, para uma checagem rápida, com `npx tsc -b`).
 
@@ -442,6 +483,19 @@ As cinco variáveis `VITE_*` e as do Gemini (`GEMINI_API_KEY` e, se quiser troca
 
 A Vercel transforma o `app/api/gemini.ts` em uma função serverless, atendida em `/api/gemini`. O `app/vercel.json` aumenta o tempo máximo dessa função para 60 segundos, para respostas mais longas do agente não serem cortadas. Arquivos de `app/api/` que começam com `_` não viram rotas.
 
+O `app/public/robots.txt` libera o site inteiro para os buscadores, menos a rota `/api/`, e aponta para o `app/public/sitemap.xml`.
+
+### Limite do agente no firewall
+
+Além do limite em memória da função, uma regra no firewall da Vercel limita a rota do agente na borda. O plano gratuito permite uma regra desse tipo por projeto. Para criá-la:
+
+1. No projeto da Vercel, abra **Firewall** > **Configure** > **+ New Rule** e dê um nome à regra.
+2. Em **If**, adicione as condições `Request Path` *Equals* `/api/gemini` e `Method` *Equals* `POST`.
+3. Em **Then**, escolha **Rate Limit**, com **Fixed Window** de `60s`, **Request Limit** de `10` e a chave **IP**, mantendo a ação **Default (429)**.
+4. Clique em **Save Rule**, depois em **Review Changes** e **Publish**.
+
+O site trata a resposta 429 do firewall como "Muitas perguntas seguidas", com espera de 60 segundos quando a resposta não informa o tempo.
+
 ---
 
 ## 📂 Estrutura de Pastas
@@ -459,24 +513,29 @@ portfolio/
 │   ├── api/                         # Agente de IA no servidor
 │   │   ├── gemini.ts                # Vercel Function da rota /api/gemini
 │   │   ├── _gemini.ts               # Lógica do agente, usada pela Vercel e pelo Vite
-│   │   └── _perfil.ts               # Perfil que o agente usa para responder
-│   ├── public/                      # Arquivos estáticos servidos como estão (logo, cursores, currículo em PDF)
+│   │   ├── _perfil.ts               # Perfil que o agente usa para responder (gerado, não editar)
+│   │   └── _perfilExtra.ts          # Informações do perfil que não estão no site (escritas à mão)
+│   ├── public/                      # Arquivos estáticos servidos como estão (logo, currículo em PDF, robots.txt, sitemap.xml)
+│   ├── scripts/
+│   │   └── gerar-perfil.mjs         # Gera o api/_perfil.ts a partir dos dados do site
 │   ├── src/
 │   │   ├── assets/                  # Imagens usadas no site
 │   │   ├── components/
-│   │   │   ├── boot/                # Tela de inicialização (BootScreen)
+│   │   │   ├── agent/               # Chat do agente, usado nos dois modos (AgentChat)
+│   │   │   ├── boot/                # Inicialização, telas de reiniciar e desligar e tela azul
 │   │   │   ├── login/               # Tela de escolha de modo (LoginScreen)
-│   │   │   ├── desktop/             # Layout da área de trabalho, ícones, barra superior, relógio e aviso de boas-vindas
-│   │   │   ├── terminal/            # Terminal e linha de comando (CommandPrompt)
-│   │   │   ├── window/              # Janela padrão (arrastar, minimizar, maximizar, fechar)
+│   │   │   ├── desktop/             # Área de trabalho, ícones, barra de tarefas, menu Iniciar, bandeja, widget do GitHub, menus e notificações
+│   │   │   ├── resume/              # Visualizador do currículo, usado nos dois modos (ResumeViewer)
+│   │   │   ├── terminal/            # Terminal, linha de comando (CommandPrompt) e efeito matrix
+│   │   │   ├── window/              # Janela padrão (arrastar, redimensionar, minimizar, maximizar, fechar) e tela de erro da janela
 │   │   │   ├── standard/            # Modo normal: header, rodapé, cards, tema e dados compartilhados
 │   │   │   │   └── sections/        # Seções da página do modo normal
 │   │   │   └── ui/                  # Peças reutilizáveis (Tag, LanguageToggle, MarkdownText)
-│   │   ├── data/                    # Seções, contatos, app do terminal e ícones das tecnologias
-│   │   ├── hooks/                   # Hooks personalizados (useDraggable, useAgentChat, useGuestbook)
+│   │   ├── data/                    # Seções, comandos, apps do menu Iniciar, contatos, endereços do site e ícones das tecnologias
+│   │   ├── hooks/                   # Hooks personalizados (agente, contato, guestbook, arrastar, redimensionar, notificações e bandeja)
 │   │   ├── i18n/                    # Configuração do i18next e textos (aqui vivem os dados de sobre, projetos e experiências)
-│   │   ├── pages/                   # Conteúdo de cada janela (About, Projects, Experience, Contact, Agent, Guestbook)
-│   │   ├── services/                # Cliente do Supabase, funções do guestbook e chamada ao agente
+│   │   ├── pages/                   # Conteúdo de cada janela (About, Projects, Experience, Contact, Agent, Guestbook, Resume)
+│   │   ├── services/                # Guestbook (Supabase), agente, GitHub, estado salvo da área de trabalho e link com ?mode=
 │   │   ├── types/                   # Tipos TypeScript
 │   │   ├── App.tsx                  # Componente raiz (boot, login e os dois modos)
 │   │   ├── main.tsx                 # Ponto de entrada da aplicação
@@ -535,29 +594,84 @@ Os wireframes de média fidelidade foram feitos no [Figma](https://www.figma.com
 
 ## 🎥 Demonstração
 
-### 🖥️ Desktop
+### 🖥️ Modo sistema
 
-| Tela de boot | Área de trabalho |
-| :---: | :---: |
-| ![Tela de boot](docs/images/prints/Boot.jpeg) | ![Área de trabalho](docs/images/prints/Desktop.jpeg) |
+<table>
+  <tr>
+    <th width="50%">Tela de boot</th>
+    <th width="50%">Área de trabalho</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Boot.jpeg" alt="Tela de boot" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Desktop.jpeg" alt="Área de trabalho com as dicas de boas-vindas" width="100%"/></td>
+  </tr>
+  <tr>
+    <th width="50%">Terminal</th>
+    <th width="50%">Menu Iniciar</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Terminal.jpeg" alt="Terminal com neofetch e sugestão do Tab" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Start%20Menu.jpeg" alt="Menu Iniciar com busca" width="100%"/></td>
+  </tr>
+  <tr>
+    <th width="50%">Várias janelas</th>
+    <th width="50%">Sobre Mim</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Windows.jpeg" alt="Currículo e agente abertos ao mesmo tempo" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20About.jpeg" alt="Sobre Mim" width="100%"/></td>
+  </tr>
+  <tr>
+    <th width="50%">Projetos</th>
+    <th width="50%">Experiências</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Projects.jpeg" alt="Projetos" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Experience.jpeg" alt="Experiências" width="100%"/></td>
+  </tr>
+  <tr>
+    <th width="50%">Contato</th>
+    <th width="50%">Guestbook</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Contact.jpeg" alt="Contato" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Desktop%20-%20Guestbook.jpeg" alt="Guestbook" width="100%"/></td>
+  </tr>
+</table>
 
-| Terminal | Sobre Mim |
-| :---: | :---: |
-| ![Terminal](docs/images/prints/Desktop%20-%20Terminal.jpeg) | ![Sobre Mim](docs/images/prints/Desktop%20-%20About.jpeg) |
+### 📄 Modo normal
 
-| Projetos | Experiências |
-| :---: | :---: |
-| ![Projetos](docs/images/prints/Desktop%20-%20Projects.jpeg) | ![Experiências](docs/images/prints/Desktop%20-%20Experience.jpeg) |
-
-| Contato | Guestbook |
-| :---: | :---: |
-| ![Contato](docs/images/prints/Desktop%20-%20Contact.jpeg) | ![Guestbook](docs/images/prints/Desktop%20-%20Guestbook.jpeg) |
+<table>
+  <tr>
+    <th width="50%">Início (tema escuro)</th>
+    <th width="50%">Início (tema claro)</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Normal%20-%20Home.jpeg" alt="Início no tema escuro" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Normal%20-%20Home%20%28Light%29.jpeg" alt="Início no tema claro" width="100%"/></td>
+  </tr>
+  <tr>
+    <th width="50%">Experiências</th>
+    <th width="50%">Agente IA</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Normal%20-%20Experience.jpeg" alt="Experiências em linha do tempo" width="100%"/></td>
+    <td align="center"><img src="docs/images/prints/Normal%20-%20Agent.jpeg" alt="Agente IA" width="100%"/></td>
+  </tr>
+</table>
 
 ### 📱 Mobile
 
-| Terminal | Projetos |
-| :---: | :---: |
-| ![Terminal no celular](docs/images/prints/Mobiile%20-%20Terminal.jpeg) | ![Projetos no celular](docs/images/prints/Mobile%20-%20Projects.jpeg) |
+<table>
+  <tr>
+    <th width="50%">Terminal</th>
+    <th width="50%">Projetos</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/prints/Mobiile%20-%20Terminal.jpeg" alt="Terminal no celular" height="500px"/></td>
+    <td align="center"><img src="docs/images/prints/Mobile%20-%20Projects.jpeg" alt="Projetos no celular" height="500px"/></td>
+  </tr>
+</table>
 
 ---
 
@@ -575,7 +689,8 @@ Os wireframes de média fidelidade foram feitos no [Figma](https://www.figma.com
 * 📖 [Gemini API](https://ai.google.dev/gemini-api/docs)
 * 📖 [Lucide](https://lucide.dev/guide/packages/lucide-react)
 * 📖 [Docker](https://docs.docker.com/)
-* 📖 [Vercel](https://vercel.com/docs) e [Vercel Functions](https://vercel.com/docs/functions)
+* 📖 [Vercel](https://vercel.com/docs), [Vercel Functions](https://vercel.com/docs/functions) e [WAF Rate Limiting](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting)
+* 📖 [API REST do GitHub](https://docs.github.com/rest)
 * 📖 [GitHub Actions](https://docs.github.com/actions)
 
 ---
