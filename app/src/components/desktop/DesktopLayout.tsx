@@ -13,7 +13,8 @@ import { ToastStack } from './ToastStack';
 import { ContextMenu, type ContextMenuItem } from './ContextMenu';
 import { ConfirmDialog } from './ConfirmDialog';
 import { useFullscreen } from '../../hooks/useFullscreen';
-import { REPO_URL, SITE_URL } from '../../data/site';
+import { REPO_URL } from '../../data/site';
+import { linkToMode } from '../../services/modeLink';
 import { useToasts } from '../../hooks/useToasts';
 import { useTerminalAgent } from '../../hooks/useTerminalAgent';
 import { MAX_MESSAGE } from '../../services/gemini';
@@ -263,7 +264,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
 
     function copyLink() {
         Promise.resolve()
-            .then(() => navigator.clipboard.writeText(SITE_URL))
+            .then(() => navigator.clipboard.writeText(linkToMode('system')))
             .then(() => pushToast('linkCopied', ['copyFailed']), () => pushToast('copyFailed', ['linkCopied']));
     }
 

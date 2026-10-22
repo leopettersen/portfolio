@@ -1,10 +1,11 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import type { PortfolioMode } from './types';
 import { BootScreen } from './components/boot/BootScreen';
 import { PowerScreen, type PowerAction } from './components/boot/PowerScreen';
 import { CrashScreen } from './components/boot/CrashScreen';
 import { SafeBoundary } from './components/standard/SafeBoundary';
 import { clearDesktopState } from './services/desktopStorage';
+import { readModeFromUrl, writeModeToUrl } from './services/modeLink';
 import { DesktopLayout } from './components/desktop/DesktopLayout';
 import { LoginScreen } from './components/login/LoginScreen';
 
@@ -24,9 +25,26 @@ function takeWelcome() {
     }
 }
 
+function initialStage(): Stage {
+    const mode = readModeFromUrl();
+    if (mode === 'system') return 'desktop';
+    if (mode === 'standard') return 'standard';
+    return 'boot';
+}
+
+function modeOf(stage: Stage) {
+    if (stage === 'desktop') return 'system';
+    if (stage === 'standard') return 'standard';
+    return null;
+}
+
 export default function App() {
-    const [stage, setStage] = useState<Stage>('boot');
-    const [welcome, setWelcome] = useState(false);
+    const [stage, setStage] = useState(initialStage);
+    const [welcome, setWelcome] = useState(() => readModeFromUrl() === 'system' && takeWelcome());
+
+    useEffect(() => {
+        writeModeToUrl(modeOf(stage));
+    }, [stage]);
 
     function enter(mode: PortfolioMode) {
         if (mode === 'system') {
