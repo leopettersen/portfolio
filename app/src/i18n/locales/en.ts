@@ -5,6 +5,9 @@ import imgPortfolio from '../../assets/Portfolio.webp';
 import imgOpm from '../../assets/OPM.webp';
 
 export const en: typeof pt = {
+  site: {
+    title: 'Leonardo Pettersen | Portfolio',
+  },
   terminal: {
     role: 'Software Engineering Student',
     university: 'PUC Minas',
