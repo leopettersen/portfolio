@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { HistoryEntry, Language, WindowLayout, WindowLeave } from '../../types';
+import type { HistoryEntry, Language, TerminalAnswer, WindowLayout, WindowLeave } from '../../types';
 import { CommandPrompt } from './CommandPrompt';
 import { sections } from '../../data/sections';
 import { Window } from '../window/Window';
@@ -11,6 +11,7 @@ import { MatrixRain } from './MatrixRain';
 
 export interface TerminalProps {
   history: HistoryEntry[];
+  answers?: Record<number, TerminalAnswer>;
   onCommand: (command: string) => void;
   onClose: () => void;
   onMinimize: () => void;
@@ -25,7 +26,7 @@ export interface TerminalProps {
   onMatrixDone?: () => void;
 }
 
-export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset, leaving, initialLayout, onLayoutChange, commandHistory, matrixRun = null, onMatrixDone }: TerminalProps) {
+export function Terminal({ history, answers = {}, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset, leaving, initialLayout, onLayoutChange, commandHistory, matrixRun = null, onMatrixDone }: TerminalProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const historyRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
     if (!historyElement) return;
 
     historyElement.scrollTo({ top: historyElement.scrollHeight, behavior: 'smooth' });
-  }, [history]);
+  }, [history, answers]);
 
   const finishMatrix = useCallback(() => onMatrixDone?.(), [onMatrixDone]);
 
@@ -96,7 +97,7 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
                   <span className="text-slate-200">{entry.command}</span>
                 </div>
                 <div className="text-slate-400 mt-1">
-                  <HistoryOutput output={entry.output} />
+                  <HistoryOutput output={entry.output} answers={answers} />
                 </div>
               </div>
             ))}

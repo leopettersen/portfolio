@@ -1,6 +1,7 @@
 import { version as reactVersion } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { Language, TerminalOutput } from '../../types';
+import type { Language, TerminalAnswer, TerminalOutput } from '../../types';
+import { MarkdownText } from '../ui/MarkdownText';
 import { sections } from '../../data/sections';
 import { systemCommandNames, systemCommands } from '../../data/commands';
 
@@ -79,8 +80,37 @@ function NeofetchOutput({ uptimeMinutes, resolution }: { uptimeMinutes: number; 
     );
 }
 
-export function HistoryOutput({ output }: { output: TerminalOutput }) {
+function AgentOutput({ answer }: { answer?: TerminalAnswer }) {
+    const { t } = useTranslation();
+    if (!answer) return null;
+
+    return (
+        <div className="flex flex-col gap-1">
+            <span className="text-blue-500">leonardo@agent</span>
+
+            {answer.errorCode ? (
+                <p className="text-red-400">
+                    {t(`agent.errors.${answer.errorCode}`, { defaultValue: t('agent.errors.generic'), seconds: answer.retryAfter ?? 60 })}
+                </p>
+            ) : (
+                <div className="flex flex-col gap-2 break-words">
+                    {answer.text && <MarkdownText text={answer.text} />}
+                    {answer.streaming && <span className="inline-block h-4 w-2 bg-blue-500 animate-pulse" aria-label={t('agent.typing')} />}
+                    {answer.stopped && <span className="text-sm">{t('agent.stopped')}</span>}
+                </div>
+            )}
+        </div>
+    );
+}
+
+export interface HistoryOutputProps {
+    output: TerminalOutput;
+    answers: Record<number, TerminalAnswer>;
+}
+
+export function HistoryOutput({ output, answers }: HistoryOutputProps) {
     if (output.type === 'help') return <HelpOutput />;
+    if (output.type === 'agent') return <AgentOutput answer={answers[output.requestId]} />;
     if (output.type === 'neofetch') return <NeofetchOutput uptimeMinutes={output.uptimeMinutes} resolution={output.resolution} />;
 
     return <div className="whitespace-pre-line">{output.text}</div>;

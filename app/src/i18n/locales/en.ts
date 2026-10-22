@@ -21,6 +21,8 @@ export const en: typeof pt = {
     languageChanged: 'Language changed to English.',
     languageUsage: 'Unknown language: "{{value}}". Use "lang pt" or "lang en".',
     openingResume: 'Opening the resume in a new tab.',
+    askUsage: 'Write the question after the command. E.g.: ask where do you study?',
+    askBusy: 'The agent is still answering the previous question.',
     matrixReduced: 'matrix disabled: "reduce motion" is turned on in your system.',
     neofetch: {
       os: 'OS',
@@ -276,6 +278,7 @@ export const en: typeof pt = {
     guestbook: 'Leave a message on the guestbook',
     agent: 'Chat with an AI that knows my profile',
     help: 'Lists the available commands',
+    ask: 'Asks the AI agent something: ask <question>',
     clear: 'Clears the terminal history',
     close: 'Closes the focused window',
     logout: 'Goes back to the mode choice',

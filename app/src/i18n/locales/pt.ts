@@ -20,6 +20,8 @@ export const pt = {
     languageChanged: 'Idioma alterado para português.',
     languageUsage: 'Idioma desconhecido: "{{value}}". Use "idioma pt" ou "idioma en".',
     openingResume: 'Abrindo o currículo em uma nova aba.',
+    askUsage: 'Escreva a pergunta depois do comando. Ex.: perguntar onde você estuda?',
+    askBusy: 'O agente ainda está respondendo a pergunta anterior.',
     matrixReduced: 'matrix desativado: a opção "reduzir movimento" está ligada no seu sistema.',
     neofetch: {
       os: 'OS',
@@ -275,6 +277,7 @@ export const pt = {
     guestbook: 'Deixe um recado no mural de visitas',
     agent: 'Converse com uma IA que conhece meu perfil',
     help: 'Lista os comandos disponíveis',
+    ask: 'Pergunta algo ao agente de IA: perguntar <pergunta>',
     clear: 'Limpa o histórico do terminal',
     close: 'Fecha a janela em foco',
     logout: 'Volta para a escolha de modo',

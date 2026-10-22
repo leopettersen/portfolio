@@ -1,7 +1,7 @@
 import type { Language, Localized, SectionId, TerminalOutput } from '../types';
 import { sections } from './sections';
 
-export const systemCommands = ['help', 'clear', 'close', 'logout', 'lang', 'resume', 'neofetch', 'reboot', 'shutdown'] as const;
+export const systemCommands = ['help', 'ask', 'clear', 'close', 'logout', 'lang', 'resume', 'neofetch', 'reboot', 'shutdown'] as const;
 
 export const hiddenCommands = ['matrix'] as const;
 
@@ -9,6 +9,7 @@ export type SystemCommand = typeof systemCommands[number] | typeof hiddenCommand
 
 export const systemCommandNames: Record<SystemCommand, Localized> = {
     help: { pt: 'ajuda', en: 'help' },
+    ask: { pt: 'perguntar', en: 'ask' },
     clear: { pt: 'limpar', en: 'clear' },
     close: { pt: 'fechar', en: 'close' },
     logout: { pt: 'sair', en: 'logout' },

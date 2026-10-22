@@ -78,7 +78,17 @@ export interface About {
 export type TerminalOutput =
   | { type: 'text'; text: string }
   | { type: 'help' }
-  | { type: 'neofetch'; uptimeMinutes: number; resolution: string };
+  | { type: 'neofetch'; uptimeMinutes: number; resolution: string }
+  | { type: 'agent'; requestId: number };
+
+export interface TerminalAnswer {
+  question: string;
+  text: string;
+  streaming: boolean;
+  stopped?: boolean;
+  errorCode?: string;
+  retryAfter?: number | null;
+}
 
 export interface HistoryEntry {
   id: number;

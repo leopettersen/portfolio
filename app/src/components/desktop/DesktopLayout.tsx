@@ -11,6 +11,8 @@ import { StartMenu } from './StartMenu';
 import { DesktopIcon } from './DesktopIcon';
 import { ToastStack } from './ToastStack';
 import { useToasts } from '../../hooks/useToasts';
+import { useTerminalAgent } from '../../hooks/useTerminalAgent';
+import { MAX_MESSAGE } from '../../services/gemini';
 import { loadDesktopState, saveDesktopState, type DesktopState } from '../../services/desktopStorage';
 import { Terminal } from '../terminal/Terminal';
 import { AboutPage } from '../../pages/AboutPage';
@@ -75,6 +77,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     const nextLayer = useRef(saved.windows.length + 1);
     const persisted = useRef<DesktopState>(saved);
     const { toasts, push: pushToast, dismiss: dismissToast } = useToasts();
+    const terminalAgent = useTerminalAgent();
 
     const focusedWindow = windows
         .filter(item => !item.minimized && !item.leaving)
@@ -258,10 +261,22 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
             if (focusedWindow) closeWindow(focusedWindow);
         } else if (command?.id === 'clear') {
             setHistory([]);
+            terminalAgent.reset();
         } else if (command?.id === 'logout') {
             onLogout();
         } else if (command?.id === 'help') {
             addToHistory(rawCommand, { type: 'help' });
+            openApp('terminal');
+        } else if (command?.id === 'ask') {
+            const question = command.args.join(' ').slice(0, MAX_MESSAGE);
+
+            if (!question) {
+                addToHistory(rawCommand, t('terminal.askUsage'));
+            } else if (terminalAgent.busy) {
+                addToHistory(rawCommand, t('terminal.askBusy'));
+            } else {
+                addToHistory(rawCommand, { type: 'agent', requestId: terminalAgent.ask(question) });
+            }
             openApp('terminal');
         } else if (command?.id === 'lang') {
             changeLanguage(rawCommand, command.args[0]);
@@ -341,7 +356,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                             style={{ zIndex: layer }}
                         >
                             {id === 'terminal' ? (
-                                <Terminal history={history} matrixRun={matrixRun} onMatrixDone={finishMatrix} {...windowProps} />
+                                <Terminal history={history} answers={terminalAgent.answers} matrixRun={matrixRun} onMatrixDone={finishMatrix} {...windowProps} />
                             ) : (
                                 <Window title={appInfo(id, language).title} icon={appInfo(id, language).icon} {...windowProps}>
                                     {id === 'agent' ? <AgentPage draft={agentDraft} /> : Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
