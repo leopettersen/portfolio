@@ -104,7 +104,8 @@ export const pt = {
     }
   ],
   projectUI: {
-    imageComingSoon: 'Imagem em breve'
+    imageComingSoon: 'Imagem em breve',
+    viewOnline: 'Ver online'
   },
   projects: [
     {
@@ -121,6 +122,7 @@ export const pt = {
       description: 'O sistema apresenta minha trajetória, projetos, experiências e formas de contato em uma interface inspirada em um desktop com terminal. A navegação pode ser feita por comandos ou pelos ícones da interface, com suporte a português e inglês, temas claro e escuro e adaptação para computadores e celulares. O objetivo é apresentar meu trabalho de forma rápida, clara e interativa, sem necessidade de cadastro ou login.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
       repoLink: 'https://github.com/leopettersen/portfolio',
+      liveLink: 'https://www.leopettersen.dev/',
       image: imgPortfolio,
     },
     {

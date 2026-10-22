@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Globe } from 'lucide-react';
 import type { Project } from '../../types';
 import { githubIcon, techIcons } from '../../data/techIcons';
 import { TechIcon } from './TechIcon';
@@ -54,15 +55,29 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     })}
                 </div>
 
-                <a
-                    href={project.repoLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1 text-sm text-brand hover:underline"
-                >
-                    <TechIcon src={githubIcon} />
-                    GitHub
-                </a>
+                <div className="flex items-center gap-4">
+                    {project.liveLink && (
+                        <a
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1 text-sm text-brand hover:underline"
+                        >
+                            <Globe size={15} aria-hidden="true" />
+                            {t('projectUI.viewOnline')}
+                        </a>
+                    )}
+
+                    <a
+                        href={project.repoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-1 text-sm text-brand hover:underline"
+                    >
+                        <TechIcon src={githubIcon} />
+                        GitHub
+                    </a>
+                </div>
             </div>
 
             <p className="mt-2 text-sm leading-relaxed">{project.description}</p>

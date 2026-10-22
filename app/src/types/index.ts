@@ -113,6 +113,7 @@ export interface Project {
     description: string;
     technologies: string[];
     repoLink: string;
+    liveLink?: string;
     image?: string;
 }
 

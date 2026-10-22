@@ -80,10 +80,15 @@
 }
 
 html[data-theme] {
-  scroll-behavior: smooth;
   background-color: var(--page);
   scrollbar-width: thin;
   scrollbar-color: var(--brand) var(--page);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme] {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer base {

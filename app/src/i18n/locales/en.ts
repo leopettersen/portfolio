@@ -105,7 +105,8 @@ export const en: typeof pt = {
     }
   ],
   projectUI: {
-    imageComingSoon: 'Image coming soon'
+    imageComingSoon: 'Image coming soon',
+    viewOnline: 'View live'
   },
   projects: [
     {
@@ -122,6 +123,7 @@ export const en: typeof pt = {
       description: 'The system showcases my journey, projects, experiences, and contact methods in an interface inspired by a desktop with a terminal. Navigation can be done via commands or interface icons, with support for Portuguese and English, light and dark themes, and responsive design for computers and mobile devices. The goal is to present my work quickly, clearly, and interactively, without requiring registration or login.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
       repoLink: 'https://github.com/leopettersen/portfolio',
+      liveLink: 'https://www.leopettersen.dev/',
       image: imgPortfolio,
     },
     {

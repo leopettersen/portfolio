@@ -1,4 +1,4 @@
-import { Code, ArrowUpRight } from 'lucide-react';
+import { Code, ArrowUpRight, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Project } from '../types';
 import { Tag } from '../components/ui/Tag';
@@ -60,11 +60,21 @@ export function ProjectsPage() {
                                 ))}
                             </div>
 
-                            <a href={project.repoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
-                                <Code size={16} />
-                                GitHub
-                                <ArrowUpRight size={15} />
-                            </a>
+                            <div className="flex flex-wrap gap-2">
+                                {project.liveLink && (
+                                    <a href={project.liveLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
+                                        <Globe size={16} />
+                                        {t('projectUI.viewOnline')}
+                                        <ArrowUpRight size={15} />
+                                    </a>
+                                )}
+
+                                <a href={project.repoLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-slate-700/60 px-3 py-1.5 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors">
+                                    <Code size={16} />
+                                    GitHub
+                                    <ArrowUpRight size={15} />
+                                </a>
+                            </div>
 
                         </div>
 
