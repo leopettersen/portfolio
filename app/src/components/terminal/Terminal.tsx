@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { HistoryEntry, Language, WindowLayout, WindowLeave } from '../../types';
 import { CommandPrompt } from './CommandPrompt';
@@ -6,6 +6,8 @@ import { sections } from '../../data/sections';
 import { Window } from '../window/Window';
 import { terminalApp } from '../../data/apps';
 import { systemCommandNames } from '../../data/commands';
+import { HistoryOutput } from './HistoryOutput';
+import { MatrixRain } from './MatrixRain';
 
 export interface TerminalProps {
   history: HistoryEntry[];
@@ -18,9 +20,12 @@ export interface TerminalProps {
   leaving?: WindowLeave;
   initialLayout?: WindowLayout;
   onLayoutChange?: (layout: WindowLayout) => void;
+  commandHistory?: string[];
+  matrixRun?: number | null;
+  onMatrixDone?: () => void;
 }
 
-export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset, leaving, initialLayout, onLayoutChange }: TerminalProps) {
+export function Terminal({ history, onCommand, onClose, onMinimize, active = true, onFocus, initialOffset, leaving, initialLayout, onLayoutChange, commandHistory, matrixRun = null, onMatrixDone }: TerminalProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const historyRef = useRef<HTMLDivElement>(null);
@@ -29,17 +34,16 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
     const historyElement = historyRef.current;
     if (!historyElement) return;
 
-    const lastEntry = historyElement.querySelector('[data-history-entry]:last-child');
-    if (lastEntry) {
-      lastEntry.scrollIntoView({ block: 'end', behavior: 'smooth'})
-    }
+    historyElement.scrollTo({ top: historyElement.scrollHeight, behavior: 'smooth' });
   }, [history]);
+
+  const finishMatrix = useCallback(() => onMatrixDone?.(), [onMatrixDone]);
 
   const chipSections = sections.filter(section => section.showChip);
 
   return (
-    <Window title={terminalApp.title} icon={terminalApp.icon} onClose={onClose} onMinimize={onMinimize} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset} leaving={leaving} initialLayout={initialLayout} onLayoutChange={onLayoutChange}>
-      <div className="h-full flex flex-col min-h-0">
+    <Window title={terminalApp.title} icon={terminalApp.icon} onClose={onClose} onMinimize={onMinimize} onCommand={onCommand} showFooter={false} active={active} onFocus={onFocus} initialOffset={initialOffset} leaving={leaving} initialLayout={initialLayout} onLayoutChange={onLayoutChange} scrollBody={false} overlay={matrixRun !== null && <MatrixRain key={matrixRun} onDone={finishMatrix} />}>
+      <div className="flex-1 flex flex-col min-h-0">
 
         <div className="shrink-0">
           <h1 className="text-lg font-bold">
@@ -85,14 +89,14 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
 
         <div ref={historyRef} className="flex-1 min-h-0 overflow-y-auto mt-8 pr-2">
           <div role="log" aria-live="polite" className="flex flex-col gap-3">
-            {history.map((entry, index) => (
-              <div key={index}>
+            {history.map((entry) => (
+              <div key={entry.id}>
                 <div>
                   <span className="text-blue-500">guest@os:~$</span>{' '}
                   <span className="text-slate-200">{entry.command}</span>
                 </div>
-                <div className="text-slate-400 mt-1 whitespace-pre-line">
-                  {entry.output}
+                <div className="text-slate-400 mt-1">
+                  <HistoryOutput output={entry.output} />
                 </div>
               </div>
             ))}
@@ -100,7 +104,7 @@ export function Terminal({ history, onCommand, onClose, onMinimize, active = tru
         </div>
 
         <div className="shrink-0 mt-6 pt-6 border-t border-slate-800/60">
-          <CommandPrompt onSubmit={onCommand} active={active} />
+          <CommandPrompt onSubmit={onCommand} active={active} commandHistory={commandHistory} />
         </div>
 
       </div>

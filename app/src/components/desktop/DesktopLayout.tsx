@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { AgentDraft, Language, Point, SectionId, WindowId, WindowLayout, WindowLeave, HistoryEntry, OpenWindow } from '../../types';
+import type { AgentDraft, Language, Point, SectionId, WindowId, WindowLayout, WindowLeave, HistoryEntry, OpenWindow, TerminalOutput } from '../../types';
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
-import { resolveCommand, systemCommandNames, systemCommands } from '../../data/commands';
+import { neofetchOutput, normalizeCommand, resolveCommand } from '../../data/commands';
+import { RESUME_URL } from '../standard/resume';
 import { Window } from '../window/Window';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
@@ -29,6 +30,15 @@ const sectionComponents: Record<SectionId, ComponentType> = {
 }
 
 const LEAVE_DURATION = 150;
+const MAX_HISTORY = 50;
+
+const languageArguments: Record<string, Language> = {
+    pt: 'pt',
+    portugues: 'pt',
+    en: 'en',
+    english: 'en',
+    ingles: 'en',
+};
 
 function cascadeOffset(index: number) {
     return (index % 5) * 24;
@@ -58,6 +68,8 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     const [unlocked, setUnlocked] = useState(saved.unlocked);
     const [layouts, setLayouts] = useState(saved.layouts);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
+    const [typedCommands, setTypedCommands] = useState<string[]>([]);
+    const [matrixRun, setMatrixRun] = useState<number | null>(null);
     const [startOpen, setStartOpen] = useState(false);
     const [agentDraft, setAgentDraft] = useState<AgentDraft | null>(null);
     const nextLayer = useRef(saved.windows.length + 1);
@@ -69,6 +81,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         .reduce<OpenWindow | null>((top, item) => (!top || item.layer > top.layer ? item : top), null)?.id ?? null;
 
     const closeStart = useCallback(() => setStartOpen(false), []);
+    const finishMatrix = useCallback(() => setMatrixRun(null), []);
 
     const persist = useCallback((patch: Partial<DesktopState>) => {
         persisted.current = { ...persisted.current, ...patch };
@@ -209,17 +222,32 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         leaveWindow(id, 'close');
     }
 
-    function addToHistory(command: string, output: string) {
-        setHistory(prev => {
-            const next = [...prev, { command, output}];
-            const maxEntries = 4;
-            return next.slice(-maxEntries);
-        });
+    function addToHistory(command: string, output: TerminalOutput | string) {
+        const value = typeof output === 'string' ? { type: 'text' as const, text: output } : output;
+
+        setHistory(prev => [...prev, { id: (prev[prev.length - 1]?.id ?? 0) + 1, command, output: value }].slice(-MAX_HISTORY));
+    }
+
+    function changeLanguage(rawCommand: string, value?: string) {
+        if (!value) {
+            addToHistory(rawCommand, t('terminal.languageCurrent'));
+            return;
+        }
+
+        const target = languageArguments[normalizeCommand(value)];
+        if (!target) {
+            addToHistory(rawCommand, t('terminal.languageUsage', { value }));
+            return;
+        }
+
+        i18n.changeLanguage(target);
+        addToHistory(rawCommand, i18n.getFixedT(target)('terminal.languageChanged'));
     }
 
     function runCommand(rawCommand: string) {
         if (!rawCommand.trim()) return;
 
+        setTypedCommands(prev => prev[prev.length - 1] === rawCommand ? prev : [...prev, rawCommand].slice(-MAX_HISTORY));
         const command = resolveCommand(rawCommand);
 
         if (command?.kind === 'section') {
@@ -233,12 +261,26 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         } else if (command?.id === 'logout') {
             onLogout();
         } else if (command?.id === 'help') {
-            addToHistory(rawCommand, t('terminal.availableCommands', {
-                commands: [
-                    ...sections.map((s) => s.command[language]),
-                    ...systemCommands.map((id) => systemCommandNames[id][language]),
-                ].join(', ')
-            }));
+            addToHistory(rawCommand, { type: 'help' });
+            openApp('terminal');
+        } else if (command?.id === 'lang') {
+            changeLanguage(rawCommand, command.args[0]);
+        } else if (command?.id === 'resume') {
+            addToHistory(rawCommand, t('terminal.openingResume'));
+            window.open(RESUME_URL, '_blank', 'noopener,noreferrer');
+        } else if (command?.id === 'neofetch') {
+            addToHistory(rawCommand, neofetchOutput());
+            openApp('terminal');
+        } else if (command?.id === 'reboot') {
+            onRestart();
+        } else if (command?.id === 'shutdown') {
+            onShutdown();
+        } else if (command?.id === 'matrix') {
+            if (reducedMotion()) {
+                addToHistory(rawCommand, t('terminal.matrixReduced'));
+            } else {
+                setMatrixRun(prev => (prev ?? 0) + 1);
+            }
             openApp('terminal');
         } else {
             addToHistory(rawCommand, t('terminal.commandNotFound', { command: rawCommand }));
@@ -289,6 +331,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                         leaving,
                         initialLayout: layouts[id],
                         onLayoutChange: (layout: WindowLayout) => saveLayout(id, layout),
+                        commandHistory: typedCommands,
                     };
 
                     return (
@@ -298,7 +341,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                             style={{ zIndex: layer }}
                         >
                             {id === 'terminal' ? (
-                                <Terminal history={history} {...windowProps} />
+                                <Terminal history={history} matrixRun={matrixRun} onMatrixDone={finishMatrix} {...windowProps} />
                             ) : (
                                 <Window title={appInfo(id, language).title} icon={appInfo(id, language).icon} {...windowProps}>
                                     {id === 'agent' ? <AgentPage draft={agentDraft} /> : Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}

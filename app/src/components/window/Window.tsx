@@ -21,6 +21,9 @@ export interface WindowProps {
     leaving?: WindowLeave;
     initialLayout?: WindowLayout;
     onLayoutChange?: (layout: WindowLayout) => void;
+    commandHistory?: string[];
+    scrollBody?: boolean;
+    overlay?: ReactNode;
 }
 
 const edgeClasses: Record<ResizeEdge, string> = {
@@ -41,7 +44,7 @@ const leaveAnimations: Record<WindowLeave, string> = {
 
 const controlButton = 'flex h-10 w-12 items-center justify-center text-slate-400 hover:bg-slate-800 hover:text-slate-100 transition-colors cursor-pointer';
 
-export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0, leaving, initialLayout, onLayoutChange }: WindowProps) {
+export function Window({ title, icon: Icon, children, onClose, onMinimize, onCommand, showFooter = true, active = true, onFocus, initialOffset = 0, leaving, initialLayout, onLayoutChange, commandHistory, scrollBody = true, overlay }: WindowProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const [isMaximized, setIsMaximized] = useState(initialLayout?.maximized ?? false);
@@ -150,18 +153,19 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
         </div>
 
       </div>
-      <div className="flex-1 min-h-0 overflow-y-auto p-4 md:p-8 custom-scrollbar">
+      <div className={`flex-1 min-h-0 p-4 md:p-8 ${scrollBody ? 'overflow-y-auto custom-scrollbar' : 'flex flex-col overflow-hidden'}`}>
         {children}
       </div>
       {showFooter && (
         <div className="shrink-0 hidden md:flex justify-between items-center px-4 py-3 bg-slate-950 border-t border-slate-800/60">
-          <CommandPrompt onSubmit={onCommand} active={active} />
+          <CommandPrompt onSubmit={onCommand} active={active} commandHistory={commandHistory} />
 
           <p className="text-xs text-slate-400 hidden sm:block">
             <Trans i18nKey="window.closeHint" values={{ command: systemCommandNames.close[language] }} components={{ 1: <span className="text-slate-400" /> }} />
           </p>
         </div>
       )}
+      {overlay}
     </div>
   );
 }

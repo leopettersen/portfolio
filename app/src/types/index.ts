@@ -75,9 +75,15 @@ export interface About {
     goals: Goal[];
 }
 
+export type TerminalOutput =
+  | { type: 'text'; text: string }
+  | { type: 'help' }
+  | { type: 'neofetch'; uptimeMinutes: number; resolution: string };
+
 export interface HistoryEntry {
+  id: number;
   command: string;
-  output: string;
+  output: TerminalOutput;
 }
 
 export type WorkModel = 'onsite' | 'hybrid' | 'remote';
