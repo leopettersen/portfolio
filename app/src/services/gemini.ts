@@ -41,14 +41,16 @@ export async function askGemini(message: string, { history = [], language, signa
     }
 
     // Sem a função (ex.: build estático sem /api), a rota devolve o index.html
-    if ((response.headers.get('content-type') ?? '').includes('text/html')) {
+    const rateLimited = response.status === 429;
+
+    if (!rateLimited && (response.headers.get('content-type') ?? '').includes('text/html')) {
         throw new GeminiError('no_api', 'A rota /api/gemini não existe aqui.');
     }
 
     if (!response.ok) {
         const body = await response.json().catch(() => ({}));
         const retryAfter = Number(response.headers.get('Retry-After')) || null;
-        throw new GeminiError(body.error ?? 'error', body.message ?? `HTTP ${response.status}`, retryAfter);
+        throw new GeminiError(body.error ?? (rateLimited ? 'rate_limited' : 'error'), body.message ?? `HTTP ${response.status}`, retryAfter);
     }
 
     if (!response.body) {
