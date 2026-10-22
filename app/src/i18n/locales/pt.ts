@@ -19,7 +19,6 @@ export const pt = {
     languageCurrent: 'Idioma atual: português. Use "idioma pt" ou "idioma en".',
     languageChanged: 'Idioma alterado para português.',
     languageUsage: 'Idioma desconhecido: "{{value}}". Use "idioma pt" ou "idioma en".',
-    openingResume: 'Abrindo o currículo em uma nova aba.',
     askUsage: 'Escreva a pergunta depois do comando. Ex.: perguntar onde você estuda?',
     askBusy: 'O agente ainda está respondendo a pergunta anterior.',
     matrixReduced: 'matrix desativado: a opção "reduzir movimento" está ligada no seu sistema.',

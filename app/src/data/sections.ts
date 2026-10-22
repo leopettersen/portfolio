@@ -1,5 +1,5 @@
 import type { Section } from '../types';
-import { User, Mail, BriefcaseBusiness, Folder, BookBookmark, Sparkles } from 'lucide-react';
+import { User, Mail, BriefcaseBusiness, Folder, BookBookmark, Sparkles, FileText } from 'lucide-react';
 
 export const sections: Section[] = [
     {
@@ -49,5 +49,13 @@ export const sections: Section[] = [
         icon: Sparkles,
         showShortcut: true,
         showChip: true
+    },
+    {
+        id: 'resume',
+        command: { pt: 'curriculo', en: 'resume' },
+        windowTitle: { pt: 'curriculo.pdf', en: 'resume.pdf' },
+        icon: FileText,
+        showShortcut: true,
+        showChip: false
     }
 ]

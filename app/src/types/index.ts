@@ -6,7 +6,7 @@ export type Localized = Record<Language, string>;
 
 export type PortfolioMode = 'system' | 'standard';
 
-export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent';
+export type SectionId = 'about' | 'experience' | 'contact' | 'projects' | 'guestbook' | 'agent' | 'resume';
 
 export type WindowId = 'terminal' | SectionId;
 

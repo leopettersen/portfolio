@@ -4,7 +4,6 @@ import type { AgentDraft, Language, Point, SectionId, WindowId, WindowLayout, Wi
 import { sections } from '../../data/sections';
 import { appInfo, terminalApp } from '../../data/apps';
 import { neofetchOutput, normalizeCommand, resolveCommand } from '../../data/commands';
-import { RESUME_URL } from '../standard/resume';
 import { Window } from '../window/Window';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
@@ -21,6 +20,7 @@ import { ProjectsPage } from '../../pages/ProjectsPage';
 import { ContactPage } from '../../pages/ContactPage';
 import { GuestbookPage } from '../../pages/GuestbookPage';
 import { AgentPage } from '../../pages/AgentPage';
+import { ResumePage } from '../../pages/ResumePage';
 
 const sectionComponents: Record<SectionId, ComponentType> = {
     about: AboutPage,
@@ -28,7 +28,8 @@ const sectionComponents: Record<SectionId, ComponentType> = {
     projects: ProjectsPage,
     contact: ContactPage,
     guestbook: GuestbookPage,
-    agent: AgentPage
+    agent: AgentPage,
+    resume: ResumePage
 }
 
 const LEAVE_DURATION = 150;
@@ -280,9 +281,6 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
             openApp('terminal');
         } else if (command?.id === 'lang') {
             changeLanguage(rawCommand, command.args[0]);
-        } else if (command?.id === 'resume') {
-            addToHistory(rawCommand, t('terminal.openingResume'));
-            window.open(RESUME_URL, '_blank', 'noopener,noreferrer');
         } else if (command?.id === 'neofetch') {
             addToHistory(rawCommand, neofetchOutput());
             openApp('terminal');
@@ -358,7 +356,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                             {id === 'terminal' ? (
                                 <Terminal history={history} answers={terminalAgent.answers} matrixRun={matrixRun} onMatrixDone={finishMatrix} {...windowProps} />
                             ) : (
-                                <Window title={appInfo(id, language).title} icon={appInfo(id, language).icon} {...windowProps}>
+                                <Window title={appInfo(id, language).title} icon={appInfo(id, language).icon} scrollBody={id !== 'resume'} {...windowProps}>
                                     {id === 'agent' ? <AgentPage draft={agentDraft} /> : Page ? <Page /> : <p>{t('window.pageNotFound')}</p>}
                                 </Window>
                             )}

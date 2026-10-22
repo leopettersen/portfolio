@@ -1,7 +1,7 @@
 import type { Language, Localized, SectionId, TerminalOutput } from '../types';
 import { sections } from './sections';
 
-export const systemCommands = ['help', 'ask', 'clear', 'close', 'logout', 'lang', 'resume', 'neofetch', 'reboot', 'shutdown'] as const;
+export const systemCommands = ['help', 'ask', 'clear', 'close', 'logout', 'lang', 'neofetch', 'reboot', 'shutdown'] as const;
 
 export const hiddenCommands = ['matrix'] as const;
 
@@ -14,7 +14,6 @@ export const systemCommandNames: Record<SystemCommand, Localized> = {
     close: { pt: 'fechar', en: 'close' },
     logout: { pt: 'sair', en: 'logout' },
     lang: { pt: 'idioma', en: 'lang' },
-    resume: { pt: 'curriculo', en: 'resume' },
     neofetch: { pt: 'neofetch', en: 'neofetch' },
     reboot: { pt: 'reiniciar', en: 'reboot' },
     shutdown: { pt: 'desligar', en: 'shutdown' },

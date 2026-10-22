@@ -20,7 +20,6 @@ export const en: typeof pt = {
     languageCurrent: 'Current language: English. Use "lang pt" or "lang en".',
     languageChanged: 'Language changed to English.',
     languageUsage: 'Unknown language: "{{value}}". Use "lang pt" or "lang en".',
-    openingResume: 'Opening the resume in a new tab.',
     askUsage: 'Write the question after the command. E.g.: ask where do you study?',
     askBusy: 'The agent is still answering the previous question.',
     matrixReduced: 'matrix disabled: "reduce motion" is turned on in your system.',
