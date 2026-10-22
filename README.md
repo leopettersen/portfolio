@@ -3,7 +3,7 @@
 > [!NOTE]
 > Portfólio profissional com **dois jeitos de navegar**: como um **sistema operacional no navegador**, com terminal, janelas e ícones, ou como uma **página tradicional** com rolagem. **Em poucos segundos, quem visita conhece minha trajetória, meus projetos e como falar comigo.**
 
-🌐 **Acesse o site: [leopettersen.dev](https://www.leopettersen.dev/)**
+🌐 **Acesse o site: [leopettersen.dev](https://www.leopettersen.dev/) || [leopettersen.vercel.app](https://leopettersen.vercel.app/)**
 
 <table>
   <tr>
@@ -73,7 +73,7 @@
 
 ## 🔗 Links Úteis
 
-* 🌐 **Site publicado:** [leopettersen.dev](https://www.leopettersen.dev/)
+* 🌐 **Site publicado:** [leopettersen.dev](https://www.leopettersen.dev/) || [leopettersen.vercel.app](https://leopettersen.vercel.app/)
 * 🎨 **Protótipos no Figma:** [Wireframe Portfólio](https://www.figma.com/design/RagNM3PaJglaInWaZBa3Uk/Wireframe-Portif%C3%B3lio?node-id=0-1&t=LONNOAM8aQx4MY8Z-1)
 * 📦 **Repositório:** [leopettersen/portfolio](https://github.com/leopettersen/portfolio)
 
@@ -92,7 +92,7 @@ O site é aberto a qualquer pessoa, sem cadastro nem login. Por isso o foco est�
 
 ## 🕹️ Como usar o site
 
-1. **Ligue o sistema:** acesse [leopettersen.dev](https://www.leopettersen.dev/). A tela de inicialização aparece sozinha. Para pular, aperte qualquer tecla ou toque na tela.
+1. **Ligue o sistema:** acesse [leopettersen.dev](https://www.leopettersen.dev/) || [leopettersen.vercel.app](https://leopettersen.vercel.app/). A tela de inicialização aparece sozinha. Para pular, aperte qualquer tecla ou toque na tela.
 2. **Escolha o modo:** na tela de login, escolha **Sistema** (terminal, janelas e ícones) ou **Normal** (página tradicional com rolagem).
 
 > [!TIP]
@@ -468,7 +468,7 @@ Para usá-lo em outro projeto, troque a `SUPABASE_URL` no arquivo do workflow e 
 
 ## 🚀 Deploy
 
-O site está publicado na **Vercel** em **[leopettersen.dev](https://www.leopettersen.dev/)**, conectada ao repositório do GitHub. Cada atualização na branch principal gera um novo deploy automaticamente.
+O site está publicado na **Vercel** em **[leopettersen.dev](https://www.leopettersen.dev/) || [leopettersen.vercel.app](https://leopettersen.vercel.app/)**, conectada ao repositório do GitHub. Cada atualização na branch principal gera um novo deploy automaticamente.
 
 Configuração do projeto na Vercel:
 
