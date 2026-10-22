@@ -1,9 +1,12 @@
+import { useCallback, useState, type MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { X } from 'lucide-react';
 import type { Language, OpenWindow, WindowId } from '../../types';
 import { appInfo } from '../../data/apps';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { Clock } from './Clock';
 import { SystemTray } from './SystemTray';
+import { ContextMenu } from './ContextMenu';
 
 export interface TaskbarProps {
     windows: OpenWindow[];
@@ -11,11 +14,23 @@ export interface TaskbarProps {
     startOpen: boolean;
     onStartToggle: () => void;
     onWindowClick: (id: WindowId) => void;
+    onWindowClose: (id: WindowId) => void;
 }
 
-export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWindowClick }: TaskbarProps) {
+export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWindowClick, onWindowClose }: TaskbarProps) {
     const { t, i18n } = useTranslation();
     const language = i18n.resolvedLanguage as Language;
+    const [menu, setMenu] = useState<{ id: WindowId; x: number; y: number } | null>(null);
+    const closeMenu = useCallback(() => setMenu(null), []);
+
+    function openMenu(event: MouseEvent<HTMLButtonElement>, id: WindowId) {
+        if (!window.matchMedia('(min-width: 768px)').matches) return;
+        event.preventDefault();
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        const fromKeyboard = event.clientX === 0 && event.clientY === 0;
+        setMenu({ id, x: fromKeyboard ? rect.left : event.clientX, y: fromKeyboard ? rect.top : event.clientY });
+    }
 
     return (
         <footer className="relative z-40 flex h-12 shrink-0 items-center gap-2 border-t border-slate-800/60 bg-slate-950/95 px-2 font-mono text-zinc-400 backdrop-blur-md pb-[env(safe-area-inset-bottom)] box-content">
@@ -43,6 +58,7 @@ export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWi
                             key={id}
                             type="button"
                             onClick={() => onWindowClick(id)}
+                            onContextMenu={(event) => openMenu(event, id)}
                             aria-label={title}
                             aria-pressed={focused}
                             title={title}
@@ -60,6 +76,16 @@ export function Taskbar({ windows, focusedWindow, startOpen, onStartToggle, onWi
                 <LanguageToggle />
                 <Clock />
             </div>
+
+            {menu && (
+                <ContextMenu
+                    x={menu.x}
+                    y={menu.y}
+                    label={t('contextMenu.taskbar')}
+                    onClose={closeMenu}
+                    items={[{ key: 'close', label: t('contextMenu.closeWindow'), icon: X, run: () => onWindowClose(menu.id), danger: true }]}
+                />
+            )}
         </footer>
     );
 }

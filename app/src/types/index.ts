@@ -15,7 +15,7 @@ export interface AgentDraft {
     text: string;
 }
 
-export type ToastKind = 'welcome' | 'windows' | 'shortcuts' | 'offline' | 'online';
+export type ToastKind = 'welcome' | 'windows' | 'shortcuts' | 'offline' | 'online' | 'linkCopied' | 'copyFailed';
 
 export interface ToastItem {
     id: number;

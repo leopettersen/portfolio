@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
+import { useCallback, useEffect, useRef, useState, type ComponentType, type MouseEvent } from 'react';
+import { CodeXml, Info, Languages, LayoutGrid, Link, Maximize, Minimize, RefreshCw, RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { AgentDraft, Language, Point, SectionId, WindowId, WindowLayout, WindowLeave, HistoryEntry, OpenWindow, TerminalOutput } from '../../types';
 import { sections } from '../../data/sections';
@@ -9,6 +10,10 @@ import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { DesktopIcon } from './DesktopIcon';
 import { ToastStack } from './ToastStack';
+import { ContextMenu, type ContextMenuItem } from './ContextMenu';
+import { ConfirmDialog } from './ConfirmDialog';
+import { useFullscreen } from '../../hooks/useFullscreen';
+import { REPO_URL, SITE_URL } from '../../data/site';
 import { useToasts } from '../../hooks/useToasts';
 import { useTerminalAgent } from '../../hooks/useTerminalAgent';
 import { MAX_MESSAGE } from '../../services/gemini';
@@ -70,6 +75,11 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     })));
     const [unlocked, setUnlocked] = useState(saved.unlocked);
     const [layouts, setLayouts] = useState(saved.layouts);
+    const [iconPositions, setIconPositions] = useState(saved.icons);
+    const [iconsVersion, setIconsVersion] = useState(0);
+    const [refreshing, setRefreshing] = useState(false);
+    const [desktopMenu, setDesktopMenu] = useState<Point | null>(null);
+    const [confirmReset, setConfirmReset] = useState(false);
     const [history, setHistory] = useState<HistoryEntry[]>([]);
     const [typedCommands, setTypedCommands] = useState<string[]>([]);
     const [matrixRun, setMatrixRun] = useState<number | null>(null);
@@ -79,6 +89,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
     const persisted = useRef<DesktopState>(saved);
     const { toasts, push: pushToast, dismiss: dismissToast } = useToasts();
     const terminalAgent = useTerminalAgent();
+    const fullscreen = useFullscreen();
 
     const focusedWindow = windows
         .filter(item => !item.minimized && !item.leaving)
@@ -86,6 +97,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
 
     const closeStart = useCallback(() => setStartOpen(false), []);
     const finishMatrix = useCallback(() => setMatrixRun(null), []);
+    const closeDesktopMenu = useCallback(() => setDesktopMenu(null), []);
 
     const persist = useCallback((patch: Partial<DesktopState>) => {
         persisted.current = { ...persisted.current, ...patch };
@@ -106,8 +118,12 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         persist({ layouts });
     }, [layouts, persist]);
 
+    useEffect(() => {
+        persist({ icons: iconPositions });
+    }, [iconPositions, persist]);
+
     function saveIcon(id: WindowId, position: Point) {
-        persist({ icons: { ...persisted.current.icons, [id]: position } });
+        setIconPositions(prev => ({ ...prev, [id]: position }));
     }
 
     function saveLayout(id: WindowId, layout: WindowLayout) {
@@ -226,6 +242,63 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
         leaveWindow(id, 'close');
     }
 
+    function arrangeIcons() {
+        setIconPositions({});
+        setIconsVersion(prev => prev + 1);
+    }
+
+    function refreshDesktop() {
+        setRefreshing(true);
+        setTimeout(() => setRefreshing(false), 150);
+    }
+
+    function resetDesktop() {
+        setConfirmReset(false);
+        setWindows([]);
+        setLayouts({});
+        setUnlocked(false);
+        arrangeIcons();
+    }
+
+    function copyLink() {
+        Promise.resolve()
+            .then(() => navigator.clipboard.writeText(SITE_URL))
+            .then(() => pushToast('linkCopied', ['copyFailed']), () => pushToast('copyFailed', ['linkCopied']));
+    }
+
+    function showSystemInfo() {
+        addToHistory('neofetch', neofetchOutput());
+        openApp('terminal');
+    }
+
+    function openDesktopMenu(event: MouseEvent<HTMLElement>) {
+        const target = event.target;
+        if (!(target instanceof Element) || !window.matchMedia('(min-width: 768px)').matches) return;
+        if (target.closest('[data-window-id], input, textarea, a')) return;
+
+        event.preventDefault();
+        const rect = target.getBoundingClientRect();
+        const fromKeyboard = event.clientX === 0 && event.clientY === 0;
+        setDesktopMenu(fromKeyboard ? { x: rect.left + 16, y: rect.top + 16 } : { x: event.clientX, y: event.clientY });
+    }
+
+    const desktopMenuItems: ContextMenuItem[] = [
+        { key: 'terminal', label: t('contextMenu.openTerminal'), icon: terminalApp.icon, run: () => openApp('terminal') },
+        { key: 'refresh', label: t('contextMenu.refresh'), icon: RefreshCw, run: refreshDesktop },
+        { key: 'arrange', label: t('contextMenu.arrangeIcons'), icon: LayoutGrid, run: arrangeIcons },
+        { key: 'language', label: t('contextMenu.switchLanguage'), icon: Languages, run: () => i18n.changeLanguage(language === 'en' ? 'pt' : 'en'), separatorBefore: true },
+        ...(fullscreen.supported ? [{
+            key: 'fullscreen',
+            label: fullscreen.active ? t('contextMenu.exitFullscreen') : t('contextMenu.fullscreen'),
+            icon: fullscreen.active ? Minimize : Maximize,
+            run: fullscreen.toggle,
+        }] : []),
+        { key: 'copy', label: t('contextMenu.copyLink'), icon: Link, run: copyLink, separatorBefore: true },
+        { key: 'source', label: t('contextMenu.viewSource'), icon: CodeXml, run: () => window.open(REPO_URL, '_blank', 'noopener,noreferrer') },
+        { key: 'about', label: t('contextMenu.about'), icon: Info, run: showSystemInfo, separatorBefore: true },
+        { key: 'reset', label: t('contextMenu.reset'), icon: RotateCcw, run: () => setConfirmReset(true), danger: true },
+    ];
+
     function addToHistory(command: string, output: TerminalOutput | string) {
         const value = typeof output === 'string' ? { type: 'text' as const, text: output } : output;
 
@@ -303,17 +376,17 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
 
     return (
         <div className="relative h-[100dvh] w-full overflow-hidden bg-slate-900 flex flex-col">
-            <main className="relative isolate flex-1 overflow-clip bg-[#0b1120] bg-[radial-gradient(45%_45%_at_50%_48%,rgba(59,130,246,0.16),transparent_70%)]">
+            <main onContextMenu={openDesktopMenu} className="relative isolate flex-1 overflow-clip bg-[#0b1120] bg-[radial-gradient(45%_45%_at_50%_48%,rgba(59,130,246,0.16),transparent_70%)]">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex select-none items-center justify-center font-mono text-[32vmin] font-extrabold leading-none text-transparent [-webkit-text-stroke:1px_rgba(59,130,246,0.18)]">
                     LP
                 </div>
 
-                <div className="absolute top-0 left-0 grid grid-cols-4 gap-4 p-4 md:flex md:flex-col">
+                <div key={iconsVersion} className={`absolute top-0 left-0 grid grid-cols-4 gap-4 p-4 md:flex md:flex-col ${refreshing ? 'invisible' : ''}`}>
                     <DesktopIcon
                         icon={terminalApp.icon}
                         label={terminalApp.label}
                         onOpen={() => openApp('terminal')}
-                        initialPosition={saved.icons.terminal}
+                        initialPosition={iconPositions.terminal}
                         onMove={(position) => saveIcon('terminal', position)}
                     />
 
@@ -325,7 +398,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                                 icon={section.icon}
                                 label={section.command[language]}
                                 onOpen={() => openApp(section.id)}
-                                initialPosition={saved.icons[section.id]}
+                                initialPosition={iconPositions[section.id]}
                                 onMove={(position) => saveIcon(section.id, position)}
                             />
                         ))}
@@ -350,6 +423,7 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
                     return (
                         <div
                             key={id}
+                            data-window-id={id}
                             className={`absolute inset-0 items-center justify-center pointer-events-none ${minimized ? 'hidden' : 'flex'}`}
                             style={{ zIndex: layer }}
                         >
@@ -379,12 +453,28 @@ export function DesktopLayout({ welcome = false, onLogout, onRestart, onShutdown
 
             <ToastStack toasts={toasts} onDismiss={dismissToast} />
 
+            {desktopMenu && (
+                <ContextMenu x={desktopMenu.x} y={desktopMenu.y} label={t('contextMenu.desktop')} items={desktopMenuItems} onClose={closeDesktopMenu} />
+            )}
+
+            {confirmReset && (
+                <ConfirmDialog
+                    title={t('contextMenu.resetConfirm.title')}
+                    text={t('contextMenu.resetConfirm.text')}
+                    cancelLabel={t('contextMenu.resetConfirm.cancel')}
+                    confirmLabel={t('contextMenu.resetConfirm.confirm')}
+                    onCancel={() => setConfirmReset(false)}
+                    onConfirm={resetDesktop}
+                />
+            )}
+
             <Taskbar
                 windows={windows}
                 focusedWindow={focusedWindow}
                 startOpen={startOpen}
                 onStartToggle={() => setStartOpen(prev => !prev)}
                 onWindowClick={toggleFromTaskbar}
+                onWindowClose={closeWindow}
             />
         </div>
     )

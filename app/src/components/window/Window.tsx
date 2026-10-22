@@ -1,7 +1,8 @@
-import { useRef, useState, type MouseEvent, type ReactNode } from 'react';
+import { useCallback, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Copy, Minus, Square, X, type LucideIcon } from 'lucide-react';
 import { CommandPrompt } from '../terminal/CommandPrompt';
+import { ContextMenu } from '../desktop/ContextMenu';
 import { systemCommandNames } from '../../data/commands';
 import type { Language, Point, WindowLayout, WindowLeave } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
@@ -48,6 +49,8 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
   const { t, i18n } = useTranslation();
   const language = i18n.resolvedLanguage as Language;
   const [isMaximized, setIsMaximized] = useState(initialLayout?.maximized ?? false);
+  const [menu, setMenu] = useState<Point | null>(null);
+  const closeMenu = useCallback(() => setMenu(null), []);
   const rootRef = useRef<HTMLDivElement>(null);
   const isDesktop = window.matchMedia('(min-width: 768px)').matches;
   const dragEnabled = !isMaximized && isDesktop;
@@ -82,6 +85,16 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
     reportLayout(position, size, !isMaximized);
   }
 
+  function handleTitleContextMenu(event: MouseEvent<HTMLDivElement>) {
+    if (!isDesktop) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const fromKeyboard = event.clientX === 0 && event.clientY === 0;
+    setMenu(fromKeyboard ? { x: rect.left + 16, y: rect.bottom } : { x: event.clientX, y: event.clientY });
+  }
+
   function handleTitleDoubleClick(event: MouseEvent<HTMLDivElement>) {
     if (!isDesktop) return;
     if (event.target instanceof Element && event.target.closest('button')) return;
@@ -114,6 +127,8 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerCancel}
         onDoubleClick={handleTitleDoubleClick}
+        onContextMenu={handleTitleContextMenu}
+        data-window-titlebar
       >
 
         <button
@@ -166,6 +181,19 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
         </div>
       )}
       {overlay}
+      {menu && (
+        <ContextMenu
+          x={menu.x}
+          y={menu.y}
+          label={t('contextMenu.window')}
+          onClose={closeMenu}
+          items={[
+            { key: 'maximize', label: isMaximized ? t('window.restore') : t('window.maximize'), icon: isMaximized ? Copy : Square, run: toggleMaximized },
+            { key: 'minimize', label: t('window.minimize'), icon: Minus, run: onMinimize },
+            { key: 'close', label: t('window.close'), icon: X, run: onClose, danger: true, separatorBefore: true },
+          ]}
+        />
+      )}
     </div>
   );
 }

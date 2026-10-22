@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { AppWindow, Hand, Keyboard, Wifi, WifiOff, X, type LucideIcon } from 'lucide-react';
+import { AppWindow, Hand, Keyboard, Link, TriangleAlert, Wifi, WifiOff, X, type LucideIcon } from 'lucide-react';
 import type { ToastItem, ToastKind } from '../../types';
 
 const toastIcons: Record<ToastKind, LucideIcon> = {
@@ -8,6 +8,8 @@ const toastIcons: Record<ToastKind, LucideIcon> = {
     shortcuts: Keyboard,
     offline: WifiOff,
     online: Wifi,
+    linkCopied: Link,
+    copyFailed: TriangleAlert,
 };
 
 export interface ToastStackProps {
@@ -39,7 +41,7 @@ export function ToastStack({ toasts, onDismiss }: ToastStackProps) {
                         className="group pointer-events-auto relative overflow-hidden rounded-lg border border-slate-700/60 bg-slate-900/95 shadow-2xl shadow-black/60 backdrop-blur-md motion-safe:animate-toast-in"
                     >
                         <div className="flex gap-3 p-4 pr-11">
-                            <Icon size={20} className={`mt-0.5 shrink-0 ${kind === 'offline' ? 'text-red-400' : 'text-blue-500'}`} aria-hidden="true" />
+                            <Icon size={20} className={`mt-0.5 shrink-0 ${kind === 'offline' || kind === 'copyFailed' ? 'text-red-400' : 'text-blue-500'}`} aria-hidden="true" />
 
                             <div className="min-w-0">
                                 <p className="text-sm font-bold text-zinc-100">{t(`toasts.${kind}.title`)}</p>

@@ -218,6 +218,28 @@ export const pt = {
     ],
     skip: 'pressione qualquer tecla ou toque para pular',
   },
+  contextMenu: {
+    desktop: 'Menu da área de trabalho',
+    window: 'Menu da janela',
+    taskbar: 'Menu da barra de tarefas',
+    openTerminal: 'Abrir terminal',
+    refresh: 'Atualizar',
+    arrangeIcons: 'Organizar ícones',
+    switchLanguage: 'Mudar para inglês',
+    fullscreen: 'Tela cheia',
+    exitFullscreen: 'Sair da tela cheia',
+    copyLink: 'Copiar link do portfólio',
+    viewSource: 'Ver código-fonte',
+    about: 'Sobre este sistema',
+    reset: 'Redefinir área de trabalho',
+    closeWindow: 'Fechar janela',
+    resetConfirm: {
+      title: 'Redefinir a área de trabalho?',
+      text: 'Todas as janelas serão fechadas e os ícones, posições e tamanhos voltam ao padrão.',
+      cancel: 'Cancelar',
+      confirm: 'Redefinir',
+    },
+  },
   toasts: {
     region: 'Notificações',
     dismiss: 'Dispensar notificação',
@@ -242,6 +264,14 @@ export const pt = {
     online: {
       title: 'Conexão restabelecida',
       text: 'O agente e o guestbook estão disponíveis de novo.',
+    },
+    linkCopied: {
+      title: 'Link copiado',
+      text: 'O link do portfólio está na sua área de transferência.',
+    },
+    copyFailed: {
+      title: 'Não foi possível copiar',
+      text: 'Copie o link manualmente: https://www.leopettersen.dev/',
     },
   },
   taskbar: {

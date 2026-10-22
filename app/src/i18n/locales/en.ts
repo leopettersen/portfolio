@@ -219,6 +219,28 @@ export const en: typeof pt = {
     ],
     skip: 'press any key or tap to skip',
   },
+  contextMenu: {
+    desktop: 'Desktop menu',
+    window: 'Window menu',
+    taskbar: 'Taskbar menu',
+    openTerminal: 'Open terminal',
+    refresh: 'Refresh',
+    arrangeIcons: 'Arrange icons',
+    switchLanguage: 'Switch to Portuguese',
+    fullscreen: 'Full screen',
+    exitFullscreen: 'Exit full screen',
+    copyLink: 'Copy portfolio link',
+    viewSource: 'View source code',
+    about: 'About this system',
+    reset: 'Reset desktop',
+    closeWindow: 'Close window',
+    resetConfirm: {
+      title: 'Reset the desktop?',
+      text: 'All windows will be closed and icons, positions and sizes go back to the default.',
+      cancel: 'Cancel',
+      confirm: 'Reset',
+    },
+  },
   toasts: {
     region: 'Notifications',
     dismiss: 'Dismiss notification',
@@ -243,6 +265,14 @@ export const en: typeof pt = {
     online: {
       title: 'Connection restored',
       text: 'The agent and the guestbook are available again.',
+    },
+    linkCopied: {
+      title: 'Link copied',
+      text: 'The portfolio link is on your clipboard.',
+    },
+    copyFailed: {
+      title: 'Could not copy',
+      text: 'Copy the link manually: https://www.leopettersen.dev/',
     },
   },
   taskbar: {
