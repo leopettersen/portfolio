@@ -146,6 +146,7 @@ export const pt = {
     sendingButton: 'Enviando...',
     successMsg: 'Mensagem enviada! Obrigado pelo contato.',
     errorMsg: 'Não foi possível enviar. Tente novamente ou use um dos contatos acima.',
+    limitedMsg: 'Você acabou de enviar uma mensagem. Aguarde um pouco para enviar outra.',
     errors: {
       nameRequired: 'Informe seu nome.',
       emailRequired: 'Informe seu e-mail.',

@@ -147,6 +147,7 @@ export const en: typeof pt = {
     sendingButton: 'Sending...',
     successMsg: 'Message sent! Thank you for reaching out.',
     errorMsg: 'Could not send. Please try again or use one of the contacts above.',
+    limitedMsg: 'You just sent a message. Please wait a moment before sending another.',
     errors: {
       nameRequired: 'Please enter your name.',
       emailRequired: 'Please enter your email.',
