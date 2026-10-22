@@ -179,7 +179,7 @@ export const en: typeof pt = {
         sending: 'Sending...',
         success: 'Message sent! Thank you for reaching out.',
         error: 'Could not send your message. Please try again.',
-        wait: 'Please wait a few seconds before sending another message.',
+        wait: 'Please wait {{seconds}} s before sending another message.',
     },
   },
   agent: {

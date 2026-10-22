@@ -20,13 +20,12 @@ export function GuestbookSection() {
         setWebsite,
         formErrors,
         status,
+        sending,
         statusText,
         handleSubmit,
         handleLoadMore,
         formatDate,
     } = useGuestbook();
-
-    const sending = status === 'sending';
 
     return (
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 lg:flex-row">
@@ -57,7 +56,7 @@ export function GuestbookSection() {
                         placeholder={t('guestbook.form.messagePlaceholder')}
                         value={newMessage}
                         onChange={setNewMessage}
-                        error={formErrors.message === t('guestbook.form.wait') ? undefined : formErrors.message}
+                        error={formErrors.message}
                         disabled={sending}
                         maxLength={500}
                     />

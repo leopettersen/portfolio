@@ -79,3 +79,30 @@ export async function askGemini(message: string, { history = [], language, signa
     onChunk?.(text);
     return text;
 }
+
+export interface AnswerPatch {
+    text?: string;
+    streaming?: boolean;
+    stopped?: boolean;
+    errorCode?: string;
+    retryAfter?: number | null;
+}
+
+export async function streamAnswer(question: string, options: Omit<AskOptions, 'onChunk'>, update: (patch: AnswerPatch) => void) {
+    try {
+        await askGemini(question, { ...options, onChunk: (text) => update({ text }) });
+        update({ streaming: false });
+    } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') {
+            update({ streaming: false, stopped: true });
+            return;
+        }
+
+        console.error(error);
+        update({
+            streaming: false,
+            errorCode: error instanceof GeminiError ? error.code : 'generic',
+            retryAfter: error instanceof GeminiError ? error.retryAfter : null,
+        });
+    }
+}

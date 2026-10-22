@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AgentHistoryEntry, TerminalAnswer } from '../types';
-import { askGemini, GeminiError } from '../services/gemini';
+import { streamAnswer } from '../services/gemini';
 
 export function useTerminalAgent() {
     const { i18n } = useTranslation();
@@ -36,29 +36,9 @@ export function useTerminalAgent() {
         const controller = new AbortController();
         abortRef.current = controller;
 
-        askGemini(question, {
-            history,
-            language,
-            signal: controller.signal,
-            onChunk: (partial) => update({ text: partial }),
-        })
-            .then(() => update({ streaming: false }))
-            .catch((error: unknown) => {
-                if (error instanceof Error && error.name === 'AbortError') {
-                    update({ streaming: false, stopped: true });
-                    return;
-                }
-
-                console.error(error);
-                update({
-                    streaming: false,
-                    errorCode: error instanceof GeminiError ? error.code : 'generic',
-                    retryAfter: error instanceof GeminiError ? error.retryAfter : null,
-                });
-            })
-            .finally(() => {
-                if (abortRef.current === controller) abortRef.current = null;
-            });
+        streamAnswer(question, { history, language, signal: controller.signal }, update).then(() => {
+            if (abortRef.current === controller) abortRef.current = null;
+        });
 
         return id;
     }

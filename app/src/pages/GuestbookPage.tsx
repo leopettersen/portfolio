@@ -18,6 +18,8 @@ export function GuestbookPage() {
         setWebsite,
         formErrors,
         status,
+        sending,
+        statusText,
         handleSubmit,
         handleLoadMore,
         formatDate,
@@ -46,6 +48,7 @@ export function GuestbookPage() {
                             maxLength={40}
                             value={newName}
                             onChange={(event) => setNewName(event.target.value)}
+                            disabled={sending}
                             placeholder={t('guestbook.form.namePlaceholder')}
                             aria-invalid={!!formErrors.name}
                             aria-describedby={formErrors.name ? 'guestbook-name-error' : undefined}
@@ -69,6 +72,7 @@ export function GuestbookPage() {
                             maxLength={500}
                             value={newMessage}
                             onChange={(event) => setNewMessage(event.target.value)}
+                            disabled={sending}
                             placeholder={t('guestbook.form.messagePlaceholder')}
                             rows={5}
                             aria-invalid={!!formErrors.message}
@@ -108,27 +112,17 @@ export function GuestbookPage() {
 
                     <button
                         type="submit"
-                        disabled={status === 'sending'}
+                        disabled={sending}
                         className="self-start border border-slate-700/60 px-4 py-2 rounded-md text-sm text-slate-400 hover:text-slate-200 hover:border-slate-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {status === 'sending'
+                        {sending
                             ? t('guestbook.form.sending')
                             : t('guestbook.form.submit')}
                     </button>
 
-                    {status === 'success' && (
-                        <p role="status" className="text-sm text-green-400">
-                            {t('guestbook.form.success')}
-                        </p>
-                    )}
-
-                    {status === 'error' && (
-                        <p role="status" className="text-sm text-red-400">
-                            {formErrors.message === t('guestbook.form.wait')
-                                ? t('guestbook.form.wait')
-                                : t('guestbook.form.error')}
-                        </p>
-                    )}
+                    <p role="status" className={`text-sm ${status === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                        {statusText}
+                    </p>
 
                 </form>
 

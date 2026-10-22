@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AgentMessage } from '../types';
-import { askGemini, GeminiError } from '../services/gemini';
+import { streamAnswer } from '../services/gemini';
 
 export function useAgentChat() {
     const { t, i18n } = useTranslation();
@@ -51,31 +51,10 @@ export function useAgentChat() {
             setMessages((prev) => prev.map((message) => (message.id === answerId ? { ...message, ...patch } : message)));
         }
 
-        try {
-            await askGemini(question, {
-                history,
-                language,
-                signal: controller.signal,
-                onChunk: (partial) => update({ text: partial }),
-            });
+        await streamAnswer(question, { history, language, signal: controller.signal }, update);
 
-            update({ streaming: false });
-        } catch (error) {
-            if (error instanceof Error && error.name === 'AbortError') {
-                update({ streaming: false, stopped: true });
-            } else {
-                console.error(error);
-
-                update({
-                    streaming: false,
-                    errorCode: error instanceof GeminiError ? error.code : 'generic',
-                    retryAfter: error instanceof GeminiError ? error.retryAfter : null,
-                });
-            }
-        } finally {
-            setLoading(false);
-            abortRef.current = null;
-        }
+        setLoading(false);
+        abortRef.current = null;
     }
 
     function stop() {
