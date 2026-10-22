@@ -15,7 +15,6 @@ export const pt = {
     toSeeCommands: 'para ver os comandos',
     openingSection: 'Abrindo seção: {{title}}',
     closingSection: 'Fechando seção atual.',
-    clearingHistory: 'Limpando histórico.',
     availableCommands: 'Comandos disponíveis:',
     commandNotFound: 'Comando não encontrado: "{{command}}"',
     inputLabel: 'Comando do terminal',

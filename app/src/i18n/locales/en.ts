@@ -16,7 +16,6 @@ export const en: typeof pt = {
     toSeeCommands: 'to see available commands',
     openingSection: 'Opening section: {{title}}',
     closingSection: 'Closing current section.',
-    clearingHistory: 'Clearing history.',
     availableCommands: 'Available commands:',
     commandNotFound: 'Command not found: "{{command}}"',
     inputLabel: 'Terminal command',

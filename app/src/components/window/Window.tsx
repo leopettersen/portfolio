@@ -170,7 +170,7 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
         </div>
 
       </div>
-      <div className={`flex-1 min-h-0 p-4 md:p-8 ${scrollBody ? 'overflow-y-auto custom-scrollbar' : 'flex flex-col overflow-hidden'}`}>
+      <div className={`flex-1 min-h-0 p-4 md:p-8 ${scrollBody ? 'overflow-y-auto' : 'flex flex-col overflow-hidden'}`}>
         <SafeBoundary fallback={(error, reset) => <WindowCrash error={error} onRetry={reset} onClose={onClose} />}>
           {children}
         </SafeBoundary>

@@ -85,6 +85,10 @@ html[data-theme] {
   scrollbar-color: var(--brand) var(--page);
 }
 
+html[data-theme] body * {
+  scrollbar-color: var(--brand) transparent;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html[data-theme] {
     scroll-behavior: smooth;
@@ -96,12 +100,11 @@ html[data-theme] {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-}
 
-/* Scrollbar personalizada para o textarea */
-.custom-scrollbar {
+  * {
     scrollbar-width: thin;
-    scrollbar-color: blue transparent;
+    scrollbar-color: var(--color-blue-500) transparent;
+  }
 }
 
 /* Modo normal: Orbitron só nos títulos. O corpo fica na Geist, que é mais legível.
