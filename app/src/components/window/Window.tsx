@@ -3,6 +3,8 @@ import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Copy, Minus, Square, X, type LucideIcon } from 'lucide-react';
 import { CommandPrompt } from '../terminal/CommandPrompt';
 import { ContextMenu } from '../desktop/ContextMenu';
+import { SafeBoundary } from '../standard/SafeBoundary';
+import { WindowCrash } from './WindowCrash';
 import { systemCommandNames } from '../../data/commands';
 import type { Language, Point, WindowLayout, WindowLeave } from '../../types';
 import { useDraggable } from '../../hooks/useDraggable';
@@ -169,7 +171,9 @@ export function Window({ title, icon: Icon, children, onClose, onMinimize, onCom
 
       </div>
       <div className={`flex-1 min-h-0 p-4 md:p-8 ${scrollBody ? 'overflow-y-auto custom-scrollbar' : 'flex flex-col overflow-hidden'}`}>
-        {children}
+        <SafeBoundary fallback={(error, reset) => <WindowCrash error={error} onRetry={reset} onClose={onClose} />}>
+          {children}
+        </SafeBoundary>
       </div>
       {showFooter && (
         <div className="shrink-0 hidden md:flex justify-between items-center px-4 py-3 bg-slate-950 border-t border-slate-800/60">

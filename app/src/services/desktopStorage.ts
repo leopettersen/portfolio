@@ -95,6 +95,13 @@ export function loadDesktopState(): DesktopState {
     }
 }
 
+export function clearDesktopState() {
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+    } catch {
+    }
+}
+
 export function saveDesktopState(state: DesktopState) {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: VERSION, ...state }));

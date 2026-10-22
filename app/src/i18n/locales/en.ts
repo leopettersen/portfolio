@@ -219,6 +219,17 @@ export const en: typeof pt = {
     ],
     skip: 'press any key or tap to skip',
   },
+  crash: {
+    title: "Your portfolio ran into a problem and needs to restart. We're just collecting some error info.",
+    progress: '{{percent}}% complete',
+    stopCode: 'Stop code',
+    failed: 'What failed',
+    restart: 'Restart',
+    standard: 'Open standard mode',
+    appTitle: 'The app stopped working',
+    appText: 'This window ran into an error. The rest of the system keeps working.',
+    retry: 'Try again',
+  },
   contextMenu: {
     desktop: 'Desktop menu',
     window: 'Window menu',

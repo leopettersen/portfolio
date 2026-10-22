@@ -2,6 +2,9 @@ import { lazy, Suspense, useState } from 'react';
 import type { PortfolioMode } from './types';
 import { BootScreen } from './components/boot/BootScreen';
 import { PowerScreen, type PowerAction } from './components/boot/PowerScreen';
+import { CrashScreen } from './components/boot/CrashScreen';
+import { SafeBoundary } from './components/standard/SafeBoundary';
+import { clearDesktopState } from './services/desktopStorage';
 import { DesktopLayout } from './components/desktop/DesktopLayout';
 import { LoginScreen } from './components/login/LoginScreen';
 
@@ -43,12 +46,25 @@ export default function App() {
                 <LoginScreen onEnter={enter} />
             )}
             {stage === 'desktop' && (
-                <DesktopLayout
-                    welcome={welcome}
-                    onLogout={() => setStage('login')}
-                    onRestart={() => setStage('restart')}
-                    onShutdown={() => setStage('shutdown')}
-                />
+                <SafeBoundary
+                    fallback={(error) => (
+                        <CrashScreen
+                            error={error}
+                            onRestart={() => {
+                                clearDesktopState();
+                                setStage('boot');
+                            }}
+                            onStandard={() => setStage('standard')}
+                        />
+                    )}
+                >
+                    <DesktopLayout
+                        welcome={welcome}
+                        onLogout={() => setStage('login')}
+                        onRestart={() => setStage('restart')}
+                        onShutdown={() => setStage('shutdown')}
+                    />
+                </SafeBoundary>
             )}
             {(stage === 'restart' || stage === 'shutdown') && (
                 <PowerScreen action={stage} onBoot={() => setStage('boot')} />

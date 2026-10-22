@@ -218,6 +218,17 @@ export const pt = {
     ],
     skip: 'pressione qualquer tecla ou toque para pular',
   },
+  crash: {
+    title: 'Seu portfólio encontrou um problema e precisa ser reiniciado. Estamos coletando algumas informações sobre o erro.',
+    progress: '{{percent}}% concluído',
+    stopCode: 'Código de parada',
+    failed: 'O que falhou',
+    restart: 'Reiniciar',
+    standard: 'Abrir modo normal',
+    appTitle: 'O aplicativo parou de funcionar',
+    appText: 'Esta janela encontrou um erro. O resto do sistema continua funcionando.',
+    retry: 'Tentar de novo',
+  },
   contextMenu: {
     desktop: 'Menu da área de trabalho',
     window: 'Menu da janela',
