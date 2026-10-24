@@ -3,6 +3,8 @@ import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
 import imgPortfolio from '../../assets/Portfolio.webp';
 import imgOpm from '../../assets/OPM.webp';
+import imgCatalogo from '../../assets/CatalogoFilmes.png';
+import imgFut from '../../assets/FutNews.png';
 
 export const en: typeof pt = {
   site: {
@@ -112,9 +114,16 @@ export const en: typeof pt = {
   },
   projects: [
     {
+      name: 'Athenas Educacional',
+      date: 'Dec 2026',
+      description: 'The project is a digital platform that centralizes information about courses and colleges to guide undecided students in their academic choices. In addition to gathering data that is usually scattered across the internet, the system connects users to professors and graduates for direct clarification of doubts, simplifying research and facilitating professional decision-making. Developed as an Interdisciplinary Work for the 2nd Semester of Software Engineering at PUC Minas.',
+      technologies: ['Java', 'SpringBoot', 'TypeScript', 'React', 'MongoDB', 'Docker'],
+      repoLink: '#',
+    },
+    {
       name: 'Hospital System - "Portões do Céu"',
       date: 'Dec 2026',
-      description: 'Web hospital management system developed in Java with Spring Boot, using a REST API and a relational database for managing patients, professionals, appointments, and hospitalizations. The application organizes essential processes, such as scheduling, room control, and medical records.',
+      description: 'Web hospital management system developed in Java with Spring Boot, using a REST API and a relational database for managing patients, professionals, appointments, and hospitalizations. The application organizes essential processes, such as scheduling, room control, and medical records. Developed as a group Practical Work for the 2nd Semester of Software Engineering at PUC Minas.',
       technologies: ['Java', 'SpringBoot', 'Thymeleaf', 'MySQL'],
       repoLink: 'https://github.com/leopettersen/TP-sistema-hospitalar',
       image: imgPortoesDoCeu,
@@ -122,7 +131,7 @@ export const en: typeof pt = {
     {
       name: 'Professional Portfolio',
       date: 'Oct 2026',
-      description: 'The system showcases my journey, projects, experiences, and contact methods in an interface inspired by a desktop with a terminal. Navigation can be done via commands or interface icons, with support for Portuguese and English, light and dark themes, and responsive design for computers and mobile devices. The goal is to present my work quickly, clearly, and interactively, without requiring registration or login.',
+      description: 'The system showcases my journey, projects, experiences, and contact methods in an interface inspired by a desktop with a terminal. Navigation can be done via commands or interface icons, with support for Portuguese and English, light and dark themes, and responsive design for computers and mobile devices. The goal is to present my work quickly, clearly, and interactively, without requiring registration or login. Developed as an activity for the 2nd Semester of Software Engineering at PUC Minas.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
       repoLink: 'https://github.com/leopettersen/portfolio',
       liveLink: 'https://www.leopettersen.dev/',
@@ -131,10 +140,26 @@ export const en: typeof pt = {
     {
       name: '"Opera Máquinas" (OPM)',
       date: 'Jul 2026',
-      description: 'Web interface aimed at optimizing and managing production in industrial environments, centralizing essential tools for the operational routine. The system seeks to organize critical processes, such as login control and role-based user registration.',
+      description: 'Web interface aimed at optimizing and managing production in industrial environments, centralizing essential tools for the operational routine. The system seeks to organize critical processes, such as login control and role-based user registration. Developed as an Interdisciplinary Work for the 1st Semester of Software Engineering at PUC Minas.',
       technologies: ['HTML5', 'CSS3', 'JavaScript'],
       repoLink: 'https://github.com/leopettersen/trabalho-intedisciplinar1-opm',
       image: imgOpm,
+    },
+    {
+      name: 'Movie Catalog',
+      date: 'Jul 2026',
+      description: 'Simple movie catalog developed as an activity for the 1st Semester of Software Engineering at PUC Minas.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript'],
+      repoLink: 'https://github.com/leopettersen/CatalogoFilmes',
+      image: imgCatalogo,
+    },
+    {
+      name: 'FutNews',
+      date: 'Jul 2026',
+      description: 'Simple football (soccer) news website developed as an activity for the 1st Semester of Software Engineering at PUC Minas.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript'],
+      repoLink: 'https://github.com/leopettersen/FutNews',
+      image: imgFut,
     }
   ],
   contact: {

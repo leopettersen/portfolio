@@ -2,6 +2,8 @@ import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
 import imgPortfolio from '../../assets/Portfolio.webp';
 import imgOpm from '../../assets/OPM.webp';
+import imgCatalogo from '../../assets/CatalogoFilmes.png';
+import imgFut from '../../assets/FutNews.png';
 
 export const pt = {
   site: {
@@ -111,9 +113,16 @@ export const pt = {
   },
   projects: [
     {
+      name: 'Athenas Educacional',
+      date: 'Dez 2026',
+      description: 'O projeto é uma plataforma digital que centraliza informações sobre cursos e faculdades para orientar estudantes indecisos em suas escolhas acadêmicas. Além de reunir dados que costumam ficar dispersos na internet, o sistema conecta os usuários a professores e graduados para o esclarecimento direto de dúvidas, simplificando a pesquisa e facilitando a tomada de decisão profissional. Desenvolvido como Trabalho Interdisciplinar do 2° Semestre de Engenharia de Software Puc Minas.',
+      technologies: ['Java', 'SpringBoot', 'TypeScript', 'React', 'MongoDB', 'Docker'],
+      repoLink: '#',
+    },
+    {
       name: 'Sistema Hospitalar - Portões do Céu',
       date: 'Dez 2026',
-      description: 'Sistema web de gestão hospitalar desenvolvido em Java com Spring Boot, utilizando API REST e banco de dados relacional para o gerenciamento de pacientes, profissionais, consultas e internações. A aplicação organiza processos essenciais, como agendamento, controle de quartos e histórico médico.',
+      description: 'Sistema web de gestão hospitalar desenvolvido em Java com Spring Boot, utilizando API REST e banco de dados relacional para o gerenciamento de pacientes, profissionais, consultas e internações. A aplicação organiza processos essenciais, como agendamento, controle de quartos e histórico médico. Desenvolvido como Trabalho Prático em grupo do 2° Semestre de Engenharia de SOftware Puc Minas.',
       technologies: ['Java', 'SpringBoot', 'Thymeleaf', 'MySQL'],
       repoLink: 'https://github.com/leopettersen/TP-sistema-hospitalar',
       image: imgPortoesDoCeu, 
@@ -121,7 +130,7 @@ export const pt = {
     {
       name: 'Portfólio Profissional',
       date: 'Out 2026',
-      description: 'O sistema apresenta minha trajetória, projetos, experiências e formas de contato em uma interface inspirada em um desktop com terminal. A navegação pode ser feita por comandos ou pelos ícones da interface, com suporte a português e inglês, temas claro e escuro e adaptação para computadores e celulares. O objetivo é apresentar meu trabalho de forma rápida, clara e interativa, sem necessidade de cadastro ou login.',
+      description: 'O sistema apresenta minha trajetória, projetos, experiências e formas de contato em uma interface inspirada em um desktop com terminal. A navegação pode ser feita por comandos ou pelos ícones da interface, com suporte a português e inglês, temas claro e escuro e adaptação para computadores e celulares. O objetivo é apresentar meu trabalho de forma rápida, clara e interativa, sem necessidade de cadastro ou login. Desenvolvido como atividade do 2° Semestre de Engenharia de Software Puc Minas.',
       technologies: ['TypeScript', 'React', 'Supabase', 'Docker'],
       repoLink: 'https://github.com/leopettersen/portfolio',
       liveLink: 'https://www.leopettersen.dev/',
@@ -130,11 +139,27 @@ export const pt = {
     {
       name: 'Opera Máquinas (OPM)',
       date: 'Jul 2026',
-      description: 'Interface web voltada para a otimização e gestão da produção em ambientes industriais, centralizando ferramentas essenciais para a rotina operacional. O sistema busca organizar processos críticos, como o controle de login e cadastro de usuários por função.',
+      description: 'Interface web voltada para a otimização e gestão da produção em ambientes industriais, centralizando ferramentas essenciais para a rotina operacional. O sistema busca organizar processos críticos, como o controle de login e cadastro de usuários por função. Desenvolvido como Trabalho Interdisciplinar do 1° Semestre de Engenharia de Software Puc Minas.',
       technologies: ['HTML5', 'CSS3', 'JavaScript'],
       repoLink: 'https://github.com/leopettersen/trabalho-intedisciplinar1-opm',
       image: imgOpm, 
-    }
+    },
+    {
+      name: 'Catalogo Filmes',
+      date: 'Jul 2026',
+      description: 'Catálogo de Filmes simples desenvolvido como uma atividade do 1° Semestre de Engenharia de Software Puc Minas.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript'],
+      repoLink: 'https://github.com/leopettersen/CatalogoFilmes',
+      image: imgCatalogo,
+    },
+    {
+      name: 'FutNews',
+      date: 'Jul 2026',
+      description: 'Site de notícias de futebol simples desenvolvido como uma atividade do 1° Semestre de Engenharia de Software Puc Minas.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript'],
+      repoLink: 'https://github.com/leopettersen/FutNews',
+      image: imgFut,
+    },
   ],
   contact: {
     title: 'Enviar mensagem',
