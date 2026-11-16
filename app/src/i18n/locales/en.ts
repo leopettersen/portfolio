@@ -3,8 +3,6 @@ import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
 import imgPortfolio from '../../assets/Portfolio.webp';
 import imgOpm from '../../assets/OPM.webp';
-import imgCatalogo from '../../assets/CatalogoFilmes.png';
-import imgFut from '../../assets/FutNews.png';
 
 export const en: typeof pt = {
   site: {
@@ -145,22 +143,6 @@ export const en: typeof pt = {
       repoLink: 'https://github.com/leopettersen/trabalho-intedisciplinar1-opm',
       image: imgOpm,
     },
-    {
-      name: 'Movie Catalog',
-      date: 'Jul 2026',
-      description: 'Simple movie catalog developed as an activity for the 1st Semester of Software Engineering at PUC Minas.',
-      technologies: ['HTML5', 'CSS3', 'JavaScript'],
-      repoLink: 'https://github.com/leopettersen/CatalogoFilmes',
-      image: imgCatalogo,
-    },
-    {
-      name: 'FutNews',
-      date: 'Jul 2026',
-      description: 'Simple football (soccer) news website developed as an activity for the 1st Semester of Software Engineering at PUC Minas.',
-      technologies: ['HTML5', 'CSS3', 'JavaScript'],
-      repoLink: 'https://github.com/leopettersen/FutNews',
-      image: imgFut,
-    }
   ],
   contact: {
     title: 'Send a message',
