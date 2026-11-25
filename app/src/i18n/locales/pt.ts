@@ -2,6 +2,8 @@ import imgProfile from '../../assets/Perfil.jpeg';
 import imgPortoesDoCeu from '../../assets/PortoesDoCeu.webp';
 import imgPortfolio from '../../assets/Portfolio.webp';
 import imgOpm from '../../assets/OPM.webp';
+import imgAthenas from '../../assets/Athenas.png';
+import imgLeoCaliza from '../../assets/LeoCaliza.png';
 
 export const pt = {
   site: {
@@ -116,6 +118,7 @@ export const pt = {
       description: 'O projeto é uma plataforma digital que centraliza informações sobre cursos e faculdades para orientar estudantes indecisos em suas escolhas acadêmicas. Além de reunir dados que costumam ficar dispersos na internet, o sistema conecta os usuários a professores e graduados para o esclarecimento direto de dúvidas, simplificando a pesquisa e facilitando a tomada de decisão profissional. Desenvolvido como Trabalho Interdisciplinar do 2° Semestre de Engenharia de Software Puc Minas.',
       technologies: ['Java', 'SpringBoot', 'TypeScript', 'React', 'MongoDB', 'Docker'],
       repoLink: '#',
+      image: imgAthenas,
     },
     {
       name: 'Sistema Hospitalar - Portões do Céu',
@@ -124,6 +127,14 @@ export const pt = {
       technologies: ['Java', 'SpringBoot', 'Thymeleaf', 'MySQL'],
       repoLink: 'https://github.com/leopettersen/TP-sistema-hospitalar',
       image: imgPortoesDoCeu, 
+    },
+    {
+      name:  'LeoCaliza',
+      date: 'Nov 2026',
+      description: 'O projeto é uma plataforma digital que centraliza o catálogo e a gestão de aluguel de veículos para facilitar a escolha e a reserva de carros pelos usuários. Além de reunir informações sobre modelos disponíveis, tarifas e condições de locação em um único ambiente, o sistema permite realizar e acompanhar reservas de forma integrada, simplificando a busca e agilizando todo o processo de contratação. Desenvolvido com Spring Boot e React para a disciplina de Desenvolvimento e Integração de Aplicações Web do curso de Engenharia de Software da PUC Minas.',
+      technologies: ['Java', 'SpringBoot', 'TypeScript', 'React', 'PostgreSQL', 'Supabase'],
+      repoLink: 'https://github.com/leopettersen/LeoCaliza',
+      image: imgLeoCaliza,
     },
     {
       name: 'Portfólio Profissional',
